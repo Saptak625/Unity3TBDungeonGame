@@ -10,7 +10,7 @@ public class RoomLoader
     public RoomLoader()
     {
         //Initialize all rooms and rooms from the beginning 
-        List<Room> initialRoomList = new List<Room>();
+        List<Room> initialRoomList = new List<Room>() { new Room() };
         List<Hallway> initialHallwayList = new List<Hallway>();
 
     }

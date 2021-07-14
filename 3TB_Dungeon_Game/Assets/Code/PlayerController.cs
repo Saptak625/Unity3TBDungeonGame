@@ -16,6 +16,5 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed, Input.GetAxisRaw("Vertical") * speed);
-        rb.gravityScale = 0f;
     }
 }
