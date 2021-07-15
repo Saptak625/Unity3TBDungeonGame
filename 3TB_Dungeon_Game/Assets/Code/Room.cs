@@ -9,8 +9,8 @@ public class Room
     bool active; //Controls whether Enemies become Hostile
     List<Enemy> activeEnemies; //These enemies can still attack
     List<Enemy> slainEnemies; //These enemies corpses are shown
-    List<Entrances> outEntrances; //Entrances that can open to lead out to other rooms
-    List<Entrances> inEntrances; //Entrances that can open to lead into room
+    List<Entrance> outEntrances; //Entrances that can open to lead out to other rooms
+    List<Entrance> inEntrances; //Entrances that can open to lead into room
     public int[] roomRect; //Defines where room is
     public List<GameObject> gameObjects; //Defines gameObjects
     public static int roomsPassedWithoutChest = 0; //Counter for Rooms without chests
@@ -25,7 +25,15 @@ public class Room
         this.roomRect = new int[4] {-xPos, -yPos, (xPos*2)+1, (yPos*2)+1};
         this.isBossRoom = false;
         this.isChestRoom = false;
+        this.inEntrances = new List<Entrance>();
+        this.outEntrances = new List<Entrance>();
+        Direction[] directions = new Direction[4] { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
+        foreach(Direction d in directions)
+        {
+            this.outEntrances.Add(new Entrance(this, d, false));
+        }
     }
+        
 
     public Room(Hallway hallway)
     {
@@ -47,7 +55,7 @@ public class Room
         //Lock dungeon entrances and start battle
     }
 
-    public void setGameObjects() //
+    public void setGameObjects() //Used to set game objects 
     {
 
     }

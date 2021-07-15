@@ -25,13 +25,9 @@ public class RoomLoaderSpawner : MonoBehaviour
 
     public void instantiateRoom(Room r)
     {
-        foreach(int i in r.roomRect)
-        {
-            Debug.Log(i);
-        }
         //Create floor
         List<GameObject> floorGrid = this.instantiateGrid(this.dungeonFloorTile, r.roomRect[0]+1, r.roomRect[1]+1, r.roomRect[2]-2, r.roomRect[3]-2, 1);
-        //Create walls
+        //Create walls(NEED TO SPLIT THESE INTO SEPERATE SECTIONS FOR ALL WALLS!!!)
         List<GameObject> wallGrid = this.instantiateGrid(this.dungeonWallTile, r.roomRect[0], r.roomRect[1], 1, r.roomRect[3], 1);
         wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0]+r.roomRect[2]-1, r.roomRect[1], 1, r.roomRect[3], 1));
         wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0]+1, r.roomRect[1], r.roomRect[2]-2, 1, 1));
@@ -41,6 +37,9 @@ public class RoomLoaderSpawner : MonoBehaviour
         {
             w.AddComponent(typeof(BoxCollider2D));
         }
+        //Create Entrances with according tile
+        
+        //Add boxColliders if needed
     }
 
     public void instantiateHallway(Hallway h)
