@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class RoomLoader
 {
-    Queue<List<Room>> roomQueue;
-    Queue<List<Hallway>> hallwayQueue;
+    public List<List<Room>> roomQueue = new List<List<Room>>();
+    public List<bool> roomLoadedList = new List<bool>();
+    public List<List<Hallway>> hallwayQueue = new List<List<Hallway>>();
+    public List<bool> hallwayLoadedList = new List<bool>();
 
     public RoomLoader()
     {
@@ -13,6 +15,11 @@ public class RoomLoader
         List<Room> initialRoomList = new List<Room>() { new Room() };
         List<Hallway> initialHallwayList = new List<Hallway>();
 
+        //Initialize all Loader Variables
+        this.roomQueue.Add(initialRoomList);
+        this.roomLoadedList.Add(false);
+        this.hallwayQueue.Add(initialHallwayList);
+        this.hallwayLoadedList.Add(false);
     }
 
     public void loadNewRooms(int enterDirection)
@@ -24,5 +31,13 @@ public class RoomLoader
         //Pop Old Rooms and Hallways from according queues
     }
 
+    public void loadedRoom(int index)
+    {
+        this.roomLoadedList[index] = true;
+    }
 
+    public void loadedHallway(int index)
+    {
+        this.hallwayLoadedList[index] = true;
+    }
 }
