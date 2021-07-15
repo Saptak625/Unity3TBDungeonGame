@@ -22,7 +22,7 @@ public class Room
         System.Random random = new System.Random();
         int xPos = random.Next(8, 12);
         int yPos = random.Next(8, 12);
-        this.roomRect = new int[4] {-xPos, -yPos, xPos*2, yPos*2};
+        this.roomRect = new int[4] {-xPos, -yPos, (xPos*2)+1, (yPos*2)+1};
         this.isBossRoom = false;
         this.isChestRoom = false;
     }
