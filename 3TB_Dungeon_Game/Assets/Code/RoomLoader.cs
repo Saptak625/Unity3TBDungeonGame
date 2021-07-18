@@ -1,3 +1,5 @@
+//Holds rooms and hallways
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +16,10 @@ public class RoomLoader
         //Initialize all rooms and rooms from the beginning 
         List<Room> initialRoomList = new List<Room>() { new Room() };
         List<Hallway> initialHallwayList = new List<Hallway>();
+        foreach (Entrance e in initialRoomList[0].outEntrances)
+        {
+            initialHallwayList.Add(new Hallway(e));
+        }
 
         //Initialize all Loader Variables
         this.roomQueue.Add(initialRoomList);

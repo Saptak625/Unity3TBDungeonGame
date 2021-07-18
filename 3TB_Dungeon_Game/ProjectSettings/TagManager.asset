@@ -7,6 +7,8 @@ TagManager:
   - Wall
   - RoomLoader
   - Floor
+  - Chest
+  - Item
   layers:
   - Default
   - TransparentFX

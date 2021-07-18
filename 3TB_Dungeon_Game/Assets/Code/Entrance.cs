@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Entrance
 {
-    bool doorState; //Controls whether door is open or close
+    public bool doorState; //Controls whether door is open or close
     public int[] entranceRect; //Defines where entrance is
+    public Direction direction;
 
     public Entrance(Room r, Direction d, bool state)
     {
         //Initialize Entrances
         this.doorState = state;
+        this.direction = d;
         int[] roomRect = r.roomRect;
         int[] center = new int[2] { roomRect[0] + (roomRect[2] / 2), roomRect[1] + (roomRect[3] / 2) };
-        if(d == Direction.Up || d == Direction.Down)
+        if (d == Direction.Up || d == Direction.Down)
         {
             int[] entranceCenter = new int[2] { center[0], (d == Direction.Up ? roomRect[3] / 2 : -roomRect[3] / 2) };
             this.entranceRect = new int[4] { entranceCenter[0] - 2, entranceCenter[1], 5, 1 };
