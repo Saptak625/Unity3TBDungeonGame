@@ -17,6 +17,7 @@ public class Room
     public List<GameObject> gameObjects; //Defines gameObjects
     public static int roomsPassedWithoutChest = 0; //Counter for Rooms without chests
     public static int roomsPassedWithoutBoss = 0; //Counter for Rooms without boss
+    public Direction roomDirection = Direction.None; //Direction of subroom in term of parent room. Root room will have Direction.None.
 
     public Room()
     {
@@ -38,6 +39,7 @@ public class Room
     public Room(Hallway hallway)
     {
         //Initialize Room
+        this.roomDirection = hallway.direction;
         System.Random random = new System.Random();
         int xLength = random.Next(8, 12);
         int yLength = random.Next(8, 12);
@@ -55,9 +57,7 @@ public class Room
         }
         this.roomRect = new int[4] { roomPosX-xLength, roomPosY-yLength, (xLength*2)+1, (yLength*2)+1};
         Direction[] directions = new Direction[4] { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
-        Debug.Log("Hallway"+hallway.direction);
         Direction inverseDirection = (hallway.direction == Direction.Up ? Direction.Down : (hallway.direction == Direction.Down ? Direction.Up : (hallway.direction == Direction.Right ? Direction.Left : Direction.Right)));
-        Debug.Log("Inverse"+ inverseDirection);
         foreach (Direction d in directions)
         {
             if (d == inverseDirection)
