@@ -39,10 +39,36 @@ public class Room
     {
         //Initialize Room
         System.Random random = new System.Random();
-        int xPos = random.Next(8, 12);
-        int yPos = random.Next(8, 12);
-        if (hallway.direction == Direction.Up)
-            this.roomRect = new int[4] { -xPos, -yPos, (xPos * 2) + 1, (yPos * 2) + 1 };
+        int xLength = random.Next(8, 12);
+        int yLength = random.Next(8, 12);
+        int roomPosX;
+        int roomPosY;
+        if (hallway.direction == Direction.Up || hallway.direction == Direction.Down)
+        {
+            roomPosX = hallway.hallwayRect[0] + 3;
+            roomPosY = hallway.hallwayRect[1] + (hallway.direction == Direction.Down ? -yLength-1 : yLength + hallway.hallwayRect[3]);
+        }
+        else
+        {
+            roomPosX = hallway.hallwayRect[0] + (hallway.direction == Direction.Left ? -xLength-1 : xLength + hallway.hallwayRect[2]);
+            roomPosY = hallway.hallwayRect[1] + 3;
+        }
+        this.roomRect = new int[4] { roomPosX-xLength, roomPosY-yLength, (xLength*2)+1, (yLength*2)+1};
+        Direction[] directions = new Direction[4] { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
+        Debug.Log("Hallway"+hallway.direction);
+        Direction inverseDirection = (hallway.direction == Direction.Up ? Direction.Down : (hallway.direction == Direction.Down ? Direction.Up : (hallway.direction == Direction.Right ? Direction.Left : Direction.Right)));
+        Debug.Log("Inverse"+ inverseDirection);
+        foreach (Direction d in directions)
+        {
+            if (d == inverseDirection)
+            {
+                this.inEntrances.Add(new Entrance(this, d, false));
+            }
+            else
+            {
+                this.outEntrances.Add(new Entrance(this, d, true));
+            }
+        }
         if (!this.isBossRoom)
         {
 

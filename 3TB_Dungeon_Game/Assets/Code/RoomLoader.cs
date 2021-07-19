@@ -18,9 +18,10 @@ public class RoomLoader
         List<Hallway> initialHallwayList = new List<Hallway>();
         foreach (Entrance e in initialRoomList[0].outEntrances)
         {
-            initialHallwayList.Add(new Hallway(e));
+            Hallway h = new Hallway(e);
+            initialHallwayList.Add(h);
+            initialRoomList.Add(new Room(h));
         }
-
         //Initialize all Loader Variables
         this.roomQueue.Add(initialRoomList);
         this.roomLoadedList.Add(false);
