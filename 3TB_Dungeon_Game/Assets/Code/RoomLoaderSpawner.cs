@@ -20,6 +20,7 @@ public class RoomLoaderSpawner : MonoBehaviour
     public GameObject dungeonWallTile;
     public GameObject dungeonEntranceTileOpen;
     public GameObject dungeonEntranceTileClosed;
+    public GameObject dungeonBoxColliderTile;
 
     public List<GameObject> instantiateGrid(GameObject tileType, int posX, int posY, int iterX, int iterY, int spacing, TileType t)
     {
@@ -44,6 +45,11 @@ public class RoomLoaderSpawner : MonoBehaviour
         wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + r.roomRect[2] - 1, r.roomRect[1], 1, r.roomRect[3], 1, TileType.Wall));
         wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + 1, r.roomRect[1], r.roomRect[2] - 2, 1, 1, TileType.Wall));
         wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + 1, r.roomRect[1] + r.roomRect[3] - 1, r.roomRect[2] - 2, 1, 1, TileType.Wall));
+        
+        List<GameObject> wallColliders = this.instantiateGrid(this.dungeonWallTile, r.roomRect[0], r.roomRect[1], 1, r.roomRect[3], 1, TileType.Wall);
+        wallColliders.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + r.roomRect[2] - 1, r.roomRect[1], 1, r.roomRect[3], 1, TileType.Wall));
+        wallColliders.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + 1, r.roomRect[1], r.roomRect[2] - 2, 1, 1, TileType.Wall));
+        wallColliders.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + 1, r.roomRect[1] + r.roomRect[3] - 1, r.roomRect[2] - 2, 1, 1, TileType.Wall));
 
         //Create Entrances with according tile and add boxColliders for entrances if needed
         List<GameObject> entranceGrid = new List<GameObject>();
@@ -52,10 +58,12 @@ public class RoomLoaderSpawner : MonoBehaviour
             List<GameObject> entranceObjects = this.instantiateGrid(( e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor));
             if (e.doorClosed)
             {
-                foreach (GameObject g in entranceObjects)
+                List<GameObject> squareColliders = this.instantiateGrid(this.dungeonBoxColliderTile, e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, TileType.Floor);
+                foreach (GameObject g in squareColliders)
                 {
                     g.AddComponent(typeof(BoxCollider2D));   
                 }
+                entranceObjects.AddRange(squareColliders);
             }
             entranceGrid.AddRange(entranceObjects);
         }
@@ -64,18 +72,23 @@ public class RoomLoaderSpawner : MonoBehaviour
             List<GameObject> entranceObjects = this.instantiateGrid((e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor));
             if (e.doorClosed)
             {
-                foreach (GameObject g in entranceObjects)
+                List<GameObject> squareColliders = this.instantiateGrid(this.dungeonBoxColliderTile, e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, TileType.Floor);
+                foreach (GameObject g in squareColliders)
                 {
                     g.AddComponent(typeof(BoxCollider2D));
                 }
+                entranceObjects.AddRange(squareColliders);
             }
             entranceGrid.AddRange(entranceObjects);
         }
 
         //Remove Walls in Entrance Space
         List<GameObject> updatedWallGrid = new List<GameObject>();
-        foreach (GameObject w in wallGrid)
+        List<GameObject> updatedWallColliders = new List<GameObject>();
+        for (int i=0; i<wallGrid.Count; i++)
         {
+            GameObject w = wallGrid[i];
+            GameObject c = wallColliders[i];
             bool positionUsed = false;
             foreach (GameObject e in entranceGrid)
             {
@@ -87,19 +100,22 @@ public class RoomLoaderSpawner : MonoBehaviour
             if (!positionUsed)
             {
                 updatedWallGrid.Add(w);
+                updatedWallColliders.Add(c);
             }
             else
             {
                 Destroy(w);
+                Destroy(c);
             }
         }
         wallGrid = updatedWallGrid;
 
         //Make walls solid
-        foreach (GameObject w in wallGrid)
+        foreach (GameObject w in updatedWallColliders)
         {
             w.AddComponent(typeof(BoxCollider2D));
         }
+        wallGrid.AddRange(updatedWallColliders);
 
         //Combine all gameObjects and store
         floorGrid.AddRange(wallGrid);

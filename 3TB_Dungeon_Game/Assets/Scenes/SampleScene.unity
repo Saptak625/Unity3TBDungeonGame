@@ -170,6 +170,7 @@ MonoBehaviour:
   dungeonWallTile: {fileID: 9137740940249164918, guid: eddbcda542d8a7645b70c83ca380465a, type: 3}
   dungeonEntranceTileOpen: {fileID: 6990215694555244966, guid: 1e735cad1ba13404e96e4d106015b77e, type: 3}
   dungeonEntranceTileClosed: {fileID: 3550010925516258606, guid: 1207687b49af6db49b30998f31553b96, type: 3}
+  dungeonBoxColliderTile: {fileID: 3780235859627227174, guid: ff6e85c3f3fa27d43ae4c8667b530c0d, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
