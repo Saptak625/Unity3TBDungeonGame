@@ -7,6 +7,7 @@ public class Entrance
     public bool doorClosed; //Controls whether door is open or close
     public int[] entranceRect; //Defines where entrance is
     public Direction direction; //Defines what direction Entrance leads
+    public List<GameObject> gameObjects; //Stores Unity GameObjects for Entrance
 
     public Entrance(Room r, Direction d, bool state)
     {
