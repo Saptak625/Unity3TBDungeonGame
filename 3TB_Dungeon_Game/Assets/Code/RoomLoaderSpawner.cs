@@ -5,6 +5,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TileType
+{
+    Floor,
+    Wall
+}
+
 public class RoomLoaderSpawner : MonoBehaviour
 {
     RoomLoader roomLoader; //Driver virtual state instance
@@ -12,16 +18,17 @@ public class RoomLoaderSpawner : MonoBehaviour
     //Tile types
     public GameObject dungeonFloorTile; 
     public GameObject dungeonWallTile;
-    public GameObject dungeonEntranceTile;
+    public GameObject dungeonEntranceTileOpen;
+    public GameObject dungeonEntranceTileClosed;
 
-    public List<GameObject> instantiateGrid(GameObject tileType, int posX, int posY, int iterX, int iterY, int spacing)
+    public List<GameObject> instantiateGrid(GameObject tileType, int posX, int posY, int iterX, int iterY, int spacing, TileType t)
     {
         List<GameObject> gameObjects = new List<GameObject>();
         for (int i = 0; i < iterX; i++)
         {
             for (int j = 0; j < iterY; j++)
             {
-                GameObject gridObject = Instantiate(tileType, new Vector3(posX + (spacing * i), posY + (spacing * j), 0), Quaternion.identity);
+                GameObject gridObject = Instantiate(tileType, new Vector3(posX + (spacing * i), posY + (spacing * j), ((posY + (spacing * j))*0.0001f)+(t == TileType.Floor ? 1 : -2)), Quaternion.identity);
                 gameObjects.Add(gridObject);
             }
         }
@@ -31,18 +38,18 @@ public class RoomLoaderSpawner : MonoBehaviour
     public void instantiateRoom(Room r)
     {
         //Create floor
-        List<GameObject> floorGrid = this.instantiateGrid(this.dungeonFloorTile, r.roomRect[0] + 1, r.roomRect[1] + 1, r.roomRect[2] - 2, r.roomRect[3] - 2, 1);
+        List<GameObject> floorGrid = this.instantiateGrid(this.dungeonFloorTile, r.roomRect[0] + 1, r.roomRect[1] + 1, r.roomRect[2] - 2, r.roomRect[3] - 2, 1, TileType.Floor);
         //Create walls
-        List<GameObject> wallGrid = this.instantiateGrid(this.dungeonWallTile, r.roomRect[0], r.roomRect[1], 1, r.roomRect[3], 1);
-        wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + r.roomRect[2] - 1, r.roomRect[1], 1, r.roomRect[3], 1));
-        wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + 1, r.roomRect[1], r.roomRect[2] - 2, 1, 1));
-        wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + 1, r.roomRect[1] + r.roomRect[3] - 1, r.roomRect[2] - 2, 1, 1));
+        List<GameObject> wallGrid = this.instantiateGrid(this.dungeonWallTile, r.roomRect[0], r.roomRect[1], 1, r.roomRect[3], 1, TileType.Wall);
+        wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + r.roomRect[2] - 1, r.roomRect[1], 1, r.roomRect[3], 1, TileType.Wall));
+        wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + 1, r.roomRect[1], r.roomRect[2] - 2, 1, 1, TileType.Wall));
+        wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, r.roomRect[0] + 1, r.roomRect[1] + r.roomRect[3] - 1, r.roomRect[2] - 2, 1, 1, TileType.Wall));
 
         //Create Entrances with according tile and add boxColliders for entrances if needed
         List<GameObject> entranceGrid = new List<GameObject>();
         foreach (Entrance e in r.inEntrances)
         {
-            List<GameObject> entranceObjects = this.instantiateGrid(this.dungeonEntranceTile, e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1);
+            List<GameObject> entranceObjects = this.instantiateGrid(( e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor));
             if (e.doorClosed)
             {
                 foreach (GameObject g in entranceObjects)
@@ -54,7 +61,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         }
         foreach (Entrance e in r.outEntrances)
         {
-            List<GameObject> entranceObjects = this.instantiateGrid(this.dungeonEntranceTile, e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1);
+            List<GameObject> entranceObjects = this.instantiateGrid((e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor));
             if (e.doorClosed)
             {
                 foreach (GameObject g in entranceObjects)
@@ -107,18 +114,18 @@ public class RoomLoaderSpawner : MonoBehaviour
         if (h.direction == Direction.Up || h.direction == Direction.Down)
         {
             //Create floor
-            floorGrid = this.instantiateGrid(this.dungeonFloorTile, h.hallwayRect[0] + 1, h.hallwayRect[1], h.hallwayRect[2] - 1, h.hallwayRect[3], 1);
+            floorGrid = this.instantiateGrid(this.dungeonFloorTile, h.hallwayRect[0] + 1, h.hallwayRect[1], h.hallwayRect[2] - 1, h.hallwayRect[3], 1, TileType.Floor);
             //Create walls
-            wallGrid = this.instantiateGrid(this.dungeonWallTile, h.hallwayRect[0], h.hallwayRect[1], 1, h.hallwayRect[3], 1);
-            wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, h.hallwayRect[0] + h.hallwayRect[2], h.hallwayRect[1], 1, h.hallwayRect[3], 1));
+            wallGrid = this.instantiateGrid(this.dungeonWallTile, h.hallwayRect[0], h.hallwayRect[1], 1, h.hallwayRect[3], 1, TileType.Wall);
+            wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, h.hallwayRect[0] + h.hallwayRect[2], h.hallwayRect[1], 1, h.hallwayRect[3], 1, TileType.Wall));
         }
         else
         {
             //Create floor
-            floorGrid = this.instantiateGrid(this.dungeonFloorTile, h.hallwayRect[0], h.hallwayRect[1] + 1, h.hallwayRect[2], h.hallwayRect[3] - 1, 1);
+            floorGrid = this.instantiateGrid(this.dungeonFloorTile, h.hallwayRect[0], h.hallwayRect[1] + 1, h.hallwayRect[2], h.hallwayRect[3] - 1, 1, TileType.Floor);
             //Create walls
-            wallGrid = this.instantiateGrid(this.dungeonWallTile, h.hallwayRect[0], h.hallwayRect[1], h.hallwayRect[2], 1, 1);
-            wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, h.hallwayRect[0], h.hallwayRect[1] + h.hallwayRect[3], h.hallwayRect[2], 1, 1));
+            wallGrid = this.instantiateGrid(this.dungeonWallTile, h.hallwayRect[0], h.hallwayRect[1], h.hallwayRect[2], 1, 1, TileType.Wall);
+            wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, h.hallwayRect[0], h.hallwayRect[1] + h.hallwayRect[3], h.hallwayRect[2], 1, 1, TileType.Wall));
         }
         foreach (GameObject w in wallGrid)
         {
