@@ -9,6 +9,7 @@ TagManager:
   - Floor
   - Chest
   - Item
+  - RoomTrigger
   layers:
   - Default
   - TransparentFX

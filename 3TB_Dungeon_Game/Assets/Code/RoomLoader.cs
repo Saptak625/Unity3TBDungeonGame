@@ -6,10 +6,13 @@ using UnityEngine;
 
 public class RoomLoader
 {
+    public Room activeRoom = null; //Defines room which is active and battle is occuring
     public List<List<Room>> roomQueue = new List<List<Room>>(); //Queue of RoomLists based on custom FIFO. One room from first list will be selected and be used to generate next queue item before popping.
     public List<bool> roomLoadedList = new List<bool>(); //Room Queue load states. Used by RoomLoaderSpawner to keep track of roomQueue batch loading.
     public List<List<List<Hallway>>> hallwayQueue = new List<List<List<Hallway>>>(); //Queue of Lists of HallwayLists based on custom FIFO. One set of hallwayLists will be selected and be used to generate next queue item before popping. 
     public List<bool> hallwayLoadedList = new List<bool>(); //Hallway Queue load states. Used by RoomLoaderSpawner to keep track of lists of hallwayQueues batch loading.
+    public List<Room> unloadRoomQueue = new List<Room>();
+    public List<Hallway> unloadHallwayQueue = new List<Hallway>();
 
     public RoomLoader()
     {

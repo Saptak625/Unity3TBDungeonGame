@@ -21,6 +21,10 @@ public class RoomLoaderSpawner : MonoBehaviour
     public GameObject dungeonEntranceTileOpen;
     public GameObject dungeonEntranceTileClosed;
     public GameObject dungeonBoxColliderTile;
+    public GameObject roomTrigger;
+
+    //States
+    private bool loaded = false;
 
     public List<GameObject> instantiateGrid(GameObject tileType, int posX, int posY, int iterX, int iterY, int spacing, TileType t)
     {
@@ -50,11 +54,13 @@ public class RoomLoaderSpawner : MonoBehaviour
         List<GameObject> entranceGrid = new List<GameObject>();
         foreach (Entrance e in r.inEntrances)
         {
-            entranceGrid.AddRange(this.instantiateGrid(( e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor)));            
+            e.gameObjects = this.instantiateGrid((e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor));
+            entranceGrid.AddRange(e.gameObjects);            
         }
         foreach (Entrance e in r.outEntrances)
         {
-            entranceGrid.AddRange(this.instantiateGrid((e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor)));
+            e.gameObjects = this.instantiateGrid((e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor));
+            entranceGrid.AddRange(e.gameObjects);
         }
 
         //Remove Walls in Entrance Space
@@ -80,6 +86,26 @@ public class RoomLoaderSpawner : MonoBehaviour
             }
         }
         wallGrid = updatedWallGrid;
+
+        //Add Room Trigger if room is a subroom
+        if(r.roomDirection != Direction.None)
+        {
+            //Get room's inEntrance
+            Entrance inEntrance = r.inEntrances[0];
+            if(inEntrance.direction == Direction.Up || inEntrance.direction == Direction.Down)
+            {
+                int[] translationCenter = new int[2] { inEntrance.entranceRect[0] + 2, inEntrance.entranceRect[1] + (inEntrance.direction == Direction.Up ? -2: 2) };
+                r.trigger = Instantiate(this.roomTrigger, new Vector3(translationCenter[0], translationCenter[1], 3), Quaternion.identity);
+            }
+            else
+            {
+                int[] translationCenter = new int[2] { inEntrance.entranceRect[0] + (inEntrance.direction == Direction.Right ? -2 : 2), inEntrance.entranceRect[1] + 2 };
+                r.trigger = Instantiate(this.roomTrigger, new Vector3(translationCenter[0], translationCenter[1], 3), Quaternion.identity);
+                r.trigger.transform.rotation = Quaternion.Euler(0, 0, 90);
+            }
+            r.trigger.transform.parent = this.gameObject.transform;
+            r.trigger.AddComponent(typeof(DetectCollision));
+        }
 
         //Combine all gameObjects and store
         floorGrid.AddRange(wallGrid);
@@ -122,6 +148,22 @@ public class RoomLoaderSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(roomLoader.activeRoom == null)
+        {
+            //No Battle is occuring. Just load rooms.
+            if (!this.loaded)
+            {
+                this.reloadRoomsAndHallwayState();
+            }
+        }
+        else
+        {
+            //Battle occuring. Only focus on battle-related updates such as enemy movements.
+        }
+    }
+
+    public void reloadRoomsAndHallwayState()
+    {
         //Load all Rooms
         for (int i = 0; i < this.roomLoader.roomLoadedList.Count; i++)
         {
@@ -144,7 +186,7 @@ public class RoomLoaderSpawner : MonoBehaviour
                 //Corresponding Hallway List needs to be loaded.
                 foreach (List<Hallway> l in this.roomLoader.hallwayQueue[i])
                 {
-                    foreach(Hallway h in l)
+                    foreach (Hallway h in l)
                     {
                         this.instantiateHallway(h);
                     }
@@ -154,5 +196,59 @@ public class RoomLoaderSpawner : MonoBehaviour
             }
         }
 
+        //Set loaded to True to finish update
+        this.loaded = true;
+    }
+
+    public void enteredDungeon(GameObject triggerObject)
+    {
+        //Getting room that was selected
+        Room selectedRoom=null;
+        foreach(Room r in this.roomLoader.roomQueue[0])
+        {
+            if(r.trigger == triggerObject)
+            {
+                selectedRoom = r;
+                break;
+            }
+        }
+
+        //Close entrance behind player
+        this.toggleEntrance(selectedRoom.inEntrances[0]);
+
+        //Destroy Trigger Objects
+        for(int i=1; i<this.roomLoader.roomQueue[0].Count; i++)
+        {
+            Destroy(this.roomLoader.roomQueue[0][i].trigger);
+        }
+
+        //Set activeRoom
+        this.roomLoader.activeRoom = selectedRoom;
+
+        //Spawn in Enemies
+    }
+
+    public void dungeonCleared()
+    {
+        //Load and Unload new and old rooms
+        //this.roomLoader.loadAndUnloadRoomsAndHallways();
+
+        //Open out entrances
+        foreach(Entrance e in this.roomLoader.activeRoom.outEntrances)
+        {
+            this.toggleEntrance(e);
+        }
+
+        //
+    }
+
+    public void toggleEntrance(Entrance e)
+    {
+        e.doorClosed = !e.doorClosed;
+        foreach(GameObject g in e.gameObjects)
+        {
+            Destroy(g);
+        }
+        e.gameObjects = this.instantiateGrid((e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor));
     }
 }

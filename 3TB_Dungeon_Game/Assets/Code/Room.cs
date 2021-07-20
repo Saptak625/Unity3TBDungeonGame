@@ -18,6 +18,7 @@ public class Room
     public static int roomsPassedWithoutChest = 0; //Counter for Rooms without chests
     public static int roomsPassedWithoutBoss = 0; //Counter for Rooms without boss
     public Direction roomDirection = Direction.None; //Direction of subroom in term of parent room. Root room will have Direction.None.
+    public GameObject trigger = null; //Trigger used to check if room is to be executed.
 
     public Room()
     {
