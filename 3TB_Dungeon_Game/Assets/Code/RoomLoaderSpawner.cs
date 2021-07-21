@@ -33,7 +33,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         {
             for (int j = 0; j < iterY; j++)
             {
-                GameObject gridObject = Instantiate(tileType, new Vector3(posX + (spacing * i), posY + (spacing * j), ((posY + (spacing * j))*0.0001f)+(t == TileType.Floor ? 1 : -2)), Quaternion.identity);
+                GameObject gridObject = Instantiate(tileType, new Vector3(posX + (spacing * i), posY + (spacing * j), ((posY + (spacing * j))*0.000001f)+(t == TileType.Floor ? 0 : -2)), Quaternion.identity);
                 gameObjects.Add(gridObject);
             }
         }
@@ -95,12 +95,12 @@ public class RoomLoaderSpawner : MonoBehaviour
             if(inEntrance.direction == Direction.Up || inEntrance.direction == Direction.Down)
             {
                 int[] translationCenter = new int[2] { inEntrance.entranceRect[0] + 2, inEntrance.entranceRect[1] + (inEntrance.direction == Direction.Up ? -2: 2) };
-                r.trigger = Instantiate(this.roomTrigger, new Vector3(translationCenter[0], translationCenter[1], 3), Quaternion.identity);
+                r.trigger = Instantiate(this.roomTrigger, new Vector3(translationCenter[0], translationCenter[1], 20), Quaternion.identity);
             }
             else
             {
                 int[] translationCenter = new int[2] { inEntrance.entranceRect[0] + (inEntrance.direction == Direction.Right ? -2 : 2), inEntrance.entranceRect[1] + 2 };
-                r.trigger = Instantiate(this.roomTrigger, new Vector3(translationCenter[0], translationCenter[1], 3), Quaternion.identity);
+                r.trigger = Instantiate(this.roomTrigger, new Vector3(translationCenter[0], translationCenter[1], 20), Quaternion.identity);
                 r.trigger.transform.rotation = Quaternion.Euler(0, 0, 90);
             }
             r.trigger.transform.parent = this.gameObject.transform;
@@ -148,7 +148,7 @@ public class RoomLoaderSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(roomLoader.activeRoom == null)
+        if(this.roomLoader.activeRoom == null)
         {
             //No Battle is occuring. Just load rooms.
             if (!this.loaded)
@@ -172,7 +172,10 @@ public class RoomLoaderSpawner : MonoBehaviour
                 //Corresponding Room List needs to be loaded.
                 foreach (Room r in this.roomLoader.roomQueue[i])
                 {
-                    this.instantiateRoom(r);
+                    if (r.gameObjects == null)
+                    {
+                        this.instantiateRoom(r);
+                    }
                 }
                 //Set load state to true
                 this.roomLoader.loadedRoom(i);
@@ -188,13 +191,27 @@ public class RoomLoaderSpawner : MonoBehaviour
                 {
                     foreach (Hallway h in l)
                     {
-                        this.instantiateHallway(h);
+                        if(h.gameObjects == null)
+                        {
+                            this.instantiateHallway(h);
+                        }
                     }
                 }
                 //Set load state to true
                 this.roomLoader.loadedHallway(i);
             }
         }
+        //Unload all Rooms and Hallways
+        foreach(Room r in this.roomLoader.unloadRoomQueue)
+        {
+            r.destroy();
+        }
+        foreach(Hallway h in this.roomLoader.unloadHallwayQueue)
+        {
+            h.destroy();
+        }
+        this.roomLoader.unloadRoomQueue.Clear();
+        this.roomLoader.unloadHallwayQueue.Clear();
 
         //Set loaded to True to finish update
         this.loaded = true;
@@ -225,13 +242,16 @@ public class RoomLoaderSpawner : MonoBehaviour
         //Set activeRoom
         this.roomLoader.activeRoom = selectedRoom;
 
-        //Spawn in Enemies
+        //------------------------------------------------------------------Spawn in Enemies-----------------------------------------------------------------------------
+        
+        //-------------------------------------------------Uncomment this line to open dungeon after 5 seconds-----------------------------------------------------------
+        Invoke("dungeonCleared", 5.0f);
     }
 
     public void dungeonCleared()
     {
         //Load and Unload new and old rooms
-        //this.roomLoader.loadAndUnloadRoomsAndHallways();
+        this.roomLoader.loadAndUnloadRoomsAndHallways();
 
         //Open out entrances
         foreach(Entrance e in this.roomLoader.activeRoom.outEntrances)
@@ -239,7 +259,11 @@ public class RoomLoaderSpawner : MonoBehaviour
             this.toggleEntrance(e);
         }
 
-        //
+        //Reset active room
+        this.roomLoader.activeRoom = null;
+
+        //Set loaded to false to load everything in next update
+        this.loaded = false;
     }
 
     public void toggleEntrance(Entrance e)

@@ -7,7 +7,7 @@ public class Entrance
     public bool doorClosed; //Controls whether door is open or close
     public int[] entranceRect; //Defines where entrance is
     public Direction direction; //Defines what direction Entrance leads
-    public List<GameObject> gameObjects; //Stores Unity GameObjects for Entrance
+    public List<GameObject> gameObjects = null; //Stores Unity GameObjects for Entrance
 
     public Entrance(Room r, Direction d, bool state)
     {
@@ -28,9 +28,11 @@ public class Entrance
         }
     }
 
-    public void toggle()
-    { //Called when door needs to opened or closed
-        //Change sprites to indicate open rather than closed and activate Box Collider or vice versa
+    public void destroy()
+    { 
+        foreach(GameObject g in this.gameObjects)
+        {
+            Object.Destroy(g);
+        }
     }
-
 }
