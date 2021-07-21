@@ -14,7 +14,7 @@ public class Room
     public List<Entrance> outEntrances = new List<Entrance>(); //Entrances that can open to lead out to other rooms
     public List<Entrance> inEntrances = new List<Entrance>(); //Entrances that can open to lead into room
     public int[] roomRect; //Defines where room is
-    public List<GameObject> gameObjects; //Defines gameObjects
+    public List<GameObject> gameObjects = null; //Defines gameObjects
     public static int roomsPassedWithoutChest = 0; //Counter for Rooms without chests
     public static int roomsPassedWithoutBoss = 0; //Counter for Rooms without boss
     public Direction roomDirection = Direction.None; //Direction of subroom in term of parent room. Root room will have Direction.None.
@@ -85,8 +85,26 @@ public class Room
         //Removes enemy from activeEnemies and adds it to slainEnemies
     }
 
-    public void startBattle()
+    public override string ToString()
     {
-        //Lock dungeon entrances and start battle
+        return "Room: " + this.roomDirection + " " + this.roomRect[0]+", "+this.roomRect[1];
+    }
+
+    public void destroy()
+    {
+        //Destroy all gameObjects 
+        foreach(GameObject g in this.gameObjects)
+        {
+            Object.Destroy(g);
+        }
+        //Call destroy on Entrances
+        foreach(Entrance e in this.inEntrances)
+        {
+            e.destroy();
+        }
+        foreach(Entrance e in this.outEntrances)
+        {
+            e.destroy();
+        }
     }
 }

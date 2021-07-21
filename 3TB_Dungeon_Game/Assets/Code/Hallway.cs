@@ -14,7 +14,7 @@ public enum Direction
 public class Hallway
 {
     public int[] hallwayRect; //Defines where hallway is
-    public List<GameObject> gameObjects; //Defines gameObjects
+    public List<GameObject> gameObjects = null; //Defines gameObjects
     public Direction direction; //Direction of the Hallway from Initial Room
 
     public Hallway(Entrance adjacentEntrance)
@@ -31,5 +31,18 @@ public class Hallway
         {
             this.hallwayRect = new int[4] { adjacentEntrance.entranceRect[0] - (adjacentEntrance.direction == Direction.Right ? -1 : length), adjacentEntrance.entranceRect[1] - 1, length, adjacentEntrance.entranceRect[3] + 1 };
         }
+    }
+
+    public void destroy()
+    {
+        foreach(GameObject g in this.gameObjects)
+        {
+            Object.Destroy(g);
+        }
+    }
+
+    public override string ToString()
+    {
+        return "Hallway: " + this.direction + " " + this.hallwayRect[0]+", "+this.hallwayRect[1];
     }
 }

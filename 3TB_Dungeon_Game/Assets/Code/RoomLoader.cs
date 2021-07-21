@@ -13,6 +13,7 @@ public class RoomLoader
     public List<bool> hallwayLoadedList = new List<bool>(); //Hallway Queue load states. Used by RoomLoaderSpawner to keep track of lists of hallwayQueues batch loading.
     public List<Room> unloadRoomQueue = new List<Room>();
     public List<Hallway> unloadHallwayQueue = new List<Hallway>();
+    public Hallway staticHallway = null;
 
     public RoomLoader()
     {
@@ -45,9 +46,75 @@ public class RoomLoader
         this.hallwayLoadedList.Add(false);
     }
 
-    public void loadAndUnloadRoomsAndHallways(int enterDirection)
+    public void loadAndUnloadRoomsAndHallways()
     { //Called once Player clears a dungeon
         //Pop and Push New Hallways and Rooms into according queues
+        Direction keep = this.activeRoom.roomDirection;
+
+        //Push staticHallway to unload if exists
+        if (this.staticHallway != null)
+        {
+            this.unloadHallwayQueue.Add(this.staticHallway);
+        }
+
+        //Get adjacent rooms and hallways
+        Room newParentRoom = null;
+        this.unloadRoomQueue.Add(this.roomQueue[0][0]);
+        for (int i = 1; i < this.roomQueue[0].Count; i++)
+        {
+            Room r = this.roomQueue[0][i];
+            if (r.roomDirection == keep)
+            {
+                newParentRoom = r;
+            }
+            else
+            {
+                this.unloadRoomQueue.Add(r);
+            }
+        }
+        newParentRoom.trigger = null;
+        List<Hallway> newParentHallways = null;
+        foreach (List<Hallway> lh in this.hallwayQueue[0])
+        {
+            if (lh[0].direction == keep)
+            {
+                newParentHallways = lh;
+            }
+            else
+            {
+                this.unloadHallwayQueue.AddRange(lh);
+            }
+        }
+
+        //Make first entry of newParentHallways into new staticHallway and pop from beginning of list.
+        this.staticHallway = newParentHallways[0];
+        newParentHallways.RemoveAt(0);
+
+        //Pop all old entries and Push new entries
+        //Pop first
+        this.roomQueue.RemoveAt(0);
+        this.roomLoadedList.RemoveAt(0);
+        this.hallwayQueue.RemoveAt(0);
+        this.hallwayLoadedList.RemoveAt(0);
+        //Push new queues
+        List<Room> newRoomQueueItem = new List<Room>() { newParentRoom };
+        List<List<Hallway>> newHallwayQueueItem = new List<List<Hallway>>();
+        foreach (Hallway h in newParentHallways)
+        {
+            Room newSubRoom = new Room(h);
+            List<Hallway> newHallwaySet = new List<Hallway>();
+            newHallwaySet.Add(h);
+            foreach (Entrance e in newSubRoom.outEntrances)
+            {
+                newHallwaySet.Add(new Hallway(e));
+            }
+            newRoomQueueItem.Add(newSubRoom);
+            newHallwayQueueItem.Add(newHallwaySet);
+        }
+        this.roomQueue.Add(newRoomQueueItem);
+        this.roomLoadedList.Add(false);
+        this.hallwayQueue.Add(newHallwayQueueItem);
+        this.hallwayLoadedList.Add(false);
     }
 
     //Used to update Room Loader states indirectly
