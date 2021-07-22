@@ -16,12 +16,12 @@ public class Hallway
     public int[] hallwayRect; //Defines where hallway is
     public List<GameObject> gameObjects = null; //Defines gameObjects
     public Direction direction; //Direction of the Hallway from Initial Room
+    public static System.Random random = new System.Random(); //Random Number Generator
 
     public Hallway(Entrance adjacentEntrance)
     {
         //Get a random length for a hallway
         this.direction = adjacentEntrance.direction;
-        System.Random random = new System.Random();
         int length = random.Next(20, 24);
         if (adjacentEntrance.direction == Direction.Up || adjacentEntrance.direction == Direction.Down)
         {
