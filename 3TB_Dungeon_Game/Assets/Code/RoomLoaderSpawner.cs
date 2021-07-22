@@ -16,12 +16,15 @@ public class RoomLoaderSpawner : MonoBehaviour
     RoomLoader roomLoader; //Driver virtual state instance
 
     //Tile types
-    public GameObject dungeonFloorTile; 
+    public GameObject dungeonFloorTile;
     public GameObject dungeonWallTile;
     public GameObject dungeonEntranceTileOpen;
     public GameObject dungeonEntranceTileClosed;
     public GameObject dungeonBoxColliderTile;
     public GameObject roomTrigger;
+
+    //Game Objects
+    public GameObject chest;
 
     //States
     private bool loaded = false;
@@ -33,7 +36,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         {
             for (int j = 0; j < iterY; j++)
             {
-                GameObject gridObject = Instantiate(tileType, new Vector3(posX + (spacing * i), posY + (spacing * j), ((posY + (spacing * j))*0.000001f)+(t == TileType.Floor ? 0 : -2)), Quaternion.identity);
+                GameObject gridObject = Instantiate(tileType, new Vector3(posX + (spacing * i), posY + (spacing * j), ((posY + (spacing * j)) * 0.000001f) + (t == TileType.Floor ? 0 : -2)), Quaternion.identity);
                 gameObjects.Add(gridObject);
             }
         }
@@ -55,7 +58,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         foreach (Entrance e in r.inEntrances)
         {
             e.gameObjects = this.instantiateGrid((e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor));
-            entranceGrid.AddRange(e.gameObjects);            
+            entranceGrid.AddRange(e.gameObjects);
         }
         foreach (Entrance e in r.outEntrances)
         {
@@ -88,13 +91,13 @@ public class RoomLoaderSpawner : MonoBehaviour
         wallGrid = updatedWallGrid;
 
         //Add Room Trigger if room is a subroom
-        if(r.roomDirection != Direction.None)
+        if (r.roomDirection != Direction.None)
         {
             //Get room's inEntrance
             Entrance inEntrance = r.inEntrances[0];
-            if(inEntrance.direction == Direction.Up || inEntrance.direction == Direction.Down)
+            if (inEntrance.direction == Direction.Up || inEntrance.direction == Direction.Down)
             {
-                int[] translationCenter = new int[2] { inEntrance.entranceRect[0] + 2, inEntrance.entranceRect[1] + (inEntrance.direction == Direction.Up ? -2: 2) };
+                int[] translationCenter = new int[2] { inEntrance.entranceRect[0] + 2, inEntrance.entranceRect[1] + (inEntrance.direction == Direction.Up ? -2 : 2) };
                 r.trigger = Instantiate(this.roomTrigger, new Vector3(translationCenter[0], translationCenter[1], 20), Quaternion.identity);
             }
             else
@@ -105,6 +108,14 @@ public class RoomLoaderSpawner : MonoBehaviour
             }
             r.trigger.transform.parent = this.gameObject.transform;
             r.trigger.AddComponent(typeof(DetectCollision));
+        }
+
+        //Check if chest room 
+        if (r.isChestRoom)
+        {
+            int centerX=r.roomRect[0] + (r.roomRect[2]/2);
+            int centerY=r.roomRect[1] + (r.roomRect[3]/2);
+            floorGrid.Add(Instantiate(chest, new Vector3(centerX, centerY, centerY * 0.000001f), Quaternion.identity));
         }
 
         //Combine all gameObjects and store
@@ -148,7 +159,7 @@ public class RoomLoaderSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(this.roomLoader.activeRoom == null)
+        if (this.roomLoader.activeRoom == null)
         {
             //No Battle is occuring. Just load rooms.
             if (!this.loaded)
@@ -191,7 +202,7 @@ public class RoomLoaderSpawner : MonoBehaviour
                 {
                     foreach (Hallway h in l)
                     {
-                        if(h.gameObjects == null)
+                        if (h.gameObjects == null)
                         {
                             this.instantiateHallway(h);
                         }
@@ -202,11 +213,11 @@ public class RoomLoaderSpawner : MonoBehaviour
             }
         }
         //Unload all Rooms and Hallways
-        foreach(Room r in this.roomLoader.unloadRoomQueue)
+        foreach (Room r in this.roomLoader.unloadRoomQueue)
         {
             r.destroy();
         }
-        foreach(Hallway h in this.roomLoader.unloadHallwayQueue)
+        foreach (Hallway h in this.roomLoader.unloadHallwayQueue)
         {
             h.destroy();
         }
@@ -220,21 +231,24 @@ public class RoomLoaderSpawner : MonoBehaviour
     public void enteredDungeon(GameObject triggerObject)
     {
         //Getting room that was selected
-        Room selectedRoom=null;
-        foreach(Room r in this.roomLoader.roomQueue[0])
+        Room selectedRoom = null;
+        foreach (Room r in this.roomLoader.roomQueue[0])
         {
-            if(r.trigger == triggerObject)
+            if (r.trigger == triggerObject)
             {
                 selectedRoom = r;
                 break;
             }
         }
 
+        //Update Room Stats
+        Room.roomStatsIncrement(selectedRoom.isChestRoom, selectedRoom.isBossRoom);
+
         //Close entrance behind player
         this.toggleEntrance(selectedRoom.inEntrances[0]);
 
         //Destroy Trigger Objects
-        for(int i=1; i<this.roomLoader.roomQueue[0].Count; i++)
+        for (int i = 1; i < this.roomLoader.roomQueue[0].Count; i++)
         {
             Destroy(this.roomLoader.roomQueue[0][i].trigger);
         }
@@ -243,7 +257,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         this.roomLoader.activeRoom = selectedRoom;
 
         //------------------------------------------------------------------Spawn in Enemies-----------------------------------------------------------------------------
-        
+
         //-------------------------------------------------Uncomment this line to open dungeon after 5 seconds-----------------------------------------------------------
         Invoke("dungeonCleared", 5.0f);
     }
@@ -254,7 +268,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         this.roomLoader.loadAndUnloadRoomsAndHallways();
 
         //Open out entrances
-        foreach(Entrance e in this.roomLoader.activeRoom.outEntrances)
+        foreach (Entrance e in this.roomLoader.activeRoom.outEntrances)
         {
             this.toggleEntrance(e);
         }
@@ -269,7 +283,7 @@ public class RoomLoaderSpawner : MonoBehaviour
     public void toggleEntrance(Entrance e)
     {
         e.doorClosed = !e.doorClosed;
-        foreach(GameObject g in e.gameObjects)
+        foreach (GameObject g in e.gameObjects)
         {
             Destroy(g);
         }
