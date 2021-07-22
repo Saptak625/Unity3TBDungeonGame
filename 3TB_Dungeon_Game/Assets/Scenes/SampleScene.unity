@@ -163,7 +163,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 263512698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a66fcb8e98c6404a9d8ca4baee2b5be, type: 3}
+  m_Script: {fileID: 11500000, guid: 136d43df7fc60db49a871034854b0202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonFloorTile: {fileID: 8943672130232379224, guid: bfdb03a86d4326f41b34f130a057c6a3, type: 3}
@@ -172,6 +172,7 @@ MonoBehaviour:
   dungeonEntranceTileClosed: {fileID: 3550010925516258606, guid: 1207687b49af6db49b30998f31553b96, type: 3}
   dungeonBoxColliderTile: {fileID: 3780235859627227174, guid: ff6e85c3f3fa27d43ae4c8667b530c0d, type: 3}
   roomTrigger: {fileID: 7489239560153305933, guid: 429f0420f1cc061489203cc42b946d96, type: 3}
+  chest: {fileID: 8192632570076440095, guid: 1d03fbb4ef26e4d21b451f050380a698, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
