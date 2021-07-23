@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263512698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3.3651392}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -173,6 +173,7 @@ MonoBehaviour:
   dungeonBoxColliderTile: {fileID: 3780235859627227174, guid: ff6e85c3f3fa27d43ae4c8667b530c0d, type: 3}
   roomTrigger: {fileID: 7489239560153305933, guid: 429f0420f1cc061489203cc42b946d96, type: 3}
   chest: {fileID: 8192632570076440095, guid: 1d03fbb4ef26e4d21b451f050380a698, type: 3}
+  enemyPrefab: {fileID: 2190685593170170173, guid: 2e903fc3bc0fb3e468e0b0f70a0d50ea, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +251,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1260264384}
@@ -521,7 +522,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6810522998375266134, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 6810522998375266134, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: m_LocalRotation.w

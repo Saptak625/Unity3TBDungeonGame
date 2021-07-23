@@ -26,6 +26,9 @@ public class RoomLoaderSpawner : MonoBehaviour
     //Game Objects
     public GameObject chest;
 
+    //Enemy Sprites
+    public GameObject enemyPrefab;
+
     //States
     private bool loaded = false;
 
@@ -36,7 +39,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         {
             for (int j = 0; j < iterY; j++)
             {
-                GameObject gridObject = Instantiate(tileType, new Vector3(posX + (spacing * i), posY + (spacing * j), ((posY + (spacing * j)) * 0.000001f) + (t == TileType.Floor ? 0 : -2)), Quaternion.identity);
+                GameObject gridObject = Instantiate(tileType, new Vector3(posX + (spacing * i), posY + (spacing * j), ((posY + (spacing * j)) * 0.00001f) + (t == TileType.Floor ? 0 : -2)), Quaternion.identity);
                 gameObjects.Add(gridObject);
             }
         }
@@ -98,12 +101,12 @@ public class RoomLoaderSpawner : MonoBehaviour
             if (inEntrance.direction == Direction.Up || inEntrance.direction == Direction.Down)
             {
                 int[] translationCenter = new int[2] { inEntrance.entranceRect[0] + 2, inEntrance.entranceRect[1] + (inEntrance.direction == Direction.Up ? -2 : 2) };
-                r.trigger = Instantiate(this.roomTrigger, new Vector3(translationCenter[0], translationCenter[1], 20), Quaternion.identity);
+                r.trigger = Instantiate(this.roomTrigger, new Vector3(translationCenter[0], translationCenter[1], 200), Quaternion.identity);
             }
             else
             {
                 int[] translationCenter = new int[2] { inEntrance.entranceRect[0] + (inEntrance.direction == Direction.Right ? -2 : 2), inEntrance.entranceRect[1] + 2 };
-                r.trigger = Instantiate(this.roomTrigger, new Vector3(translationCenter[0], translationCenter[1], 20), Quaternion.identity);
+                r.trigger = Instantiate(this.roomTrigger, new Vector3(translationCenter[0], translationCenter[1], 200), Quaternion.identity);
                 r.trigger.transform.rotation = Quaternion.Euler(0, 0, 90);
             }
             r.trigger.transform.parent = this.gameObject.transform;
@@ -115,7 +118,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         {
             int centerX=r.roomRect[0] + (r.roomRect[2]/2);
             int centerY=r.roomRect[1] + (r.roomRect[3]/2);
-            floorGrid.Add(Instantiate(chest, new Vector3(centerX, centerY, centerY * 0.000001f), Quaternion.identity));
+            floorGrid.Add(Instantiate(chest, new Vector3(centerX, centerY, centerY * 0.00001f), Quaternion.identity));
         }
 
         //Combine all gameObjects and store
@@ -240,7 +243,7 @@ public class RoomLoaderSpawner : MonoBehaviour
                 break;
             }
         }
-
+        Debug.Log(selectedRoom);
         //Update Room Stats
         Room.roomStatsIncrement(selectedRoom.isChestRoom, selectedRoom.isBossRoom);
 
@@ -256,14 +259,40 @@ public class RoomLoaderSpawner : MonoBehaviour
         //Set activeRoom
         this.roomLoader.activeRoom = selectedRoom;
 
-        //------------------------------------------------------------------Spawn in Enemies-----------------------------------------------------------------------------
+        //Spawn in Enemies and set triggers to open room once ready
+        if (!this.roomLoader.activeRoom.isChestRoom && !this.roomLoader.activeRoom.isBossRoom)
+        {
+            Debug.Log(this.roomLoader.activeRoom);
+            Debug.Log(this.roomLoader.activeRoom.activeEnemies.Count);
+            foreach (Enemy e in this.roomLoader.activeRoom.activeEnemies[0])
+            {
+                //Use resource loader in real code
+                //GameObject enemyPrefab = Resources.Load($"{e.attackType}_{(int)e.enemyType}") as GameObject;
+                GameObject enemyGameObject = Instantiate(enemyPrefab, e.position, Quaternion.identity);
+                enemyGameObject.transform.parent = this.gameObject.transform;
+                EnemyController controller = enemyGameObject.GetComponent<EnemyController>();
+                controller.enemy = e;
+            }
+        } else if (this.roomLoader.activeRoom.isBossRoom)
+        {
+            //Initialize Boss
+            //Uncomment bottom line for testing
+            Invoke("dungeonCleared", 2.0f);
+        }
+        else if (this.roomLoader.activeRoom.isChestRoom)
+        {
+            Invoke("dungeonCleared", 2.0f);
+        }
 
         //-------------------------------------------------Uncomment this line to open dungeon after 5 seconds-----------------------------------------------------------
-        Invoke("dungeonCleared", 5.0f);
+        //Invoke("dungeonCleared", 5.0f);
     }
 
     public void dungeonCleared()
     {
+        //Reset Enemy Position System
+        Enemy.resetPositionsUsed();
+
         //Load and Unload new and old rooms
         this.roomLoader.loadAndUnloadRoomsAndHallways();
 
