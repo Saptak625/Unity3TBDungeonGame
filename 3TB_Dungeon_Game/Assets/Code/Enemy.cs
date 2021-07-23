@@ -31,14 +31,44 @@ public class Enemy
     public EnemyType enemyType;
     public int hp;
     public int attackDamage;
+    public int coolDown;
     public List<Enemy> spawnedEnemies = null;
+    public Vector3 position;
+    public static List<int[]> positionsUsed = new List<int[]>();
+    public static System.Random random = new System.Random();
 
-    public Enemy(EnemyAttack ea, EnemyType et)
+    public Enemy(EnemyAttack ea, EnemyType et, Room r)
     {
         this.attackType = ea;
         this.enemyType = et;
+        int[] pos = null;
+        bool exists = true;
+        while(exists)
+        {
+            int xTrans = random.Next(4, r.roomRect[2] - 3);
+            int yTrans = random.Next(4, r.roomRect[3] - 3);
+            pos = new int[] { xTrans, yTrans };
+            exists = false;
+            foreach(int[] compare in positionsUsed)
+            {
+                if(compare[0] == pos[0] && compare[1] == pos[1])
+                {
+                    exists = true;
+                }
+            }
+            this.position = new Vector3(r.roomRect[0] + xTrans, r.roomRect[1] + yTrans, -10);
+            if (!exists)
+            {
+                positionsUsed.Add(pos);
+            }
+        }
 
         //Put in stats here through dictionary
 
+    }
+
+    public static void resetPositionsUsed()
+    {
+        positionsUsed.Clear();
     }
 }

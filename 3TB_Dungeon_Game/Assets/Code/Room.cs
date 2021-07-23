@@ -8,8 +8,7 @@ public class Room
 {
     public bool isChestRoom = false; //Controls whether room is a chest room
     public bool isBossRoom = false; //Controls whether room is a boss room
-    public bool active = false; //Controls whether Enemies become Hostile
-    public List<Enemy> activeEnemies = new List<Enemy>(); //These enemies can still attack
+    public List<List<Enemy>> activeEnemies = new List<List<Enemy>>(); //Enemies Waves that still are upcoming
     public List<Enemy> slainEnemies = new List<Enemy>(); //These enemies corpses are shown
     public List<Entrance> outEntrances = new List<Entrance>(); //Entrances that can open to lead out to other rooms
     public List<Entrance> inEntrances = new List<Entrance>(); //Entrances that can open to lead into room
@@ -94,6 +93,25 @@ public class Room
             else
             {
                 this.isBossRoom = Room.variableBossCounter >= numberToBeat2;
+            }
+        }
+
+        //Create enemy only if not chest room or boss room
+        if(!this.isChestRoom && !this.isBossRoom)
+        {
+            //Assign enemy waves
+            int numberOfWaves = random.Next(2, 3);
+            EnemyAttack[] enemyAttackArray = new EnemyAttack[] { EnemyAttack.Melee, EnemyAttack.Range, EnemyAttack.Mage };
+            EnemyType[] enemyTypeArray = new EnemyType[] { (EnemyType) random.Next(1, 11), (EnemyType) random.Next(1, 11) };
+            for (int i = 0; i < numberOfWaves; i++)
+            {
+                List<Enemy> wave = new List<Enemy>();
+                int numberOfEnemies = random.Next(10, 15); //Spawns in 10 to 15 enemies.
+                for (int j = 0; j < numberOfEnemies; j++)
+                {
+                    wave.Add(new Enemy(enemyAttackArray[j%3], enemyTypeArray[j%2], this));
+                }
+                this.activeEnemies.Add(wave);
             }
         }
     }
