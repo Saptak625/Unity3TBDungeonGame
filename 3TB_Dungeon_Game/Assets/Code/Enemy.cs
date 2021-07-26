@@ -29,9 +29,9 @@ public class Enemy
     public bool active = false;
     public EnemyAttack attackType;
     public EnemyType enemyType;
-    public int hp;
-    public int attackDamage;
-    public int coolDown;
+    public int hp = 100;
+    public int attackDamage = 10;
+    public int coolDown = 20;
     public List<Enemy> spawnedEnemies = null;
     public Vector3 position;
     public static List<int[]> positionsUsed = new List<int[]>();
@@ -41,6 +41,7 @@ public class Enemy
     {
         this.attackType = ea;
         this.enemyType = et;
+        //Random position of enemy in room. System to ensure that 2 enemies cannot spawn in the same spot.
         int[] pos = null;
         bool exists = true;
         while(exists)

@@ -20,7 +20,6 @@ public class RoomLoaderSpawner : MonoBehaviour
     public GameObject dungeonWallTile;
     public GameObject dungeonEntranceTileOpen;
     public GameObject dungeonEntranceTileClosed;
-    public GameObject dungeonBoxColliderTile;
     public GameObject roomTrigger;
 
     //Game Objects

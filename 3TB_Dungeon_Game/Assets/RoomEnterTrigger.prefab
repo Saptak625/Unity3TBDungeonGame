@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3456951071379179494}
   - component: {fileID: 948007098351748537}
   - component: {fileID: 8018205645676643698}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RoomEnterTrigger
   m_TagString: RoomTrigger
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.93424654, a: 1}
+  m_Color: {r: 0, g: 0.9262848, b: 1, a: 0.3529412}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

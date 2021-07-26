@@ -17,11 +17,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Player Projectiles
+  - Enemy Projectiles
+  - Dungeon Background
   - 
   - 
   - 

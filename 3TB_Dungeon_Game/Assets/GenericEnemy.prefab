@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5504481343991065608}
   - component: {fileID: 8297965604381441171}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GenericEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3221421645037179109}
   - component: {fileID: 4595537971900588320}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

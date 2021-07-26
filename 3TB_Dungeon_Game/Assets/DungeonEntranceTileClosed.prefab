@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2077656113108977667}
   - component: {fileID: 5025899243252204326}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DungeonEntranceTileClosed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5667087303252366455}
   - component: {fileID: 4654772499177164452}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: dungeon_entrance_tile_closed
   m_TagString: Untagged
   m_Icon: {fileID: 0}

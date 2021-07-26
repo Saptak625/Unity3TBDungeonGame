@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public Enemy enemy;
+    public Enemy enemy = null;
 
     // Start is called before the first frame update
     void Start()
@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         
     }
