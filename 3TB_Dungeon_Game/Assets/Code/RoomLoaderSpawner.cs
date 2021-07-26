@@ -259,10 +259,11 @@ public class RoomLoaderSpawner : MonoBehaviour
         this.roomLoader.activeRoom = selectedRoom;
 
         //Spawn in Enemies and set triggers to open room once ready
+        GameObject player = GameObject.FindWithTag("Player");
         if (!this.roomLoader.activeRoom.isChestRoom && !this.roomLoader.activeRoom.isBossRoom)
         {
             Debug.Log(this.roomLoader.activeRoom);
-            Debug.Log(this.roomLoader.activeRoom.activeEnemies.Count);
+            Debug.Log(this.roomLoader.activeRoom.activeEnemies.Count); 
             foreach (Enemy e in this.roomLoader.activeRoom.activeEnemies[0])
             {
                 //Use resource loader in real code
@@ -271,6 +272,7 @@ public class RoomLoaderSpawner : MonoBehaviour
                 enemyGameObject.transform.parent = this.gameObject.transform;
                 EnemyController controller = enemyGameObject.GetComponent<EnemyController>();
                 controller.enemy = e;
+                controller.player = player;
             }
         } else if (this.roomLoader.activeRoom.isBossRoom)
         {
