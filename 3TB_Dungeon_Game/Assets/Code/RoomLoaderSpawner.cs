@@ -39,7 +39,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         {
             for (int j = 0; j < iterY; j++)
             {
-                GameObject gridObject = Instantiate(tileType, new Vector3(posX + (spacing * i), posY + (spacing * j), ((posY + (spacing * j)) * 0.00001f) + (t == TileType.Floor ? 0 : -2)), Quaternion.identity);
+                GameObject gridObject = Instantiate(tileType, new Vector3(posX + (spacing * i), posY + (spacing * j), ((posY + (spacing * j)) * 0.00001f) + (t == TileType.Floor ? 0 : -20)), Quaternion.identity);
                 gameObjects.Add(gridObject);
             }
         }
