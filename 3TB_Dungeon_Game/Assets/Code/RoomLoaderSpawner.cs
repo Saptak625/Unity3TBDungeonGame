@@ -4,6 +4,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public enum TileType
 {
@@ -26,6 +27,7 @@ public class RoomLoaderSpawner : MonoBehaviour
     public GameObject chest;
 
     //Enemy Sprites
+    public GameObject enemyContainer;
     public GameObject enemyPrefab;
 
     //States
@@ -117,7 +119,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         {
             int centerX=r.roomRect[0] + (r.roomRect[2]/2);
             int centerY=r.roomRect[1] + (r.roomRect[3]/2);
-            floorGrid.Add(Instantiate(chest, new Vector3(centerX, centerY, centerY * 0.00001f), Quaternion.identity));
+            floorGrid.Add(Instantiate(chest, new Vector3(centerX, centerY, (centerY * 0.00001f)-20), Quaternion.identity));
         }
 
         //Combine all gameObjects and store
@@ -258,6 +260,12 @@ public class RoomLoaderSpawner : MonoBehaviour
         //Set activeRoom
         this.roomLoader.activeRoom = selectedRoom;
 
+        //Set AStar grid to room coordinates and scan
+        GridGraph graphToScan = AstarPath.active.data.gridGraph;
+        graphToScan.center = new Vector3(this.roomLoader.activeRoom.roomRect[0] + (this.roomLoader.activeRoom.roomRect[2] / 2), this.roomLoader.activeRoom.roomRect[1]+(this.roomLoader.activeRoom.roomRect[3] / 2), 0);
+        graphToScan.SetDimensions((this.roomLoader.activeRoom.roomRect[2]/2)*4, (this.roomLoader.activeRoom.roomRect[3] / 2)*4, 0.5f);
+        AstarPath.active.Scan(graphToScan);
+
         //Spawn in Enemies and set triggers to open room once ready
         GameObject player = GameObject.FindWithTag("Player");
         if (!this.roomLoader.activeRoom.isChestRoom && !this.roomLoader.activeRoom.isBossRoom)
@@ -268,11 +276,15 @@ public class RoomLoaderSpawner : MonoBehaviour
             {
                 //Use resource loader in real code
                 //GameObject enemyPrefab = Resources.Load($"{e.attackType}_{(int)e.enemyType}") as GameObject;
-                GameObject enemyGameObject = Instantiate(enemyPrefab, e.position, Quaternion.identity);
+                GameObject enemyGameObject = Instantiate(enemyContainer, e.position, Quaternion.identity);
                 enemyGameObject.transform.parent = this.gameObject.transform;
+                GameObject enemyGraphics = Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity, enemyGameObject.transform);
+
                 EnemyController controller = enemyGameObject.GetComponent<EnemyController>();
+                AIDestinationSetter pathfindingTarget = enemyGameObject.GetComponent<AIDestinationSetter>();
                 controller.enemy = e;
                 controller.player = player;
+                pathfindingTarget.target = player.transform;
             }
         } else if (this.roomLoader.activeRoom.isBossRoom)
         {

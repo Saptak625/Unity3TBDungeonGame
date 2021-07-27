@@ -6,7 +6,6 @@ public class EnemyController : MonoBehaviour
 {
     public Enemy enemy = null; //Enemy virtual state
     public GameObject player; //Reference to player GameObject
-    public Rigidbody2D rb; //Used to control enemy movement
 
     // Start is called before the first frame update
     void Start()
@@ -30,14 +29,7 @@ public class EnemyController : MonoBehaviour
 
     void classicMelee()
     {
-        if ((player.transform.position - transform.position).magnitude >= 1.2f)
-        {
-            //Vector Math for player honing
-            Vector3 unitVector = player.transform.position - transform.position;
-            Vector3.Normalize(unitVector);
-            rb.velocity = new Vector2(unitVector.x, unitVector.y) * enemy.speed;
-        }
-        else
+        if ((player.transform.position - transform.position).magnitude < 1.2f) //Change trigger to reflect AI
         {
             //Attack player
         }
