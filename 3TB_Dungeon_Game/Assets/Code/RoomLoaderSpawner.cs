@@ -22,6 +22,7 @@ public class RoomLoaderSpawner : MonoBehaviour
     public GameObject dungeonEntranceTileOpen;
     public GameObject dungeonEntranceTileClosed;
     public GameObject roomTrigger;
+    public GameObject dungeonDestroyableObstacle;
 
     //Game Objects
     public GameObject chest;
@@ -94,6 +95,26 @@ public class RoomLoaderSpawner : MonoBehaviour
         }
         wallGrid = updatedWallGrid;
 
+        //Create Obstacles
+        List<Obstacle> newObstacles = new List<Obstacle>();
+        foreach(Obstacle o in r.obstacles)
+        {
+            if(o.type == ObstacleType.Destructable)
+            {
+                o.gameObjects = this.instantiateGrid(this.dungeonDestroyableObstacle, o.obstacleRect[0], o.obstacleRect[1], o.obstacleRect[2], o.obstacleRect[3], 1, TileType.Wall);
+                foreach(GameObject g in o.gameObjects)
+                {
+                    g.transform.parent = this.gameObject.transform;
+                }
+                newObstacles.Add(o);
+            }
+            else
+            {
+                wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, o.obstacleRect[0], o.obstacleRect[1], o.obstacleRect[2], o.obstacleRect[3], 1, TileType.Wall));
+            }
+        }
+        r.obstacles = newObstacles;
+
         //Add Room Trigger if room is a subroom
         if (r.roomDirection != Direction.None)
         {
@@ -111,7 +132,6 @@ public class RoomLoaderSpawner : MonoBehaviour
                 r.trigger.transform.rotation = Quaternion.Euler(0, 0, 90);
             }
             r.trigger.transform.parent = this.gameObject.transform;
-            r.trigger.AddComponent(typeof(DetectCollision));
         }
 
         //Check if chest room 
@@ -261,10 +281,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         this.roomLoader.activeRoom = selectedRoom;
 
         //Set AStar grid to room coordinates and scan
-        GridGraph graphToScan = AstarPath.active.data.gridGraph;
-        graphToScan.center = new Vector3(this.roomLoader.activeRoom.roomRect[0] + (this.roomLoader.activeRoom.roomRect[2] / 2), this.roomLoader.activeRoom.roomRect[1]+(this.roomLoader.activeRoom.roomRect[3] / 2), 0);
-        graphToScan.SetDimensions((this.roomLoader.activeRoom.roomRect[2]/2)*4, (this.roomLoader.activeRoom.roomRect[3] / 2)*4, 0.5f);
-        AstarPath.active.Scan(graphToScan);
+        this.reloadAStarGrid();
 
         //Spawn in Enemies and set triggers to open room once ready
         GameObject player = GameObject.FindWithTag("Player");
@@ -330,5 +347,13 @@ public class RoomLoaderSpawner : MonoBehaviour
             Destroy(g);
         }
         e.gameObjects = this.instantiateGrid((e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor));
+    }
+
+    public void reloadAStarGrid()
+    {
+        GridGraph graphToScan = AstarPath.active.data.gridGraph;
+        graphToScan.center = new Vector3(this.roomLoader.activeRoom.roomRect[0] + (this.roomLoader.activeRoom.roomRect[2] / 2), this.roomLoader.activeRoom.roomRect[1] + (this.roomLoader.activeRoom.roomRect[3] / 2), 0);
+        graphToScan.SetDimensions((this.roomLoader.activeRoom.roomRect[2] / 2) * 4, (this.roomLoader.activeRoom.roomRect[3] / 2) * 4, 0.5f);
+        AstarPath.active.Scan(graphToScan);
     }
 }

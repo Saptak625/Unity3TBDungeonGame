@@ -52,8 +52,8 @@ public class Enemy
         bool exists = true;
         while(exists)
         {
-            int xTrans = random.Next(4, r.roomRect[2] - 3);
-            int yTrans = random.Next(4, r.roomRect[3] - 3);
+            int xTrans = r.roomRect[0] + random.Next(4, r.roomRect[2] - 3);
+            int yTrans = r.roomRect[1] + random.Next(4, r.roomRect[3] - 3);
             pos = new int[] { xTrans, yTrans };
             exists = false;
             foreach(int[] compare in positionsUsed)
@@ -63,7 +63,14 @@ public class Enemy
                     exists = true;
                 }
             }
-            this.position = new Vector3(r.roomRect[0] + xTrans, r.roomRect[1] + yTrans, -10);
+            foreach (int[] compare in r.unwalkablePositions)
+            {
+                if (compare[0] == pos[0] && compare[1] == pos[1])
+                {
+                    exists = true;
+                }
+            }
+            this.position = new Vector3( xTrans, yTrans, -10);
             if (!exists)
             {
                 positionsUsed.Add(pos);
