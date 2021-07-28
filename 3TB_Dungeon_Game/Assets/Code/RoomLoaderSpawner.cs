@@ -301,7 +301,7 @@ public class RoomLoaderSpawner : MonoBehaviour
                 GameObject enemyGraphics = Instantiate(enemyPrefab, enemyGameObject.transform);
 
                 EnemyController controller = enemyGameObject.GetComponent<EnemyController>();
-                AIDestinationSetter pathfindingTarget = enemyGameObject.GetComponent<AIDestinationSetter>();
+                GenericRangeAI pathfindingTarget = enemyGameObject.GetComponent<GenericRangeAI>();
                 controller.enemy = e;
                 controller.player = player;
                 pathfindingTarget.target = player.transform;

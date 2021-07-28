@@ -10,6 +10,9 @@ TagManager:
   - Chest
   - Item
   - RoomTrigger
+  - DestructableWall
+  - Enemy Container
+  - Enemy Graphics
   layers:
   - Default
   - TransparentFX
