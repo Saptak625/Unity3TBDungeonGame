@@ -101,14 +101,14 @@ public class Room
         if(!this.isChestRoom && !this.isBossRoom)
         {
             //Create Obstacles
-            int numberOfObstacles = random.Next(3, 6);
+            int numberOfObstacles = random.Next(4, 9);
             int obstacleCounter = 0;
             int numberOfIterations = 0;
             while(obstacleCounter < numberOfObstacles || numberOfIterations > 8)
             {
                 int shapeType = random.Next(1, 3);
                 int blockType = random.Next(1, 3);
-                int[] startPos = new int[] { this.roomRect[0] + random.Next(3, this.roomRect[2]-3), this.roomRect[1] + random.Next(3, this.roomRect[3]-3)};
+                int[] startPos = new int[] { this.roomRect[0] + random.Next(3, this.roomRect[2]-3), this.roomRect[1] + random.Next(3, this.roomRect[3]-6)};
                 bool valid = true;
                 Obstacle o;
                 if(shapeType == 1) // Wall Shape

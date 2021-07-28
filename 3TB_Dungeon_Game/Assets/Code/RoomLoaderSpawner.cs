@@ -280,8 +280,11 @@ public class RoomLoaderSpawner : MonoBehaviour
         //Set activeRoom
         this.roomLoader.activeRoom = selectedRoom;
 
-        //Set AStar grid to room coordinates and scan
-        this.reloadAStarGrid();
+        //Set AStar grid to room coordinates and scan if enemy room
+        if (!this.roomLoader.activeRoom.isChestRoom)
+        {
+            this.reloadAStarGrid();
+        }
 
         //Spawn in Enemies and set triggers to open room once ready
         GameObject player = GameObject.FindWithTag("Player");
@@ -295,7 +298,7 @@ public class RoomLoaderSpawner : MonoBehaviour
                 //GameObject enemyPrefab = Resources.Load($"{e.attackType}_{(int)e.enemyType}") as GameObject;
                 GameObject enemyGameObject = Instantiate(enemyContainer, e.position, Quaternion.identity);
                 enemyGameObject.transform.parent = this.gameObject.transform;
-                GameObject enemyGraphics = Instantiate(enemyPrefab, new Vector3(0, 0, 0), Quaternion.identity, enemyGameObject.transform);
+                GameObject enemyGraphics = Instantiate(enemyPrefab, enemyGameObject.transform);
 
                 EnemyController controller = enemyGameObject.GetComponent<EnemyController>();
                 AIDestinationSetter pathfindingTarget = enemyGameObject.GetComponent<AIDestinationSetter>();
