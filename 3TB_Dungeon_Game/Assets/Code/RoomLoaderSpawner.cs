@@ -317,6 +317,7 @@ public class RoomLoaderSpawner : MonoBehaviour
                 {
                     enemyGameObject = Instantiate(this.enemyMageContainer, enemy.position, Quaternion.identity);
                     //Do Mage Container specific init
+                    enemyGameObject.GetComponent<MageAI>().roomRect = this.roomLoader.activeRoom.roomRect;
                 }
                 
                 enemyGameObject.transform.parent = this.gameObject.transform;
