@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public int damage;
+    public int damage; //Default damage
     public string primaryTarget;
     
     void OnCollisionEnter2D(Collision2D collision)
@@ -14,11 +14,11 @@ public class Projectile : MonoBehaviour
         {
             if (primaryTarget == "Player")
             {
-                //collider.gameObject.GetComponent<PlayerController>().takeDamage(damage);
+                collider.gameObject.GetComponent<PlayerController>().takeDamage(this.damage);
             }
             else
             {
-                collider.gameObject.GetComponent<EnemyController>().takeDamage(damage);
+                collider.gameObject.GetComponent<EnemyController>().takeDamage(this.damage);
             }
         }else if(collider.tag == "DestructableWall")
         {

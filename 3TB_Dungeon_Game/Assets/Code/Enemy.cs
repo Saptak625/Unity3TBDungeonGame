@@ -42,12 +42,12 @@ public class Enemy
     public Enemy(EnemyAttack ea, EnemyType et, Room r)
     {
         //Testing purposes
-        this.attackType = EnemyAttack.Range;
-        this.enemyType = EnemyType.PowerTools;
-        //Regular
         /*
+        this.attackType = EnemyAttack.Melee;
+        this.enemyType = EnemyType.PowerTools;*/
+        //Regular
         this.attackType = ea;
-        this.enemyType = et;*/
+        this.enemyType = et;
         //Random position of enemy in room. System to ensure that 2 enemies cannot spawn in the same spot.
         int[] pos = null;
         bool exists = true;
