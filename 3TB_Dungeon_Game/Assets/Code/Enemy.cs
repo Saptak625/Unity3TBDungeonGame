@@ -33,6 +33,7 @@ public class Enemy
     public int attackDamage = 10;
     public int cooldown = 20;
     public int speed = 1;
+    public int projectileSpeed = 20;
     public List<Enemy> spawnedEnemies = null;
     public Vector3 position;
     public static List<int[]> positionsUsed = new List<int[]>();
@@ -43,7 +44,7 @@ public class Enemy
         //Testing purposes
         /*
         this.attackType = EnemyAttack.Melee;
-        this.enemyType = EnemyType.Firework;*/
+        this.enemyType = EnemyType.PowerTools;*/
         //Regular
         this.attackType = ea;
         this.enemyType = et;

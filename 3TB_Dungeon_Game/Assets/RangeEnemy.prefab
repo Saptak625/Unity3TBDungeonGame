@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8075406009298593372}
   - component: {fileID: 5845697434189923171}
   - component: {fileID: 5329739106845047006}
-  - component: {fileID: 1172872075602898688}
   - component: {fileID: 8850599121375937387}
   m_Layer: 7
   m_Name: RangeEnemy
@@ -87,7 +86,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.95, y: 0.95}
   m_EdgeRadius: 0
 --- !u!50 &5329739106845047006
 Rigidbody2D:
@@ -110,19 +109,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1172872075602898688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1715233190168688194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfac6a22c05c7cd4da07adcd5fc4c0fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!114 &8850599121375937387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,3 +124,4 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 200
   nextWaypointDistance: 3
+  canShoot: 0

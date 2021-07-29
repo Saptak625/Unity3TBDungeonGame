@@ -18,7 +18,13 @@ public class PlayerController : MonoBehaviour
     item currentWeapon;
     item currentShield;
     item inbetweenItem;
-    
+
+    public double health = 100d;
+    public bool isAlive = true;
+    public bool usingShield = false;
+    public bool shieldOnCooldown = false;
+    public int shieldDuration;
+    public int shieldCooldown;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +36,35 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(this.health);
+        if (!isAlive) //If dead
+        {
+            Debug.Log("Player Dead...\n Game Over...");
+        }
+
+        if (usingShield)
+        {
+            shieldDuration++;
+            if (shieldDuration >= currentShield.duration)
+            {
+                usingShield = false;
+                shieldOnCooldown = true;
+                shieldDuration = 0;
+            }
+        }
+        else if (shieldOnCooldown)
+        {
+            speed = 5;
+            shieldCooldown++;
+            if (shieldCooldown >= currentShield.cooldown)
+            {
+                shieldOnCooldown = false;
+                shieldCooldown = 0;
+            }
+        }
+
         rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed, Input.GetAxisRaw("Vertical") * speed);
+
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Shoot");
@@ -61,14 +95,15 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Switched Shield");
                 }
             }
-            else //Player will shield
+            else if (usingShield == false && shieldOnCooldown == false) //Player will shield
             {
                 Debug.Log("Shield");
+                usingShield = true;
+                speed -= currentShield.speedReduction;
             }
         }
     }
 
-    /*
     public void incrementEnemySlain()
     {
         enemiesSlain++;
@@ -77,7 +112,7 @@ public class PlayerController : MonoBehaviour
     public void incrementRoomsCleared()
     {
         roomsCleared++;
-    }*/
+    }
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
@@ -93,7 +128,6 @@ public class PlayerController : MonoBehaviour
             droppedItem = other;
             nearItem = true;
         }
-
     }
 
     public void OnTriggerExit2D(Collider2D collider)
@@ -107,6 +141,26 @@ public class PlayerController : MonoBehaviour
         {
             droppedItem = null;
             nearItem = false;
+        }
+    }
+
+    public void takeDamage(int damage)
+    {
+        if (this.isAlive)
+        {
+            Debug.Log("Executing");
+            Debug.Log(damage);
+            Debug.Log(this.health);
+            if (usingShield)
+            {
+                this.health -= damage * currentShield.resistance;
+            }
+            else
+            {
+                this.health -= damage;
+            }
+            Debug.Log(this.health);
+            this.isAlive = this.health > 0;
         }
     }
 }

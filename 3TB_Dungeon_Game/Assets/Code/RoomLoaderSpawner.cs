@@ -27,9 +27,11 @@ public class RoomLoaderSpawner : MonoBehaviour
     //Game Objects
     public GameObject chest;
 
-    //Enemy Sprites
-    public GameObject enemyContainer;
-    public GameObject enemyPrefab;
+    //Enemy Movement Containers
+    public GameObject enemyMeleeContainer;
+    public GameObject enemyRangeContainer;
+    public GameObject enemyMageContainer;
+    public GameObject enemyPrefab; //Temporary prefab for graphics purposes
 
     //States
     private bool loaded = false;
@@ -292,19 +294,38 @@ public class RoomLoaderSpawner : MonoBehaviour
         {
             Debug.Log(this.roomLoader.activeRoom);
             Debug.Log(this.roomLoader.activeRoom.activeEnemies.Count); 
-            foreach (Enemy e in this.roomLoader.activeRoom.activeEnemies[0])
+            foreach (Enemy enemy in this.roomLoader.activeRoom.activeEnemies[0])
             {
                 //Use resource loader in real code
                 //GameObject enemyPrefab = Resources.Load($"{e.attackType}_{(int)e.enemyType}") as GameObject;
-                GameObject enemyGameObject = Instantiate(enemyContainer, e.position, Quaternion.identity);
+                GameObject enemyGameObject;
+                if (enemy.attackType == EnemyAttack.Melee && !(enemy.enemyType == (EnemyType)5 || enemy.enemyType == (EnemyType)6 || enemy.enemyType == (EnemyType)8 || enemy.enemyType == (EnemyType)9))
+                {
+                    enemyGameObject = Instantiate(this.enemyMeleeContainer, enemy.position, Quaternion.identity);
+                    //Do Melee Container specific init
+                    AIDestinationSetter pathfindingTarget = enemyGameObject.GetComponent<AIDestinationSetter>();
+                    pathfindingTarget.target = player.transform;
+                }
+                else if (enemy.attackType == EnemyAttack.Range && !(enemy.enemyType == (EnemyType)2 || enemy.enemyType == (EnemyType)3 || enemy.enemyType == (EnemyType)4 || enemy.enemyType == (EnemyType)6))
+                {
+                    enemyGameObject = Instantiate(this.enemyRangeContainer, enemy.position, Quaternion.identity);
+                    //Do Range Container specific init
+                    GenericRangeAI pathfindingTarget = enemyGameObject.GetComponent<GenericRangeAI>();
+                    pathfindingTarget.target = player.transform;
+                }
+                else
+                {
+                    enemyGameObject = Instantiate(this.enemyMageContainer, enemy.position, Quaternion.identity);
+                    //Do Mage Container specific init
+                    enemyGameObject.GetComponent<MageAI>().roomRect = this.roomLoader.activeRoom.roomRect;
+                }
+                
                 enemyGameObject.transform.parent = this.gameObject.transform;
                 GameObject enemyGraphics = Instantiate(enemyPrefab, enemyGameObject.transform);
 
-                EnemyController controller = enemyGameObject.GetComponent<EnemyController>();
-                AIDestinationSetter pathfindingTarget = enemyGameObject.GetComponent<AIDestinationSetter>();
-                controller.enemy = e;
+                EnemyController controller = enemyGraphics.GetComponent<EnemyController>();
+                controller.enemy = enemy;
                 controller.player = player;
-                pathfindingTarget.target = player.transform;
             }
         } else if (this.roomLoader.activeRoom.isBossRoom)
         {

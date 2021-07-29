@@ -8,7 +8,7 @@ public class Items
     public static item defaultWeapon = new item(2, 2, 2); //temporary numbers
 
     //Create all the shields
-    public static item defaultShield = new item(5, 10); //temporary numbers
+    public static item defaultShield = new item(0.2, 500, 500, 3); //temporary numbers
 
     //Put them in lists
     public static item[] items = new item[2] {defaultWeapon, defaultShield}; //Fill in later
@@ -34,13 +34,17 @@ public class item
 
     //for shields
 
-    public int resistance; //Damage reduction
-    public int cooldown; //Time between use
-    public item(int protection, int reloadSpeed)
+    public double resistance; //Damage reduction
+    public int cooldown; //Time between use (seconds * 100)
+    public int duration; //Time during use (seconds * 100)
+    public int speedReduction; //Lowers speed when being used (Max is 4)
+    public item(double protection, int reloadSpeed, int time, int lowerSpeed)
     {
         this.type = "Shield";
         this.resistance = protection;
         this.cooldown = reloadSpeed;
+        this.duration = time;
+        this.speedReduction = lowerSpeed;
     }
 }
 
