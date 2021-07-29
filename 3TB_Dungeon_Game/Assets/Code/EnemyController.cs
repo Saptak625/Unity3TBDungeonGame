@@ -45,9 +45,10 @@ public class EnemyController : MonoBehaviour
 
     void classicMelee()
     {
-        if ((player.transform.position - transform.position).magnitude < 1.2f) //Change trigger to reflect AI
+        if ((this.player.transform.position - this.enemyContainer.transform.position).magnitude < 1.2f) //Change trigger to reflect AI
         {
             //Attack player
+            player.GetComponent<PlayerController>().takeDamage(this.enemy.attackDamage);
             attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
         }
     }
@@ -63,6 +64,7 @@ public class EnemyController : MonoBehaviour
             rb.AddForce(projectile.transform.up * 20, ForceMode2D.Impulse);
             Projectile projectileController = projectile.GetComponent<Projectile>();
             projectileController.primaryTarget = "Player";
+            projectileController.damage = this.enemy.attackDamage;
             attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
         }
         
@@ -70,7 +72,14 @@ public class EnemyController : MonoBehaviour
 
     public void takeDamage(int damage)
     {
-        //Add effects to show enemy taking damage
-        this.enemy.takeDamage(damage);
+        if (this.enemy.alive) //Only take damage while enemy is alive
+        {
+            //Add effects to show enemy taking damage
+            this.enemy.takeDamage(damage);
+            if (this.enemy.alive) //Enemy just died after taking damage
+            {
+                this.player.GetComponent<PlayerController>().incrementEnemySlain();
+            }
+        }
     }
 }
