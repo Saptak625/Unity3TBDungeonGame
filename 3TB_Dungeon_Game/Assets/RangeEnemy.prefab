@@ -87,7 +87,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
 --- !u!50 &5329739106845047006
 Rigidbody2D:
@@ -123,6 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  attackCooldown: 0
+  enemyContainer: {fileID: 0}
 --- !u!114 &8850599121375937387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,3 +140,4 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 200
   nextWaypointDistance: 3
+  canShoot: 0
