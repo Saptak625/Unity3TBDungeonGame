@@ -4,6 +4,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public enum TileType
 {
@@ -20,13 +21,14 @@ public class RoomLoaderSpawner : MonoBehaviour
     public GameObject dungeonWallTile;
     public GameObject dungeonEntranceTileOpen;
     public GameObject dungeonEntranceTileClosed;
-    public GameObject dungeonBoxColliderTile;
     public GameObject roomTrigger;
+    public GameObject dungeonDestroyableObstacle;
 
     //Game Objects
     public GameObject chest;
 
     //Enemy Sprites
+    public GameObject enemyContainer;
     public GameObject enemyPrefab;
 
     //States
@@ -93,6 +95,26 @@ public class RoomLoaderSpawner : MonoBehaviour
         }
         wallGrid = updatedWallGrid;
 
+        //Create Obstacles
+        List<Obstacle> newObstacles = new List<Obstacle>();
+        foreach(Obstacle o in r.obstacles)
+        {
+            if(o.type == ObstacleType.Destructable)
+            {
+                o.gameObjects = this.instantiateGrid(this.dungeonDestroyableObstacle, o.obstacleRect[0], o.obstacleRect[1], o.obstacleRect[2], o.obstacleRect[3], 1, TileType.Wall);
+                foreach(GameObject g in o.gameObjects)
+                {
+                    g.transform.parent = this.gameObject.transform;
+                }
+                newObstacles.Add(o);
+            }
+            else
+            {
+                wallGrid.AddRange(this.instantiateGrid(this.dungeonWallTile, o.obstacleRect[0], o.obstacleRect[1], o.obstacleRect[2], o.obstacleRect[3], 1, TileType.Wall));
+            }
+        }
+        r.obstacles = newObstacles;
+
         //Add Room Trigger if room is a subroom
         if (r.roomDirection != Direction.None)
         {
@@ -110,7 +132,6 @@ public class RoomLoaderSpawner : MonoBehaviour
                 r.trigger.transform.rotation = Quaternion.Euler(0, 0, 90);
             }
             r.trigger.transform.parent = this.gameObject.transform;
-            r.trigger.AddComponent(typeof(DetectCollision));
         }
 
         //Check if chest room 
@@ -118,7 +139,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         {
             int centerX=r.roomRect[0] + (r.roomRect[2]/2);
             int centerY=r.roomRect[1] + (r.roomRect[3]/2);
-            floorGrid.Add(Instantiate(chest, new Vector3(centerX, centerY, centerY * 0.00001f), Quaternion.identity));
+            floorGrid.Add(Instantiate(chest, new Vector3(centerX, centerY, (centerY * 0.00001f)-20), Quaternion.identity));
         }
 
         //Combine all gameObjects and store
@@ -259,19 +280,31 @@ public class RoomLoaderSpawner : MonoBehaviour
         //Set activeRoom
         this.roomLoader.activeRoom = selectedRoom;
 
+        //Set AStar grid to room coordinates and scan if enemy room
+        if (!this.roomLoader.activeRoom.isChestRoom)
+        {
+            this.reloadAStarGrid();
+        }
+
         //Spawn in Enemies and set triggers to open room once ready
+        GameObject player = GameObject.FindWithTag("Player");
         if (!this.roomLoader.activeRoom.isChestRoom && !this.roomLoader.activeRoom.isBossRoom)
         {
             Debug.Log(this.roomLoader.activeRoom);
-            Debug.Log(this.roomLoader.activeRoom.activeEnemies.Count);
+            Debug.Log(this.roomLoader.activeRoom.activeEnemies.Count); 
             foreach (Enemy e in this.roomLoader.activeRoom.activeEnemies[0])
             {
                 //Use resource loader in real code
                 //GameObject enemyPrefab = Resources.Load($"{e.attackType}_{(int)e.enemyType}") as GameObject;
-                GameObject enemyGameObject = Instantiate(enemyPrefab, e.position, Quaternion.identity);
+                GameObject enemyGameObject = Instantiate(enemyContainer, e.position, Quaternion.identity);
                 enemyGameObject.transform.parent = this.gameObject.transform;
+                GameObject enemyGraphics = Instantiate(enemyPrefab, enemyGameObject.transform);
+
                 EnemyController controller = enemyGameObject.GetComponent<EnemyController>();
+                AIDestinationSetter pathfindingTarget = enemyGameObject.GetComponent<AIDestinationSetter>();
                 controller.enemy = e;
+                controller.player = player;
+                pathfindingTarget.target = player.transform;
             }
         } else if (this.roomLoader.activeRoom.isBossRoom)
         {
@@ -317,5 +350,13 @@ public class RoomLoaderSpawner : MonoBehaviour
             Destroy(g);
         }
         e.gameObjects = this.instantiateGrid((e.doorClosed ? this.dungeonEntranceTileClosed : this.dungeonEntranceTileOpen), e.entranceRect[0], e.entranceRect[1], e.entranceRect[2], e.entranceRect[3], 1, (e.doorClosed ? TileType.Wall : TileType.Floor));
+    }
+
+    public void reloadAStarGrid()
+    {
+        GridGraph graphToScan = AstarPath.active.data.gridGraph;
+        graphToScan.center = new Vector3(this.roomLoader.activeRoom.roomRect[0] + (this.roomLoader.activeRoom.roomRect[2] / 2), this.roomLoader.activeRoom.roomRect[1] + (this.roomLoader.activeRoom.roomRect[3] / 2), 0);
+        graphToScan.SetDimensions((this.roomLoader.activeRoom.roomRect[2] / 2) * 4, (this.roomLoader.activeRoom.roomRect[3] / 2) * 4, 0.5f);
+        AstarPath.active.Scan(graphToScan);
     }
 }
