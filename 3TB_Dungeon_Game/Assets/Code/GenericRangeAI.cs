@@ -13,7 +13,7 @@ public class GenericRangeAI : MonoBehaviour
     Path path = null;
     int currentWayPoint = 0;
     bool reachedEndOfPath = true;
-    bool canShoot;
+    public bool canShoot;
 
     Seeker seeker;
     Rigidbody2D rb;

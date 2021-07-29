@@ -31,7 +31,7 @@ public class Enemy
     public EnemyType enemyType;
     public int hp = 100;
     public int attackDamage = 10;
-    public int coolDown = 20;
+    public int cooldown = 20;
     public int speed = 1;
     public List<Enemy> spawnedEnemies = null;
     public Vector3 position;
@@ -84,5 +84,11 @@ public class Enemy
     public static void resetPositionsUsed()
     {
         positionsUsed.Clear();
+    }
+
+    public void takeDamage(int damage)
+    {
+        this.hp -= damage;
+        this.alive = this.hp > 0;
     }
 }
