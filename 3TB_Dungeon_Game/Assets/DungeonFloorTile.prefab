@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4977351932118444232}
   - component: {fileID: 6764640120058241783}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: dungeon_floor_tile (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7909981077385074444}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DungeonFloorTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
