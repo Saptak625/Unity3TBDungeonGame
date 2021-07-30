@@ -26,13 +26,12 @@ public enum EnemyType
 public class Enemy
 {
     public bool alive = true;
-    public bool active = false;
     public EnemyAttack attackType;
     public EnemyType enemyType;
     public int hp = 100;
     public int attackDamage = 10;
     public int cooldown = 20;
-    public int speed = 1;
+    public int speed = 2;
     public int projectileSpeed = 20;
     public List<Enemy> spawnedEnemies = null;
     public Vector3 position;

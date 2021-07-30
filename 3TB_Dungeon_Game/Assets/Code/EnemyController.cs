@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour
             Vector2 lookDir = player.transform.position - transform.position;
             GameObject projectile = Instantiate(genericProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z+1), Quaternion.LookRotation(Vector3.forward, lookDir), gameObject.transform);
             Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-            rb.AddForce(projectile.transform.up * 20, ForceMode2D.Impulse);
+            rb.AddForce(projectile.transform.up * this.enemy.projectileSpeed, ForceMode2D.Impulse);
             Projectile projectileController = projectile.GetComponent<Projectile>();
             projectileController.primaryTarget = "Player";
             projectileController.damage = this.enemy.attackDamage;
