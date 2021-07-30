@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6569940709413660875}
   - component: {fileID: 5817842443144956228}
   - component: {fileID: 7003636824969774658}
+  - component: {fileID: -4850178966233461999}
   m_Layer: 10
   m_Name: DungeonDestroyableObstacle
   m_TagString: DestructableWall
@@ -80,6 +81,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-4850178966233461999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096229380251595279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed33ef2b09c804848b53d5b21f1e86f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 50
 --- !u!1 &6775737922194500153
 GameObject:
   m_ObjectHideFlags: 0

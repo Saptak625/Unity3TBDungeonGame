@@ -31,7 +31,6 @@ public class RoomLoaderSpawner : MonoBehaviour
     public GameObject enemyMeleeContainer;
     public GameObject enemyRangeContainer;
     public GameObject enemyMageContainer;
-    public GameObject enemyPrefab; //Temporary prefab for graphics purposes
 
     //States
     private bool loaded = false;
@@ -297,14 +296,14 @@ public class RoomLoaderSpawner : MonoBehaviour
             foreach (Enemy enemy in this.roomLoader.activeRoom.activeEnemies[0])
             {
                 //Use resource loader in real code
-                //GameObject enemyPrefab = Resources.Load($"{e.attackType}_{(int)e.enemyType}") as GameObject;
+                GameObject enemyPrefab = Resources.Load($"Enemy Prefabs/{enemy.attackType}_{(int)enemy.enemyType}") as GameObject;
                 GameObject enemyGameObject;
                 if (enemy.attackType == EnemyAttack.Melee && !(enemy.enemyType == (EnemyType)5 || enemy.enemyType == (EnemyType)6 || enemy.enemyType == (EnemyType)8 || enemy.enemyType == (EnemyType)9))
                 {
                     enemyGameObject = Instantiate(this.enemyMeleeContainer, enemy.position, Quaternion.identity);
                     //Do Melee Container specific init
-                    AIDestinationSetter pathfindingTarget = enemyGameObject.GetComponent<AIDestinationSetter>();
-                    pathfindingTarget.target = player.transform;
+                    enemyGameObject.GetComponent<AIDestinationSetter>().target = player.transform;
+                    enemyGameObject.GetComponent<AIPath>().maxSpeed = enemy.speed;
                 }
                 else if (enemy.attackType == EnemyAttack.Range && !(enemy.enemyType == (EnemyType)2 || enemy.enemyType == (EnemyType)3 || enemy.enemyType == (EnemyType)4 || enemy.enemyType == (EnemyType)6))
                 {
@@ -312,12 +311,14 @@ public class RoomLoaderSpawner : MonoBehaviour
                     //Do Range Container specific init
                     GenericRangeAI pathfindingTarget = enemyGameObject.GetComponent<GenericRangeAI>();
                     pathfindingTarget.target = player.transform;
+                    pathfindingTarget.speed = enemy.speed;
                 }
                 else
                 {
                     enemyGameObject = Instantiate(this.enemyMageContainer, enemy.position, Quaternion.identity);
                     //Do Mage Container specific init
                     enemyGameObject.GetComponent<MageAI>().roomRect = this.roomLoader.activeRoom.roomRect;
+                    enemyGameObject.GetComponent<AIPath>().maxSpeed = enemy.speed;
                 }
                 
                 enemyGameObject.transform.parent = this.gameObject.transform;

@@ -20,6 +20,7 @@ public class Room
     public static int variableBossCounter = 0; //Variable Counter for Rooms without boss
     public Direction roomDirection = Direction.None; //Direction of subroom in term of parent room. Root room will have Direction.None.
     public GameObject trigger = null; //Trigger used to check if room is to be executed.
+    public EnemyType[] enemyTypeArray = null; //Indicates which types of enemies this room holds.
     public static System.Random random = new System.Random(); //Random object for proper generation
 
     public Room()
@@ -108,7 +109,7 @@ public class Room
             {
                 int shapeType = random.Next(1, 3);
                 int blockType = random.Next(1, 3);
-                int[] startPos = new int[] { this.roomRect[0] + random.Next(3, this.roomRect[2]-3), this.roomRect[1] + random.Next(3, this.roomRect[3]-6)};
+                int[] startPos = new int[] { this.roomRect[0] + random.Next(5, this.roomRect[2]-5), this.roomRect[1] + random.Next(5, this.roomRect[3]-5)};
                 bool valid = true;
                 Obstacle o;
                 if(shapeType == 1) // Wall Shape
@@ -162,14 +163,14 @@ public class Room
             //Assign enemy waves
             int numberOfWaves = random.Next(2, 3);
             EnemyAttack[] enemyAttackArray = new EnemyAttack[] { EnemyAttack.Melee, EnemyAttack.Range, EnemyAttack.Mage };
-            EnemyType[] enemyTypeArray = new EnemyType[] { (EnemyType) random.Next(1, 11), (EnemyType) random.Next(1, 11) };
+            this.enemyTypeArray = new EnemyType[] { (EnemyType) random.Next(1, 11), (EnemyType) random.Next(1, 11) };
             for (int i = 0; i < numberOfWaves; i++)
             {
                 List<Enemy> wave = new List<Enemy>();
                 int numberOfEnemies = random.Next(10, 16); //Spawns in 10 to 15 enemies.
                 for (int j = 0; j < numberOfEnemies; j++)
                 {
-                    wave.Add(new Enemy(enemyAttackArray[j%3], enemyTypeArray[j%2], this));
+                    wave.Add(new Enemy(enemyAttackArray[j%3], this.enemyTypeArray[j%2], this));
                 }
                 this.activeEnemies.Add(wave);
             }
