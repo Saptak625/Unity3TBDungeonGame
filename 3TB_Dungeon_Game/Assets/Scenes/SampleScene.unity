@@ -177,7 +177,6 @@ MonoBehaviour:
   enemyMeleeContainer: {fileID: 8666105627777410017, guid: e7488f472686ea14cb66a0417570a8de, type: 3}
   enemyRangeContainer: {fileID: 1715233190168688194, guid: e84248eeb71af4b439e8cd3b00999f72, type: 3}
   enemyMageContainer: {fileID: 1487898229587134159, guid: c179e242ea1aace4c91afd45ad8f7738, type: 3}
-  enemyPrefab: {fileID: 2190685593170170173, guid: 2e903fc3bc0fb3e468e0b0f70a0d50ea, type: 3}
 --- !u!1 &2047959481
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,11 +348,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7468297113024183943, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: m_Size.x
-      value: 0.95
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7468297113024183943, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: m_Size.y
-      value: 0.95
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7468297113024184058, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: m_Name

@@ -22,9 +22,7 @@ public class Projectile : MonoBehaviour
             }
         }else if(collider.tag == "DestructableWall")
         {
-            Destroy(collider.gameObject); //Destroy Wall
-            //Call Roomloader reloadAStarGrid
-            gameObject.SendMessageUpwards("reloadAStarGrid", gameObject);
+            collider.gameObject.GetComponent<DestructableWall>().takeDamage(this.damage);
         }
         //Add bullet impact effects if needed.
         Destroy(gameObject); //Destroy Bullet afterwards
