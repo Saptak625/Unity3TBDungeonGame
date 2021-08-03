@@ -70,7 +70,7 @@ public class EnemyController : MonoBehaviour
         
     }
 
-    public void takeDamage(int damage)
+    public void takeDamage(float damage)
     {
         if (this.enemy.alive) //Only take damage while enemy is alive
         {

@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     item currentShield;
     item inbetweenItem;
 
-    public double health = 100d;
+    public float health = 100f;
     public bool isAlive = true;
     public bool usingShield = false;
     public bool shieldOnCooldown = false;
@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void takeDamage(int damage)
+    public void takeDamage(float damage)
     {
         if (this.isAlive)
         {

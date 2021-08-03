@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public int damage; //Default damage
+    public float damage;
     public string primaryTarget;
     
     void OnCollisionEnter2D(Collision2D collision)

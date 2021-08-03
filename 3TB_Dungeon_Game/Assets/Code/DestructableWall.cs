@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class DestructableWall : MonoBehaviour
 {
-    public int hp = 30;
+    public float hp = 30f;
 
-    public void takeDamage(int damage)
+    public void takeDamage(float damage)
     {
         this.hp -= damage;
-        if(this.hp <= 0)
+        if(this.hp <= 0f)
         {
             Destroy(gameObject); //Destroy Wall
             //Call Roomloader reloadAStarGrid
