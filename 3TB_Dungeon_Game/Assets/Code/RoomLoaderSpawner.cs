@@ -311,7 +311,7 @@ public class RoomLoaderSpawner : MonoBehaviour
                     //Do Range Container specific init
                     GenericRangeAI pathfindingTarget = enemyGameObject.GetComponent<GenericRangeAI>();
                     pathfindingTarget.target = player.transform;
-                    pathfindingTarget.speed = enemy.speed;
+                    pathfindingTarget.speed = enemy.speed*80; // Scaling factor due to custom AI
                 }
                 else
                 {
