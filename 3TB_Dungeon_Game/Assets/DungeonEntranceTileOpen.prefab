@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2331374931944206264}
   - component: {fileID: 7446147557220815402}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: dungeon_entrance_tile_open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,9 +92,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1821297959510145247}
   - component: {fileID: -4583440038816446500}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DungeonEntranceTileOpen
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
