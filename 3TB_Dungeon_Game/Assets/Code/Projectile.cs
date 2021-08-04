@@ -20,6 +20,18 @@ public class Projectile : MonoBehaviour
     public string primaryTarget;
     public bool isBouncing = false;
     public int bouncesLeft = 0;
+<<<<<<< Updated upstream
+=======
+    public GameObject thisProjectile;
+
+    void Start()
+    {
+        if (primaryTarget == "Enemy Container")
+        {
+            thisProjectile.layer = 8;
+        }
+    }
+>>>>>>> Stashed changes
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -40,6 +52,7 @@ public class Projectile : MonoBehaviour
         {
             collider.gameObject.GetComponent<DestructableWall>().takeDamage(this.damage);
             this.destroy();
+<<<<<<< Updated upstream
         }
         else if (collider.tag == "Wall")
         {
@@ -52,6 +65,20 @@ public class Projectile : MonoBehaviour
                 this.destroy();
             }
         }
+=======
+        }
+        else if (collider.tag == "Wall")
+        {
+            if (isBouncing)
+            {
+                bouncesLeft--;
+            }
+            else
+            {
+                this.destroy();
+            }
+        }
+>>>>>>> Stashed changes
         if (bouncesLeft <= 0)
         {
             this.destroy();

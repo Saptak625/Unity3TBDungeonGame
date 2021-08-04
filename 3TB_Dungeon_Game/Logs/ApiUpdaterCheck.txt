@@ -700,6 +700,7 @@ C# parse time         : 516ms
 candidates check time : 64ms
 console write time    : 1ms
 
+<<<<<<< Updated upstream
 [api-updater (non-obsolete-error-filter)] 8/4/2021 2:30:57 PM : Starting /Users/dylansward/Desktop/Programs/Other/Unity Downloads/2020.3.13f1/Unity.app/Contents/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
 [api-updater (non-obsolete-error-filter)] 
 ----------------------------------
@@ -708,6 +709,38 @@ moved types parse time: 90ms
 candidates parse time : 2ms
 C# parse time         : 484ms
 candidates check time : 45ms
+console write time    : 0ms
+
+>>>>>>> Stashed changes
+=======
+[api-updater (non-obsolete-error-filter)] 8/4/2021 6:21:50 PM : Starting /Users/dylansward/Desktop/Programs/Other/Unity Downloads/2020.3.13f1/Unity.app/Contents/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 243.652ms
+moved types parse time: 84ms
+candidates parse time : 1ms
+C# parse time         : 442ms
+candidates check time : 65ms
+console write time    : 1ms
+
+[api-updater (non-obsolete-error-filter)] 8/4/2021 6:22:23 PM : Starting /Users/dylansward/Desktop/Programs/Other/Unity Downloads/2020.3.13f1/Unity.app/Contents/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 68.084ms
+moved types parse time: 68ms
+candidates parse time : 1ms
+C# parse time         : 345ms
+candidates check time : 53ms
+console write time    : 0ms
+
+[api-updater (non-obsolete-error-filter)] 8/4/2021 6:22:49 PM : Starting /Users/dylansward/Desktop/Programs/Other/Unity Downloads/2020.3.13f1/Unity.app/Contents/Tools/ScriptUpdater/APIUpdater.NonObsoleteApiUpdaterDetector.exe
+[api-updater (non-obsolete-error-filter)] 
+----------------------------------
+jit/startup time      : 67.795ms
+moved types parse time: 70ms
+candidates parse time : 2ms
+C# parse time         : 361ms
+candidates check time : 49ms
 console write time    : 0ms
 
 >>>>>>> Stashed changes

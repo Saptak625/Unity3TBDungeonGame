@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     item currentWeapon;
     item currentShield;
     item inbetweenItem;
+    public GameObject genericProjectile;
 
     public double health = 100;
     public bool isAlive = true;
@@ -156,6 +157,21 @@ public class PlayerController : MonoBehaviour
 
         this.isAlive = this.health > 0;
     }
+<<<<<<< Updated upstream
+=======
+
+    public void shoot()
+    {
+        Vector2 lookDir = Input.mousePosition - transform.position;
+        GameObject projectile = Instantiate(genericProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.LookRotation(Vector3.forward, lookDir), gameObject.transform);
+        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+        rb.AddForce(projectile.transform.up * currentWeapon.bulletSpeed, ForceMode2D.Impulse);
+        Projectile projectileController = projectile.GetComponent<Projectile>();
+        projectileController.primaryTarget = "Enemy Container";
+        projectileController.damage = currentWeapon.damage;
+    }
+}
+>>>>>>> Stashed changes
 
     public void shoot()
     {
