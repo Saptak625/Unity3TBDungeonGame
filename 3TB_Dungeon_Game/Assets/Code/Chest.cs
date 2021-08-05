@@ -7,7 +7,6 @@ public class Chest : MonoBehaviour
     Items Items;
     public item givenItem;
     public GameObject droppedItem;
-    public GameObject thisChest;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +18,6 @@ public class Chest : MonoBehaviour
     public void dropObject()
     {
         GameObject groundItem = Instantiate(droppedItem, new Vector3(transform.position.x, transform.position.y - 1.25f, -2),transform.rotation);
-        groundItem.transform.parent = thisChest.transform;
         groundItem.GetComponent<DroppedItemScript>().heldItem = givenItem;
     }
 }

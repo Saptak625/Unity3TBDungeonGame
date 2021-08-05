@@ -527,44 +527,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
-=======
-    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
-      propertyPath: genericProjectile
-      value: 
-      objectReference: {fileID: 6006838977088821278, guid: b7cb8ec0011a7ab4f9ce3a5e8df31a1b, type: 3}
-    - target: {fileID: 7468297113024183943, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7468297113024183943, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7468297113024184058, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7468297113024184059, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7468297113024184059, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
-      propertyPath: m_Color.g
-      value: 0.009691589
-      objectReference: {fileID: 0}
-    - target: {fileID: 7468297113024184059, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9049538149629549321, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9049538149629549321, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
->>>>>>> Stashed changes
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}

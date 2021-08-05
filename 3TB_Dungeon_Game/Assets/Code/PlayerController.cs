@@ -26,8 +26,6 @@ public class PlayerController : MonoBehaviour
     public int shieldDuration;
     public int shieldCooldown;
 
-    public GameObject genericProjectile;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -64,7 +62,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Shoot");
-            shoot();
         }
         if (Input.GetMouseButtonDown(1)) //Checks if user Right Click
         {
@@ -156,15 +153,6 @@ public class PlayerController : MonoBehaviour
 
         this.isAlive = this.health > 0;
     }
-
-    public void shoot()
-    {
-        Vector2 lookDir = Input.mousePosition - transform.position;
-        GameObject projectile = Instantiate(genericProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.LookRotation(Vector3.forward, lookDir), gameObject.transform);
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        rb.AddForce(projectile.transform.up * this.currentWeapon.bulletSpeed, ForceMode2D.Impulse);
-        Projectile projectileController = projectile.GetComponent<Projectile>();
-        projectileController.primaryTarget = "Enemy Container";
-        projectileController.damage = this.currentWeapon.damage;
-    }
 }
+
+//TODO: Move counters to other classes or work on them in here

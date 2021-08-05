@@ -150,7 +150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   droppedItem: {fileID: 137157114774053973, guid: 083a0f6a1db044053a699efcebd7c1b9, type: 3}
-  thisChest: {fileID: 7695006835530652833}
 --- !u!1 &8192632570076440095
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +333,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   droppedItem: {fileID: 137157114774053973, guid: 083a0f6a1db044053a699efcebd7c1b9, type: 3}
-  thisChest: {fileID: 8212470746650529247}
 --- !u!1 &9207263548791665690
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,4 +483,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   droppedItem: {fileID: 137157114774053973, guid: 083a0f6a1db044053a699efcebd7c1b9, type: 3}
-  thisChest: {fileID: 9207263548791665690}
