@@ -285,12 +285,6 @@ MonoBehaviour:
   speed: 5
   enemiesSlain: 0
   roomsCleared: 0
-  health: 100
-  isAlive: 1
-  usingShield: 0
-  shieldOnCooldown: 0
-  shieldDuration: 0
-  shieldCooldown: 0
 --- !u!50 &1260264386
 Rigidbody2D:
   serializedVersion: 4
@@ -336,7 +330,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.9}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &2047959481
 GameObject:

@@ -9,11 +9,11 @@ public class PlayerController : MonoBehaviour
     public int enemiesSlain = 0;
     public int roomsCleared = 0;
 
-    public bool nearChest;
+    bool nearChest;
     GameObject Chest;
-    public bool ableToOpenChests = true; //Once false, players wont be able to open chests.
+    bool ableToOpenChests = true; //Once false, players wont be able to open chests.
 
-    public bool nearItem;
+    bool nearItem;
     GameObject droppedItem;
     item currentWeapon;
     item currentShield;
@@ -127,17 +127,16 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.CompareTag("Item"))
-        {
-            droppedItem = null;
-            nearItem = false;
-        }
         if (collider.tag == "Chest")
         {
             Chest = null;
             nearChest = false;
         }
-        
+        if (collider.CompareTag("Item"))
+        {
+            droppedItem = null;
+            nearItem = false;
+        }
     }
 
     public void takeDamage(int damage)
