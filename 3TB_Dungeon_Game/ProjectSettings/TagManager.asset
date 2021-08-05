@@ -13,6 +13,7 @@ TagManager:
   - DestructableWall
   - Enemy Container
   - Enemy Graphics
+  - Projectile
   layers:
   - Default
   - TransparentFX

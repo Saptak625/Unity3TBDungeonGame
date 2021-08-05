@@ -20,6 +20,7 @@ public class Room
     public static int variableBossCounter = 0; //Variable Counter for Rooms without boss
     public Direction roomDirection = Direction.None; //Direction of subroom in term of parent room. Root room will have Direction.None.
     public GameObject trigger = null; //Trigger used to check if room is to be executed.
+    public EnemyType[] enemyTypeArray = null; //Indicates which types of enemies this room holds.
     public static System.Random random = new System.Random(); //Random object for proper generation
 
     public Room()
@@ -28,7 +29,6 @@ public class Room
         int xPos = random.Next(8, 12);
         int yPos = random.Next(8, 12);
         this.roomRect = new int[4] { -xPos, -yPos, (xPos * 2) + 1, (yPos * 2) + 1 };
-        this.isChestRoom = true;
         Direction[] directions = new Direction[4] { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
         foreach (Direction d in directions)
         {
@@ -71,6 +71,8 @@ public class Room
         }
 
         //Randomly determine whether there is a boss
+        this.isChestRoom = Room.variableChestCounter >= random.Next(1, 21);
+        /*
         int randomPrevalence = random.Next(1, 3);
         int numberToBeat1 = random.Next(1, 21);
         int numberToBeat2 = random.Next(1, 21);
@@ -95,10 +97,10 @@ public class Room
             {
                 this.isBossRoom = Room.variableBossCounter >= numberToBeat2;
             }
-        }
+        }*/
 
         //Create obstacles and enemies only if not chest room or boss room
-        if(!this.isChestRoom && !this.isBossRoom)
+        if (!this.isChestRoom && !this.isBossRoom)
         {
             //Create Obstacles
             int numberOfObstacles = random.Next(4, 9);
@@ -108,7 +110,7 @@ public class Room
             {
                 int shapeType = random.Next(1, 3);
                 int blockType = random.Next(1, 3);
-                int[] startPos = new int[] { this.roomRect[0] + random.Next(3, this.roomRect[2]-3), this.roomRect[1] + random.Next(3, this.roomRect[3]-6)};
+                int[] startPos = new int[] { this.roomRect[0] + random.Next(5, this.roomRect[2]-5), this.roomRect[1] + random.Next(5, this.roomRect[3]-5)};
                 bool valid = true;
                 Obstacle o;
                 if(shapeType == 1) // Wall Shape
@@ -162,14 +164,29 @@ public class Room
             //Assign enemy waves
             int numberOfWaves = random.Next(2, 3);
             EnemyAttack[] enemyAttackArray = new EnemyAttack[] { EnemyAttack.Melee, EnemyAttack.Range, EnemyAttack.Mage };
-            EnemyType[] enemyTypeArray = new EnemyType[] { (EnemyType) random.Next(1, 11), (EnemyType) random.Next(1, 11) };
+            this.enemyTypeArray = new EnemyType[] { (EnemyType) random.Next(1, 11), (EnemyType) random.Next(1, 11) };
             for (int i = 0; i < numberOfWaves; i++)
             {
                 List<Enemy> wave = new List<Enemy>();
                 int numberOfEnemies = random.Next(10, 16); //Spawns in 10 to 15 enemies.
+                int attackIter = 0;
+                int typeIter = 0;
                 for (int j = 0; j < numberOfEnemies; j++)
                 {
-                    wave.Add(new Enemy(enemyAttackArray[j%3], enemyTypeArray[j%2], this));
+                    wave.Add(new Enemy(enemyAttackArray[attackIter], this.enemyTypeArray[typeIter], this));
+                    if (attackIter < enemyAttackArray.Length-1)
+                    {
+                        attackIter++;
+                    }
+                    else
+                    {
+                        attackIter = 0;
+                        typeIter++;
+                    }
+                    if (typeIter >= this.enemyTypeArray.Length)
+                    {
+                        typeIter = 0;
+                    }
                 }
                 this.activeEnemies.Add(wave);
             }
@@ -184,15 +201,15 @@ public class Room
     public static void roomStatsIncrement(bool chest, bool boss)
     {
         Room.variableChestCounter += (chest ? -2 : 1);
-        Room.variableBossCounter += (boss ? -2 : 1);
+        //Room.variableBossCounter += (boss ? -2 : 1);
         if(Room.variableChestCounter > 16)
         {
             Room.variableChestCounter = 16;
         }
-        if(Room.variableBossCounter > 16)
+        /*if(Room.variableBossCounter > 16)
         {
             Room.variableBossCounter = 16;
-        }
+        }*/
     }
 
     public override string ToString()

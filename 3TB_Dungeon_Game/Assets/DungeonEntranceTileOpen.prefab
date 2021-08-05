@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: -4583440038816446500}
   m_Layer: 10
   m_Name: DungeonEntranceTileOpen
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
