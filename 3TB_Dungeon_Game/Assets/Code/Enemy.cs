@@ -47,8 +47,8 @@ public class Enemy
         this.attackType = EnemyAttack.Melee;
         this.enemyType = EnemyType.PowerTools;*/
         //Regular
-        // this.attackType = ea;
-        // this.enemyType = et;
+        this.attackType = ea;
+        this.enemyType = et;
         //Random position of enemy in room. System to ensure that 2 enemies cannot spawn in the same spot.
         int[] pos = null;
         bool exists = true;

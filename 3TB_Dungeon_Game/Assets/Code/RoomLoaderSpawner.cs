@@ -327,7 +327,6 @@ public class RoomLoaderSpawner : MonoBehaviour
                 EnemyController controller = enemyGraphics.GetComponent<EnemyController>();
                 controller.enemy = enemy;
                 controller.player = player;
-                controller.room = this.roomLoader.activeRoom;
             }
         } else if (this.roomLoader.activeRoom.isBossRoom)
         {
@@ -342,30 +341,6 @@ public class RoomLoaderSpawner : MonoBehaviour
 
         //-------------------------------------------------Uncomment this line to open dungeon after 5 seconds-----------------------------------------------------------
         //Invoke("dungeonCleared", 5.0f);
-    }
-
-    public void mageSpawner(GameObject gameObj)
-    {
-
-        Enemy spawnedEnemy = new Enemy(EnemyAttack.Mini, gameObj.GetComponent<EnemyController>().enemy.enemyType, this.roomLoader.activeRoom);
-        spawnedEnemy.position = gameObj.GetComponent<EnemyController>().enemy.position;
-
-        GameObject player = GameObject.FindWithTag("Player");
-
-        GameObject enemyPrefab = Resources.Load($"Enemy Prefabs/{spawnedEnemy.attackType}_{(int)spawnedEnemy.enemyType}") as GameObject;
-        GameObject enemyGameObject = Instantiate(this.enemyMeleeContainer, spawnedEnemy.position, Quaternion.identity);
-        GameObject enemyGraphics = Instantiate(enemyPrefab, enemyGameObject.transform);
-
-        EnemyController controller = enemyGraphics.GetComponent<EnemyController>();
-        controller.enemy = spawnedEnemy;
-        controller.player = player;
-
-        controller.room = this.roomLoader.activeRoom;
-
-        enemyGameObject.GetComponent<AIDestinationSetter>().target = player.transform;
-        enemyGameObject.GetComponent<AIPath>().maxSpeed = spawnedEnemy.speed;
-
-        enemyGameObject.transform.parent = this.gameObject.transform;
     }
 
     public void dungeonCleared()
