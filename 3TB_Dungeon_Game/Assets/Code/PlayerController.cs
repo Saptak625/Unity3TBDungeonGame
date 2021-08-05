@@ -9,9 +9,9 @@ public class PlayerController : MonoBehaviour
     public int enemiesSlain = 0;
     public int roomsCleared = 0;
 
-    bool nearChest;
+    public bool nearChest;
     GameObject Chest;
-    bool ableToOpenChests = true; //Once false, players wont be able to open chests.
+    public bool ableToOpenChests = true; //Once false, players wont be able to open chests.
 
     bool nearItem;
     GameObject droppedItem;

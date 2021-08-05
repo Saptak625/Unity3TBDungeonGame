@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public int attackCooldown = 0;
     public GameObject genericProjectile;
     public GameObject enemyContainer;
+    public Room room; 
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,10 @@ public class EnemyController : MonoBehaviour
                     else if (enemy.attackType == EnemyAttack.Range && !(enemy.enemyType == (EnemyType)2 || enemy.enemyType == (EnemyType)3 || enemy.enemyType == (EnemyType)4 || enemy.enemyType == (EnemyType)6))
                     {
                         this.classicRange();
+                    }
+                    else if (enemy.attackType == EnemyAttack.Range && (enemy.enemyType == (EnemyType)1 || enemy.enemyType == (EnemyType)2 || enemy.enemyType == (EnemyType)5 || enemy.enemyType == (EnemyType)8 || enemy.enemyType == (EnemyType)9))
+                    {
+                        this.spawnMelee();
                     }
                 }
                 else
@@ -68,6 +73,11 @@ public class EnemyController : MonoBehaviour
             attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
         }
         
+    }
+
+    void spawnMelee()
+    {
+        gameObject.SendMessageUpwards("mageSpawner", gameObject);    
     }
 
     public void takeDamage(float damage)
