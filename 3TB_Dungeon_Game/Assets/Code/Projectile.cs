@@ -27,7 +27,11 @@ public class Projectile : MonoBehaviour
             }
             else
             {
-                collider.gameObject.transform.GetChild(0).gameObject.GetComponent<EnemyController>().takeDamage(this.damage);
+                EnemyController e = collider.gameObject.transform.GetChild(0).gameObject.GetComponent<EnemyController>();
+                if(e != null)
+                {
+                    e.takeDamage(this.damage);
+                }
             }
             this.destroy();
         }else if(collider.CompareTag("DestructableWall"))

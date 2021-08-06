@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class EnemyController : MonoBehaviour
 {
@@ -144,10 +145,24 @@ public class EnemyController : MonoBehaviour
         {
             //Add effects to show enemy taking damage
             this.enemy.takeDamage(damage);
-            if (this.enemy.alive) //Enemy just died after taking damage
+            if (!this.enemy.alive) //Enemy just died after taking damage
             {
                 this.player.GetComponent<PlayerController>().incrementEnemySlain();
                 gameObject.SendMessageUpwards("removeEnemy", enemy);
+                AIPath movementComponent = enemyContainer.GetComponent<AIPath>();
+                if(movementComponent != null)
+                {
+                    movementComponent.canMove = false;
+                    movementComponent.canSearch = false;
+                }
+                else //This is a range movement controller
+                {
+                    enemyContainer.GetComponent<GenericRangeAI>().enabled = false;
+                }
+
+                //Destroy Enemy. Testing Only.
+                Destroy(gameObject);
+                Destroy(this.enemyContainer);
             }
         }
     }
