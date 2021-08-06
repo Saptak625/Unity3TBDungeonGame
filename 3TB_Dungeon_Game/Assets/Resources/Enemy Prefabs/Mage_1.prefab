@@ -46,8 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   attackCooldown: 0
+  attackDurationRemaining: 0
   genericProjectile: {fileID: 6006838977088821278, guid: b7cb8ec0011a7ab4f9ce3a5e8df31a1b, type: 3}
   enemyContainer: {fileID: 0}
+  roomLoaderObject: {fileID: 0}
 --- !u!1 &7140608312017546307
 GameObject:
   m_ObjectHideFlags: 0
