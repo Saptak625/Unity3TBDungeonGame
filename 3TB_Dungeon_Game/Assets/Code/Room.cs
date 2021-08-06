@@ -16,7 +16,7 @@ public class Room
     public List<Entrance> inEntrances = new List<Entrance>(); //Entrances that can open to lead into room
     public int[] roomRect; //Defines where room is
     public List<GameObject> gameObjects = null; //Defines gameObjects
-    public static int variableChestCounter = 3; //Variable Counter for Rooms without chests
+    public static int variableChestCounter = 0; //Variable Counter for Rooms without chests
     public static int variableBossCounter = 0; //Variable Counter for Rooms without boss
     public Direction roomDirection = Direction.None; //Direction of subroom in term of parent room. Root room will have Direction.None.
     public GameObject trigger = null; //Trigger used to check if room is to be executed.
