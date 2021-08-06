@@ -269,3 +269,5 @@ MonoBehaviour:
   shieldOnCooldown: 0
   shieldDuration: 0
   shieldCooldown: 0
+  genericProjectile: {fileID: 6006838977088821278, guid: b7cb8ec0011a7ab4f9ce3a5e8df31a1b, type: 3}
+  camera: {fileID: 7468297111751761211}
