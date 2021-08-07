@@ -171,13 +171,11 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 lookDir = camera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         GameObject projectile = Instantiate(genericProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.LookRotation(Vector3.forward, lookDir), gameObject.transform);
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        rb.AddForce(projectile.transform.up * this.currentWeapon.bulletSpeed, ForceMode2D.Impulse);
         Projectile projectileController = projectile.GetComponent<Projectile>();
         projectileController.primaryTarget = "Enemy Container";
         projectile.layer = 8;
         projectileController.damage = this.currentWeapon.damage;
+        projectileController.speed = this.currentWeapon.bulletSpeed;
+        projectileController.direction = projectile.transform.up;
     }
 }
-
-//TODO: Move counters to other classes or work on them in here

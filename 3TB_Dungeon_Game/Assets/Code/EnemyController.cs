@@ -145,8 +145,10 @@ public class EnemyController : MonoBehaviour
         {
             //Add effects to show enemy taking damage
             this.enemy.takeDamage(damage);
+            Debug.Log("Damage Taken");
             if (!this.enemy.alive) //Enemy just died after taking damage
             {
+                Debug.Log("Dead");
                 this.player.GetComponent<PlayerController>().incrementEnemySlain();
                 gameObject.SendMessageUpwards("removeEnemy", enemy);
                 AIPath movementComponent = enemyContainer.GetComponent<AIPath>();
