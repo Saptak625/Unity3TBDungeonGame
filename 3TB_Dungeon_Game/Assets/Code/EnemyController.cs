@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class EnemyController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public int attackCooldown = 0;
     public int attackDurationRemaining = 0;
     public GameObject genericProjectile;
+    public GameObject genericObject;
     public GameObject enemyContainer;
     public GameObject roomLoaderObject;
 
@@ -42,10 +44,19 @@ public class EnemyController : MonoBehaviour
                         {
                             this.spawnMiniMelee();
                         }
-                        else if (enemy.attackType == EnemyAttack.Mage && enemy.enemyType == (EnemyType)3)
+                        else if (enemy.attackType == EnemyAttack.Range && enemy.enemyType == (EnemyType)3)
                         {
                             this.rangeHood();
-                        }else if (enemy.attackType == EnemyAttack.Mage && enemy.enemyType == (EnemyType)4)
+                        }
+                        else if (enemy.attackType == EnemyAttack.Mage && (enemy.enemyType == (EnemyType)3 || enemy.enemyType == (EnemyType)7))
+                        {
+                            this.summonObject(true);
+                        }
+                        else if ((enemy.attackType == EnemyAttack.Range && enemy.enemyType == (EnemyType)4) || (enemy.attackType == EnemyAttack.Mage || enemy.enemyType == (EnemyType)10))
+                        {
+                            this.summonObject(false);
+                        }
+                        else if (enemy.attackType == EnemyAttack.Mage && enemy.enemyType == (EnemyType)4)
                         {
                             this.bouncingBullet();
                         }
@@ -57,8 +68,11 @@ public class EnemyController : MonoBehaviour
                 }
                 else
                 {
-                    //Only attack that has duration is range hood
-                    this.rangeHood();
+                    if(enemy.attackType == EnemyAttack.Range && enemy.enemyType == (EnemyType)3)
+                    {
+                        //Only attack that needs duration is range hood
+                        this.rangeHood();
+                    }
                     this.attackDurationRemaining--;
                 }
             }
@@ -138,16 +152,47 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void summonObject(bool fallingType)
+    {
+        GameObject sObject = Instantiate(genericObject, player.transform.position, Quaternion.identity);
+        SummonedObject objectController = sObject.GetComponent<SummonedObject>();
+        objectController.fallingType = fallingType;
+        objectController.player = player;
+        objectController.duration = (int) enemy.projectileSpeed;
+        objectController.endPosition = player.transform.position;
+        objectController.damageRadius = 2.5f; //2.5 radius of damage
+        objectController.damageDuration = 50; //50 frames of damage
+        objectController.damage = enemy.attackDamage;
+        attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
+        attackDurationRemaining = objectController.duration;
+    }
+
     public void takeDamage(float damage)
     {
         if (this.enemy.alive) //Only take damage while enemy is alive
         {
             //Add effects to show enemy taking damage
             this.enemy.takeDamage(damage);
-            if (this.enemy.alive) //Enemy just died after taking damage
+            Debug.Log("Damage Taken");
+            if (!this.enemy.alive) //Enemy just died after taking damage
             {
+                Debug.Log("Dead");
                 this.player.GetComponent<PlayerController>().incrementEnemySlain();
                 gameObject.SendMessageUpwards("removeEnemy", enemy);
+                AIPath movementComponent = enemyContainer.GetComponent<AIPath>();
+                if (movementComponent != null)
+                {
+                    movementComponent.canMove = false;
+                    movementComponent.canSearch = false;
+                }
+                else //This is a range movement controller
+                {
+                    enemyContainer.GetComponent<GenericRangeAI>().enabled = false;
+                }
+
+                //Destroy Enemy. Testing Only.
+                Destroy(gameObject);
+                Destroy(this.enemyContainer);
             }
         }
     }

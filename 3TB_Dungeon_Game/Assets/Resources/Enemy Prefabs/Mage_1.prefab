@@ -48,6 +48,7 @@ MonoBehaviour:
   attackCooldown: 0
   attackDurationRemaining: 0
   genericProjectile: {fileID: 6006838977088821278, guid: b7cb8ec0011a7ab4f9ce3a5e8df31a1b, type: 3}
+  genericObject: {fileID: 9010806461643999751, guid: 8091ff5abbfd1de47b88b813a12d8ee4, type: 3}
   enemyContainer: {fileID: 0}
   roomLoaderObject: {fileID: 0}
 --- !u!1 &7140608312017546307
