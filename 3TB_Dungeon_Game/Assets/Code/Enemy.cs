@@ -6,22 +6,22 @@ public enum EnemyAttack
 {
     Melee,
     Range,
-    Mage, 
+    Mage,
     Mini
 }
 
 public enum EnemyType
 {
-    Firework=1,
-    GarageTool=2,
-    KitchenAppliance=3,
-    Headphone=4,
-    VehicleMusic=5,
-    Vehicle=6,
-    Party=7,
-    Sports=8,
-    School=9,
-    PowerTools=10
+    Firework = 1,
+    GarageTool = 2,
+    KitchenAppliance = 3,
+    Headphone = 4,
+    VehicleMusic = 5,
+    Vehicle = 6,
+    Party = 7,
+    Sports = 8,
+    School = 9,
+    PowerTools = 10
 }
 
 public class Enemy
@@ -43,8 +43,8 @@ public class Enemy
     public Enemy(EnemyAttack ea, EnemyType et, Room r)
     {
         //Testing purposes
-        this.attackType = EnemyAttack.Mage;
-        this.enemyType = EnemyType.KitchenAppliance;
+        this.attackType = EnemyAttack.Range;
+        this.enemyType = EnemyType.Headphone;
         //Regular
         /*
         this.attackType = ea;

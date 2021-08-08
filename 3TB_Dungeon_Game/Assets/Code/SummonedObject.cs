@@ -20,19 +20,23 @@ public class SummonedObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!fallingType) //Effect type shouldn't be visible initially
+        transform.position += new Vector3(0, 40.0f, 0); //Setting height of object in 2D projection
+        this.targetObject = Instantiate(targetSprite, endPosition, Quaternion.identity); //Creating target location
+    }
+
+    public void setVisible(bool visible)
+    {
+        if (!visible)
         {
             GetComponent<SpriteRenderer>().enabled = false; //Object invisible
             summoned = false;
         }
-        transform.position += new Vector3(0, 40.0f, 0); //Setting height of object in 2D projection
-        this.targetObject = Instantiate(targetSprite, endPosition, Quaternion.identity); //Creating target location
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (t > this.duration)
+        if (t >= this.duration)
         {
             if (!summoned) //This is an effect and hasn't been spawned yet
             {

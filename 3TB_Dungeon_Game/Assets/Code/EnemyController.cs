@@ -157,6 +157,7 @@ public class EnemyController : MonoBehaviour
         GameObject sObject = Instantiate(genericObject, player.transform.position, Quaternion.identity);
         SummonedObject objectController = sObject.GetComponent<SummonedObject>();
         objectController.fallingType = fallingType;
+        objectController.setVisible(fallingType);
         objectController.player = player;
         objectController.duration = (int) enemy.projectileSpeed;
         objectController.endPosition = player.transform.position;
