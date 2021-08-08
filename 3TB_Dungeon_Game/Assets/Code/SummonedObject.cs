@@ -13,7 +13,7 @@ public class SummonedObject : MonoBehaviour
     public float damageRadius; //Damage Radius
     public int damageDuration; //Damage Time
     public float damage; //Damage per Frame
-    float t = 0; //Lerping Time
+    int t = 0; //Lerping Time
 
     public GameObject targetSprite;
 
@@ -25,14 +25,14 @@ public class SummonedObject : MonoBehaviour
             GetComponent<SpriteRenderer>().enabled = false; //Object invisible
             summoned = false;
         }
-        transform.position += new Vector3(0, 40, 0); //Setting height of object in 2D projection
+        transform.position += new Vector3(0, 40.0f, 0); //Setting height of object in 2D projection
         this.targetObject = Instantiate(targetSprite, endPosition, Quaternion.identity); //Creating target location
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (t > 1)
+        if (t > this.duration)
         {
             if (!summoned) //This is an effect and hasn't been spawned yet
             {
@@ -42,9 +42,9 @@ public class SummonedObject : MonoBehaviour
             radialDamage();
             return;
         }
-        transform.position += new Vector3();
-        //transform.position = Vector2.Lerp(transform.position, this.endPosition, this.t);
-        this.t += 1 / duration; //Range from 0 to 1 with slope of 1/x
+        transform.position += new Vector3(0, -40.0f, 0) * (1.0f / ((float) this.duration));
+        this.t += 1; //Range from 0 to duration
+        Debug.Log($"t: {t}");
     }
 
     void radialDamage()

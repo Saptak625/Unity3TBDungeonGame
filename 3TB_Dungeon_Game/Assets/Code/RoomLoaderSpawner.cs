@@ -332,14 +332,14 @@ public class RoomLoaderSpawner : MonoBehaviour
             //Use resource loader in real code
             GameObject enemyPrefab = Resources.Load($"Enemy Prefabs/{enemy.attackType}_{(int)enemy.enemyType}") as GameObject;
             GameObject enemyGameObject;
-            if (enemy.attackType == EnemyAttack.Melee && !(enemy.enemyType == (EnemyType)5 || enemy.enemyType == (EnemyType)6 || enemy.enemyType == (EnemyType)8 || enemy.enemyType == (EnemyType)9))
+            if (enemy.attackType == EnemyAttack.Melee)
             {
                 enemyGameObject = Instantiate(this.enemyMeleeContainer, enemy.position, Quaternion.identity);
                 //Do Melee Container specific init
                 enemyGameObject.GetComponent<AIDestinationSetter>().target = player.transform;
                 enemyGameObject.GetComponent<AIPath>().maxSpeed = enemy.speed;
             }
-            else if ((enemy.attackType == EnemyAttack.Range && !(enemy.enemyType == (EnemyType)2 || enemy.enemyType == (EnemyType)3 || enemy.enemyType == (EnemyType)4 || enemy.enemyType == (EnemyType)6)) || (enemy.attackType == EnemyAttack.Mage && (enemy.enemyType == (EnemyType)3 || enemy.enemyType == (EnemyType)4)))
+            else if ((enemy.attackType == EnemyAttack.Range && !(enemy.enemyType == (EnemyType)4)) || (enemy.attackType == EnemyAttack.Mage && enemy.enemyType == (EnemyType)4))
             {
                 enemyGameObject = Instantiate(this.enemyRangeContainer, enemy.position, Quaternion.identity);
                 //Do Range Container specific init
