@@ -25,11 +25,16 @@ public class EnemyController : MonoBehaviour
     {
        if(enemy != null) //Enemy Virtual state has been created.
        {
+            if (enemy.destroy) //Time to clear enemy
+            {
+                destroy();
+            }
             if (enemy.alive)
             {
                 if (attackDurationRemaining == 0)
                 {
                     //Do logic to determine attack
+                    attackEndTrigger(); //Attack completed after duration
                     if (attackCooldown == enemy.cooldown)
                     {
                         if ((enemy.attackType == EnemyAttack.Melee && !(enemy.enemyType == (EnemyType)5 || enemy.enemyType == (EnemyType)6 || enemy.enemyType == (EnemyType)8 || enemy.enemyType == (EnemyType)9)) || enemy.attackType == EnemyAttack.Mini)
@@ -86,6 +91,7 @@ public class EnemyController : MonoBehaviour
             //Attack player
             player.GetComponent<PlayerController>().takeDamage(this.enemy.attackDamage);
             attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
+            attackStartTrigger();
         }
     }
 
@@ -103,6 +109,7 @@ public class EnemyController : MonoBehaviour
             projectileController.speed = this.enemy.projectileSpeed;
             projectileController.direction = projectile.transform.up;
             attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
+            attackStartTrigger();
         }
         
     }
@@ -123,6 +130,7 @@ public class EnemyController : MonoBehaviour
             projectileController.isBouncing = true;
             projectileController.numberOfTouchesRemaining = 3;
             attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
+            attackStartTrigger();
         }
         
     }
@@ -131,6 +139,7 @@ public class EnemyController : MonoBehaviour
     {
         this.roomLoaderObject.GetComponent<RoomLoaderSpawner>().spawnMiniMelee(this.enemy, transform.position);
         attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
+        attackStartTrigger();
     }
 
     void rangeHood()
@@ -147,8 +156,9 @@ public class EnemyController : MonoBehaviour
             if(attackDurationRemaining == 0) //First execution of range attack
             {
                 attackDurationRemaining = (int)this.enemy.projectileSpeed; //Projectile speed represents how long the attack lasts
+                attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
+                attackStartTrigger();
             }
-            attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
         }
     }
 
@@ -166,6 +176,26 @@ public class EnemyController : MonoBehaviour
         objectController.damage = enemy.attackDamage;
         attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
         attackDurationRemaining = objectController.duration;
+        attackStartTrigger();
+    }
+
+    public void attackStartTrigger()
+    {
+        //Use this trigger for detecting when an enemy attack starts.
+    }
+    
+    public void attackEndTrigger()
+    {
+        //Use this trigger for detecting when an enemy attack ends.
+    }
+    
+    public void deadTrigger()
+    {
+        //Use this trigger for detecting when an enemy dies.
+
+
+        //Temporary Sprite deletion once enemy dies. Get rid of this once enemy animations are complete.
+        destroy();
     }
 
     public void takeDamage(float damage)
@@ -191,10 +221,14 @@ public class EnemyController : MonoBehaviour
                     enemyContainer.GetComponent<GenericRangeAI>().enabled = false;
                 }
 
-                //Destroy Enemy. Testing Only.
-                Destroy(gameObject);
-                Destroy(this.enemyContainer);
+                this.deadTrigger();
             }
         }
+    }
+
+    void destroy()
+    {
+        Destroy(gameObject);
+        Destroy(this.enemyContainer);
     }
 }

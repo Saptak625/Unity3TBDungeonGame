@@ -233,6 +233,11 @@ public class Room
         {
             e.destroy();
         }
+        //Call Enemy destroy property
+        foreach(Enemy e in this.slainEnemies)
+        {
+            e.destroy = true;
+        }
         //Destroy all Obstacles
         foreach(Obstacle o in this.obstacles)
         {
