@@ -5,13 +5,24 @@ using UnityEngine;
 public class Items
 {
     //Create all the weapons
-    public static item defaultWeapon = new item(2, 2, 2); //temporary numbers
+    //public static item defaultWeapon = new item(2, 0, 2, false, false); <-- Example
+    public static item headphoneLauncher = new item(10, 0, 8, false, false); //Regular weapon
+    public static item automaticEarplugGun = new item(6, 0, 16, false, false); //Fast attack
+    public static item solarRayGun = new item(4, 0, 20, false, true); //Will be laser in updates, but now its a super fast
+    public static item alienGun = new item(8, 0, 10, true, false); //Bouncing
+    public static item fireworkLauncher = new item(100, 0, 3, false, false); //Slow One-hit obliterator
 
     //Create all the shields
-    public static item defaultShield = new item(0.2f, 500, 500, 3); //temporary numbers
+    //public static item defaultShield = new item(0.2f, 500, 500, 3); <-- Example
+    public static item earplugShield = new item(0.8f, 400, 400, 1);
+    public static item headphoneShield = new item(0.6f, 400, 400, 2);
+    public static item headphoneNCShield = new item(0.4f, 400, 400, 3); //NC = Noise Cancelling
+    public static item headphoneAndEarplugs = new item(0.2f, 400, 400, 3);
+    public static item noShield = new item(1.0f, 100, 100, 1); //Default
 
-    //Put them in lists
-    public static item[] items = new item[2] {defaultWeapon, defaultShield}; //Fill in later
+    //Puts them in lists
+    public static item[] items = new item[10] {headphoneLauncher, automaticEarplugGun, solarRayGun, alienGun, fireworkLauncher,
+    earplugShield, headphoneShield, headphoneNCShield, headphoneAndEarplugs, noShield};
     public static int itemsListMax = items.Length - 1;
 }
 
@@ -22,14 +33,18 @@ public class item
     //for weapons
 
     public int damage; //Amount of damage dealt
-    public int reloadSpeed; //Time between use
+    public int zero; //Placeholder
     public int bulletSpeed; //Bullet travel Speed
-    public item(int attack, int attackSpeed, int speed)
+    public bool bulletsBounce;
+    bool isLaser;
+    public item(int attack, int placeholder, int speed, bool hasBouncingBullets, bool ShootsALaser)
     {
         this.type = "Weapon";
         this.damage = attack;
-        this.reloadSpeed = attackSpeed;
+        this.zero = placeholder;
         this.bulletSpeed = speed;
+        this.bulletsBounce = hasBouncingBullets;
+        this.isLaser = ShootsALaser;
     }
 
     //for shields
