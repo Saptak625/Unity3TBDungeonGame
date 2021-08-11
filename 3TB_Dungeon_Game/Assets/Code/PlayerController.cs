@@ -29,94 +29,81 @@ public class PlayerController : MonoBehaviour
     public GameObject genericProjectile;
     public Camera camera;
 
-    public int playerState; //0 = beginning, 1 = alive, 2 = dead
-
     // Start is called before the first frame update
     void Start()
     {
-        currentWeapon = Items.headphoneLauncher;
-        currentShield = Items.noShield;
-        playerState = 1;
+        currentWeapon = Items.defaultWeapon;
+        currentShield = Items.defaultShield;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerState == 0) //Starter Screen
+        //Debug.Log(this.health);
+        if (!isAlive) //If dead
         {
-
+            Debug.Log("Player Dead...\n Game Over...");
         }
-        else if (playerState == 1) //Alive
+
+        if (usingShield)
         {
-            if (!isAlive) //If dead
+            shieldDuration++;
+            if (shieldDuration >= currentShield.duration)
             {
-                playerState = 2;
-            }
-
-            if (usingShield)
-            {
-                shieldDuration++;
-                if (shieldDuration >= currentShield.duration)
-                {
-                    usingShield = false;
-                    shieldOnCooldown = true;
-                    shieldDuration = 0;
-                }
-            }
-            else if (shieldOnCooldown)
-            {
-                speed = 5;
-                shieldCooldown++;
-                if (shieldCooldown >= currentShield.cooldown)
-                {
-                    shieldOnCooldown = false;
-                    shieldCooldown = 0;
-                }
-            }
-
-            rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed, Input.GetAxisRaw("Vertical") * speed);
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                shoot();
-            }
-            if (Input.GetMouseButtonDown(1)) //Checks if user Right Click
-            {
-                if (nearChest && ableToOpenChests) //Player will open chest
-                {
-                    Chest.GetComponent<Chest>().dropObject();
-                    ableToOpenChests = false; //TODO: Saptak, once chest room is closed, you can turn this true
-                }
-                else if (nearItem)
-                {
-                    if (droppedItem.GetComponent<DroppedItemScript>().heldItem.type == "Weapon")
-                    {
-                        inbetweenItem = currentWeapon;
-                        currentWeapon = droppedItem.GetComponent<DroppedItemScript>().heldItem;
-                        droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
-                        inbetweenItem = null;
-                        Debug.Log("Switched Weapon");
-                    }
-                    else
-                    {
-                        inbetweenItem = currentShield;
-                        currentShield = droppedItem.GetComponent<DroppedItemScript>().heldItem;
-                        droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
-                        inbetweenItem = null;
-                        Debug.Log("Switched Shield");
-                    }
-                }
-                else if (usingShield == false && shieldOnCooldown == false) //Player will shield
-                {
-                    Debug.Log("Shield");
-                    usingShield = true;
-                    speed -= currentShield.speedReduction;
-                }
+                usingShield = false;
+                shieldOnCooldown = true;
+                shieldDuration = 0;
             }
         }
-        else if (playerState == 2) //Dead
+        else if (shieldOnCooldown)
         {
+            speed = 5;
+            shieldCooldown++;
+            if (shieldCooldown >= currentShield.cooldown)
+            {
+                shieldOnCooldown = false;
+                shieldCooldown = 0;
+            }
+        }
 
+        rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed, Input.GetAxisRaw("Vertical") * speed);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            shoot();
+        }
+        if (Input.GetMouseButtonDown(1)) //Checks if user Right Click
+        {
+            if (nearChest && ableToOpenChests) //Player will open chest
+            {
+                Chest.GetComponent<Chest>().dropObject();
+                ableToOpenChests = false; //TODO: Saptak, once chest room is closed, you can turn this true
+            }
+            else if (nearItem)
+            {
+                if (droppedItem.GetComponent<DroppedItemScript>().heldItem.type == "Weapon")
+                {
+                    inbetweenItem = currentWeapon;
+                    currentWeapon = droppedItem.GetComponent<DroppedItemScript>().heldItem;
+                    droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
+                    inbetweenItem = null;
+                    Debug.Log("Switched Weapon");
+                }
+                else
+                {
+                    inbetweenItem = currentShield;
+                    currentShield = droppedItem.GetComponent<DroppedItemScript>().heldItem;
+                    droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
+                    inbetweenItem = null;
+                    Debug.Log("Switched Shield");
+                }
+            }
+            else if (usingShield == false && shieldOnCooldown == false) //Player will shield
+            {
+                Debug.Log("Shield");
+                usingShield = true;
+                speed -= currentShield.speedReduction;
+            }
         }
     }
 
@@ -182,7 +169,6 @@ public class PlayerController : MonoBehaviour
 
     public void shoot()
     {
-        //Creates Projectile
         Vector2 lookDir = camera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         GameObject projectile = Instantiate(genericProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.LookRotation(Vector3.forward, lookDir), gameObject.transform);
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
@@ -191,25 +177,6 @@ public class PlayerController : MonoBehaviour
         projectileController.primaryTarget = "Enemy Container";
         projectile.layer = 8;
         projectileController.damage = this.currentWeapon.damage;
-<<<<<<< Updated upstream
-=======
-        projectileController.speed = this.currentWeapon.bulletSpeed;
-        projectileController.direction = projectile.transform.up;
-
-        //Sets projectile to bouncing (if necessary)
-        if (this.currentWeapon.bulletsBounce == true)
-        {
-            projectileController.isBouncing = true;
-            projectileController.numberOfTouchesRemaining = 2;
-        }
-
-        //Save laser for later update
-    }
-
-    public void newGame()
-    {
-
->>>>>>> Stashed changes
     }
 }
 
