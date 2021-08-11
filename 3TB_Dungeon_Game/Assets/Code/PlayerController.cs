@@ -29,82 +29,97 @@ public class PlayerController : MonoBehaviour
     public GameObject genericProjectile;
     public Camera camera;
 
+    public int playerState; //0 = Start, 1 = Alive, 2 = dead
+
     // Start is called before the first frame update
     void Start()
     {
-        currentWeapon = Items.defaultWeapon;
-        currentShield = Items.defaultShield;
+        currentWeapon = Items.headphoneLauncher;
+        currentShield = Items.noShield;
+        playerState = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(this.health);
-        if (!isAlive) //If dead
+        if (playerState == 0) //Sart
         {
-            Debug.Log("Player Dead...\n Game Over...");
-        }
 
-        if (usingShield)
-        {
-            shieldDuration++;
-            if (shieldDuration >= currentShield.duration)
-            {
-                usingShield = false;
-                shieldOnCooldown = true;
-                shieldDuration = 0;
-            }
         }
-        else if (shieldOnCooldown)
+        else if (playerState == 1) //Alive
         {
-            speed = 5;
-            shieldCooldown++;
-            if (shieldCooldown >= currentShield.cooldown)
+            if (!isAlive) //If dead
             {
-                shieldOnCooldown = false;
-                shieldCooldown = 0;
+                playerState = 2;
             }
-        }
 
-        rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed, Input.GetAxisRaw("Vertical") * speed);
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            shoot();
-        }
-        if (Input.GetMouseButtonDown(1)) //Checks if user Right Click
-        {
-            if (nearChest && ableToOpenChests) //Player will open chest
+            if (usingShield)
             {
-                Chest.GetComponent<Chest>().dropObject();
-                ableToOpenChests = false; //TODO: Saptak, once chest room is closed, you can turn this true
-            }
-            else if (nearItem)
-            {
-                if (droppedItem.GetComponent<DroppedItemScript>().heldItem.type == "Weapon")
+                shieldDuration++;
+                if (shieldDuration >= currentShield.duration)
                 {
-                    inbetweenItem = currentWeapon;
-                    currentWeapon = droppedItem.GetComponent<DroppedItemScript>().heldItem;
-                    droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
-                    inbetweenItem = null;
-                    Debug.Log("Switched Weapon");
-                }
-                else
-                {
-                    inbetweenItem = currentShield;
-                    currentShield = droppedItem.GetComponent<DroppedItemScript>().heldItem;
-                    droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
-                    inbetweenItem = null;
-                    Debug.Log("Switched Shield");
+                    usingShield = false;
+                    shieldOnCooldown = true;
+                    shieldDuration = 0;
                 }
             }
-            else if (usingShield == false && shieldOnCooldown == false) //Player will shield
+            else if (shieldOnCooldown)
             {
-                Debug.Log("Shield");
-                usingShield = true;
-                speed -= currentShield.speedReduction;
+                speed = 5;
+                shieldCooldown++;
+                if (shieldCooldown >= currentShield.cooldown)
+                {
+                    shieldOnCooldown = false;
+                    shieldCooldown = 0;
+                }
+            }
+
+            rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed, Input.GetAxisRaw("Vertical") * speed);
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                shoot();
+            }
+            if (Input.GetMouseButtonDown(1)) //Checks if user Right Click
+            {
+                if (nearChest && ableToOpenChests) //Player will open chest
+                {
+                    Chest.GetComponent<Chest>().dropObject();
+                    ableToOpenChests = false; //TODO: Saptak, once chest room is closed, you can turn this true
+                }
+                else if (nearItem)
+                {
+                    if (droppedItem.GetComponent<DroppedItemScript>().heldItem.type == "Weapon")
+                    {
+                        inbetweenItem = currentWeapon;
+                        currentWeapon = droppedItem.GetComponent<DroppedItemScript>().heldItem;
+                        droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
+                        inbetweenItem = null;
+                        //Debug.Log("Switched Weapon");
+                    }
+                    else
+                    {
+                        inbetweenItem = currentShield;
+                        currentShield = droppedItem.GetComponent<DroppedItemScript>().heldItem;
+                        droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
+                        inbetweenItem = null;
+                        //Debug.Log("Switched Shield");
+                    }
+                }
+                else if (usingShield == false && shieldOnCooldown == false) //Player will shield
+                {
+                    //Debug.Log("Shield");
+                    usingShield = true;
+                    speed -= currentShield.speedReduction;
+                }
             }
         }
+        else if (playerState == 2) //Dead
+        {
+
+        }
+        
+        
     }
 
     public void incrementEnemySlain()
@@ -177,5 +192,11 @@ public class PlayerController : MonoBehaviour
         projectileController.damage = this.currentWeapon.damage;
         projectileController.speed = this.currentWeapon.bulletSpeed;
         projectileController.direction = projectile.transform.up;
+
+        if (currentWeapon.bulletsBounce == true)
+        {
+            projectileController.isBouncing = true;
+            projectileController.numberOfTouchesRemaining = 2;
+        }
     }
 }
