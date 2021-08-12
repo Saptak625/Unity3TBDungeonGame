@@ -16,7 +16,7 @@ public class Room
     public List<Entrance> inEntrances = new List<Entrance>(); //Entrances that can open to lead into room
     public int[] roomRect; //Defines where room is
     public List<GameObject> gameObjects = null; //Defines gameObjects
-    public static int variableChestCounter = 3; //Variable Counter for Rooms without chests
+    public static int variableChestCounter = 0; //Variable Counter for Rooms without chests
     public static int variableBossCounter = 0; //Variable Counter for Rooms without boss
     public Direction roomDirection = Direction.None; //Direction of subroom in term of parent room. Root room will have Direction.None.
     public GameObject trigger = null; //Trigger used to check if room is to be executed.
@@ -162,7 +162,7 @@ public class Room
             }
 
             //Assign enemy waves
-            int numberOfWaves = random.Next(2, 3);
+            int numberOfWaves = random.Next(2, 4);
             EnemyAttack[] enemyAttackArray = new EnemyAttack[] { EnemyAttack.Melee, EnemyAttack.Range, EnemyAttack.Mage };
             this.enemyTypeArray = new EnemyType[] { (EnemyType) random.Next(1, 11), (EnemyType) random.Next(1, 11) };
             for (int i = 0; i < numberOfWaves; i++)
@@ -232,6 +232,11 @@ public class Room
         foreach(Entrance e in this.outEntrances)
         {
             e.destroy();
+        }
+        //Call Enemy destroy property
+        foreach(Enemy e in this.slainEnemies)
+        {
+            e.destroy = true;
         }
         //Destroy all Obstacles
         foreach(Obstacle o in this.obstacles)

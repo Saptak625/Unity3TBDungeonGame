@@ -97,8 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d362f460d8756c344978cc5b21049d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
   speed: 0
-  primaryTarget: {fileID: 0}
+  primaryTarget: 
+  direction: {x: 0, y: 0, z: 0}
+  isBouncing: 0
+  numberOfTouchesRemaining: 0
 --- !u!61 &-7550215274675145196
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -145,4 +149,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4

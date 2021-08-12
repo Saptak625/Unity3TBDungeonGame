@@ -5,13 +5,24 @@ using UnityEngine;
 public class Items
 {
     //Create all the weapons
-    public static item defaultWeapon = new item(2, 2, 2); //temporary numbers
+    //public static item defaultWeapon = new item(0, 2, 2, false, false); <-- Example
+    public static item headphoneLauncher = new item(0, 10, 8, false, false); //default
+    public static item automaticEarplugGun = new item(0, 6, 12, false, false);
+    public static item solarRayGun = new item(0, 4, 20, false, true); //future laser
+    public static item alienGun = new item(0, 10, 10, true, false);
+    public static item fireworksLauncher = new item(0, 100, 3, false, false);
 
     //Create all the shields
-    public static item defaultShield = new item(0.2f, 500, 500, 3); //temporary numbers
+    //public static item defaultShield = new item(0.2f, 500, 500, 3); <-- Example
+    public static item earplugShield = new item(0.8f, 400, 400, 1);
+    public static item headphoneShield = new item(0.6f, 400, 400, 2);
+    public static item noiseCancellingHPShield = new item(0.4f, 400, 400, 3);
+    public static item headphonesAndEarplugsShield = new item(0.3f, 400, 500, 3);
+    public static item noShield = new item(1f, 100, 100, 1); //default
 
     //Put them in lists
-    public static item[] items = new item[2] {defaultWeapon, defaultShield}; //Fill in later
+    public static item[] items = new item[10] {headphoneLauncher, automaticEarplugGun, solarRayGun, alienGun, fireworksLauncher,
+    earplugShield, headphoneShield, noiseCancellingHPShield, headphonesAndEarplugsShield, noShield}; //Fill in later
     public static int itemsListMax = items.Length - 1;
 }
 
@@ -22,14 +33,16 @@ public class item
     //for weapons
 
     public int damage; //Amount of damage dealt
-    public int reloadSpeed; //Time between use
     public int bulletSpeed; //Bullet travel Speed
-    public item(int attack, int attackSpeed, int speed)
+    public bool bulletsBounce;
+    public bool isLaser;
+    public item(int zero, int attack, int speed, bool bouncingBullets, bool fireslaser) //Zero is just to make constructor parameter numbers different
     {
         this.type = "Weapon";
         this.damage = attack;
-        this.reloadSpeed = attackSpeed;
         this.bulletSpeed = speed;
+        this.bulletsBounce = bouncingBullets;
+        this.isLaser = fireslaser;
     }
 
     //for shields

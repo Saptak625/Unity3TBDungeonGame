@@ -195,6 +195,21 @@ public class RoomLoaderSpawner : MonoBehaviour
         else
         {
             //Battle occuring. Only focus on battle-related updates such as enemy movements.
+            if(this.roomLoader.activeRoom.activeEnemies.Count > 0)
+            {
+                if(this.roomLoader.activeRoom.activeEnemies[0].Count == 0)
+                {
+                    this.roomLoader.activeRoom.activeEnemies.RemoveAt(0);
+                    if(this.roomLoader.activeRoom.activeEnemies.Count > 0)
+                    {
+                        this.spawnNextEnemyWave();
+                    }
+                    else
+                    {
+                        this.dungeonCleared();
+                    }
+                }
+            }
         }
     }
 
@@ -288,46 +303,12 @@ public class RoomLoaderSpawner : MonoBehaviour
         }
 
         //Spawn in Enemies and set triggers to open room once ready
-        GameObject player = GameObject.FindWithTag("Player");
         if (!this.roomLoader.activeRoom.isChestRoom && !this.roomLoader.activeRoom.isBossRoom)
         {
             Debug.Log(this.roomLoader.activeRoom);
-            Debug.Log(this.roomLoader.activeRoom.activeEnemies.Count); 
-            foreach (Enemy enemy in this.roomLoader.activeRoom.activeEnemies[0])
-            {
-                //Use resource loader in real code
-                GameObject enemyPrefab = Resources.Load($"Enemy Prefabs/{enemy.attackType}_{(int)enemy.enemyType}") as GameObject;
-                GameObject enemyGameObject;
-                if (enemy.attackType == EnemyAttack.Melee && !(enemy.enemyType == (EnemyType)5 || enemy.enemyType == (EnemyType)6 || enemy.enemyType == (EnemyType)8 || enemy.enemyType == (EnemyType)9))
-                {
-                    enemyGameObject = Instantiate(this.enemyMeleeContainer, enemy.position, Quaternion.identity);
-                    //Do Melee Container specific init
-                    enemyGameObject.GetComponent<AIDestinationSetter>().target = player.transform;
-                    enemyGameObject.GetComponent<AIPath>().maxSpeed = enemy.speed;
-                }
-                else if (enemy.attackType == EnemyAttack.Range && !(enemy.enemyType == (EnemyType)2 || enemy.enemyType == (EnemyType)3 || enemy.enemyType == (EnemyType)4 || enemy.enemyType == (EnemyType)6))
-                {
-                    enemyGameObject = Instantiate(this.enemyRangeContainer, enemy.position, Quaternion.identity);
-                    //Do Range Container specific init
-                    GenericRangeAI pathfindingTarget = enemyGameObject.GetComponent<GenericRangeAI>();
-                    pathfindingTarget.target = player.transform;
-                    pathfindingTarget.speed = enemy.speed*80; // Scaling factor due to custom AI
-                }
-                else
-                {
-                    enemyGameObject = Instantiate(this.enemyMageContainer, enemy.position, Quaternion.identity);
-                    //Do Mage Container specific init
-                    enemyGameObject.GetComponent<MageAI>().roomRect = this.roomLoader.activeRoom.roomRect;
-                    enemyGameObject.GetComponent<AIPath>().maxSpeed = enemy.speed;
-                }
-                
-                enemyGameObject.transform.parent = this.gameObject.transform;
-                GameObject enemyGraphics = Instantiate(enemyPrefab, enemyGameObject.transform);
-
-                EnemyController controller = enemyGraphics.GetComponent<EnemyController>();
-                controller.enemy = enemy;
-                controller.player = player;
-            }
+            Debug.Log(this.roomLoader.activeRoom.activeEnemies.Count);
+            this.spawnNextEnemyWave();
+            
         } else if (this.roomLoader.activeRoom.isBossRoom)
         {
             //Initialize Boss
@@ -341,6 +322,76 @@ public class RoomLoaderSpawner : MonoBehaviour
 
         //-------------------------------------------------Uncomment this line to open dungeon after 5 seconds-----------------------------------------------------------
         //Invoke("dungeonCleared", 5.0f);
+    }
+
+    public void spawnNextEnemyWave()
+    {
+        GameObject player = GameObject.FindWithTag("Player");
+        foreach (Enemy enemy in this.roomLoader.activeRoom.activeEnemies[0])
+        {
+            //Use resource loader in real code
+            GameObject enemyPrefab = Resources.Load($"Enemy Prefabs/{enemy.attackType}_{(int)enemy.enemyType}") as GameObject;
+            GameObject enemyGameObject;
+            if (enemy.attackType == EnemyAttack.Melee)
+            {
+                enemyGameObject = Instantiate(this.enemyMeleeContainer, enemy.position, Quaternion.identity);
+                //Do Melee Container specific init
+                enemyGameObject.GetComponent<AIDestinationSetter>().target = player.transform;
+                enemyGameObject.GetComponent<AIPath>().maxSpeed = enemy.speed;
+            }
+            else if ((enemy.attackType == EnemyAttack.Range && !(enemy.enemyType == (EnemyType)4)) || (enemy.attackType == EnemyAttack.Mage && enemy.enemyType == (EnemyType)4))
+            {
+                enemyGameObject = Instantiate(this.enemyRangeContainer, enemy.position, Quaternion.identity);
+                //Do Range Container specific init
+                GenericRangeAI pathfindingTarget = enemyGameObject.GetComponent<GenericRangeAI>();
+                pathfindingTarget.target = player.transform;
+                pathfindingTarget.speed = enemy.speed * 80; // Scaling factor due to custom AI
+            }
+            else
+            {
+                enemyGameObject = Instantiate(this.enemyMageContainer, enemy.position, Quaternion.identity);
+                //Do Mage Container specific init
+                enemyGameObject.GetComponent<MageAI>().roomRect = this.roomLoader.activeRoom.roomRect;
+                enemyGameObject.GetComponent<AIPath>().maxSpeed = enemy.speed;
+            }
+
+            enemyGameObject.transform.parent = this.gameObject.transform;
+            GameObject enemyGraphics = Instantiate(enemyPrefab, enemyGameObject.transform);
+
+            EnemyController controller = enemyGraphics.GetComponent<EnemyController>();
+            controller.enemy = enemy;
+            controller.player = player;
+            controller.roomLoaderObject = gameObject;
+        }
+    }
+
+    public void spawnMiniMelee(Enemy parent, Vector3 parentPosition)
+    {
+        GameObject player = GameObject.FindWithTag("Player");
+        Enemy enemy = new Enemy(EnemyAttack.Mini, parent.enemyType, parentPosition);
+        //Use resource loader in real code
+        GameObject enemyPrefab = Resources.Load($"Enemy Prefabs/{enemy.attackType}_{(int)enemy.enemyType}") as GameObject;
+        GameObject enemyGameObject = Instantiate(this.enemyMeleeContainer, enemy.position, Quaternion.identity);
+        //Do Melee Container specific init
+        enemyGameObject.GetComponent<AIDestinationSetter>().target = player.transform;
+        enemyGameObject.GetComponent<AIPath>().maxSpeed = enemy.speed;
+        enemyGameObject.GetComponent<Rigidbody2D>().mass = 0.25f;
+        enemyGameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.25f, 0.25f);
+
+        enemyGameObject.transform.parent = this.gameObject.transform;
+        GameObject enemyGraphics = Instantiate(enemyPrefab, enemyGameObject.transform);
+
+        EnemyController controller = enemyGraphics.GetComponent<EnemyController>();
+        controller.enemy = enemy;
+        controller.player = player;
+
+        this.roomLoader.activeRoom.activeEnemies[0].Add(enemy);
+    }
+
+    public void removeEnemy(Enemy e)
+    {
+        this.roomLoader.activeRoom.activeEnemies[0].Remove(e);
+        this.roomLoader.activeRoom.slainEnemies.Add(e);
     }
 
     public void dungeonCleared()
