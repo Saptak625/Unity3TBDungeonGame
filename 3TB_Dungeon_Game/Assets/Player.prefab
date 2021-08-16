@@ -271,3 +271,6 @@ MonoBehaviour:
   shieldCooldown: 0
   genericProjectile: {fileID: 6006838977088821278, guid: b7cb8ec0011a7ab4f9ce3a5e8df31a1b, type: 3}
   camera: {fileID: 7468297111751761211}
+  StartUI: {fileID: 7950386258107816261, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
+  EndScreenPrefab: {fileID: 3176886709882048236, guid: 6aa0d41cd62bf4bf89ae4df1892e281b, type: 3}
+  playerState: 0
