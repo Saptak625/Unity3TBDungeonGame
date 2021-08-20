@@ -173,7 +173,7 @@ public class EnemyController : MonoBehaviour
         objectController.endPosition = player.transform.position;
         objectController.damageRadius = 2.5f; //2.5 radius of damage
         objectController.damageDuration = 50; //50 frames of damage
-        objectController.damage = enemy.attackDamage;
+        objectController.damage = enemy.attackDamage/((float) objectController.damageDuration); //Scaling damage per frame from max.
         attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
         attackDurationRemaining = objectController.duration;
         attackStartTrigger();
