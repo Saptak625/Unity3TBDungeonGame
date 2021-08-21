@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -245,8 +245,8 @@ Canvas:
   m_GameObject: {fileID: 472347537}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1783249043}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -379,6 +379,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1783249043 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7468297111751761211, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+  m_PrefabInstance: {fileID: 7468297112069842244}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1950016141 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7950386258107816261, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
@@ -620,12 +625,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 472347541}
     m_Modifications:
     - target: {fileID: 7950386257920009635, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7950386257920009635, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 259.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 7950386257920009635, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7950386257920009635, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
       propertyPath: m_LocalScale.y
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7950386257920009635, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7950386257920009635, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.78
       objectReference: {fileID: 0}
     - target: {fileID: 7950386257920009636, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
       propertyPath: m_Color.a
