@@ -619,6 +619,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 472347541}
     m_Modifications:
+    - target: {fileID: 7950386257920009635, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7950386257920009635, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7950386257920009636, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.49019608
+      objectReference: {fileID: 0}
     - target: {fileID: 7950386258107816261, guid: 62a709bc973a24109a3a68c50b1b721f, type: 3}
       propertyPath: m_Name
       value: Start Screen
