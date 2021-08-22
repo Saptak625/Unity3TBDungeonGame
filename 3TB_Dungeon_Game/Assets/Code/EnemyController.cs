@@ -41,11 +41,11 @@ public class EnemyController : MonoBehaviour
                         {
                             this.classicMelee();
                         }
-                        else if (enemy.attackType == EnemyAttack.Range && !(enemy.enemyType == (EnemyType)2 || enemy.enemyType == (EnemyType)3 || enemy.enemyType == (EnemyType)4 || enemy.enemyType == (EnemyType)6))
+                        else if (enemy.attackType == EnemyAttack.Range && !(enemy.enemyType == (EnemyType)3 || enemy.enemyType == (EnemyType)4))
                         {
                             this.classicRange();
                         }
-                        else if (enemy.attackType == EnemyAttack.Mage && (enemy.enemyType == (EnemyType)1 || enemy.enemyType == (EnemyType)2 || enemy.enemyType == (EnemyType)5 || enemy.enemyType == (EnemyType)8 || enemy.enemyType == (EnemyType)9))
+                        else if (enemy.attackType == EnemyAttack.Mage && (enemy.enemyType == (EnemyType)1 || enemy.enemyType == (EnemyType)2 || enemy.enemyType == (EnemyType)5 || enemy.enemyType == (EnemyType)6 || enemy.enemyType == (EnemyType)8 || enemy.enemyType == (EnemyType)9))
                         {
                             this.spawnMiniMelee();
                         }
@@ -57,7 +57,7 @@ public class EnemyController : MonoBehaviour
                         {
                             this.summonObject(true);
                         }
-                        else if ((enemy.attackType == EnemyAttack.Range && enemy.enemyType == (EnemyType)4) || (enemy.attackType == EnemyAttack.Mage || enemy.enemyType == (EnemyType)10))
+                        else if ((enemy.attackType == EnemyAttack.Range && enemy.enemyType == (EnemyType)4) || (enemy.attackType == EnemyAttack.Mage && enemy.enemyType == (EnemyType)10))
                         {
                             this.summonObject(false);
                         }
@@ -173,7 +173,7 @@ public class EnemyController : MonoBehaviour
         objectController.endPosition = player.transform.position;
         objectController.damageRadius = 2.5f; //2.5 radius of damage
         objectController.damageDuration = 50; //50 frames of damage
-        objectController.damage = enemy.attackDamage;
+        objectController.damage = enemy.attackDamage/((float) objectController.damageDuration); //Scaling damage per frame from max.
         attackCooldown = 0; //Reset enemy cooldown to prevent constant attacking.
         attackDurationRemaining = objectController.duration;
         attackStartTrigger();

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,6 +30,13 @@ public class PlayerController : MonoBehaviour
     public GameObject genericProjectile;
     public Camera camera;
 
+    public GameObject canvas;
+    public GameObject StartUI; //The Screen thats in the hierarchy to start
+    public GameObject EndScreenPrefab;
+    GameObject EndScreen;
+    //public GameObject InGameHUDPrefab;
+    //GameObject InGameHUD
+
     public int playerState; //0 = Start, 1 = Alive, 2 = dead
 
     // Start is called before the first frame update
@@ -36,7 +44,7 @@ public class PlayerController : MonoBehaviour
     {
         currentWeapon = Items.headphoneLauncher;
         currentShield = Items.noShield;
-        playerState = 1;
+        playerState = 0;
     }
 
     // Update is called once per frame
@@ -44,13 +52,22 @@ public class PlayerController : MonoBehaviour
     {
         if (playerState == 0) //Sart
         {
-
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            {
+                playerState = 1;
+                DestroyImmediate(StartUI, true);
+                //InGameHUD = Instantiate(InGameHUDPrefab);
+                //InGameHUD.transform.SetParent(canvas.transform, false);
+            }
         }
         else if (playerState == 1) //Alive
         {
             if (!isAlive) //If dead
             {
                 playerState = 2;
+                //Destroy(InGameHUD);
+                EndScreen = Instantiate(EndScreenPrefab);
+                EndScreen.transform.SetParent(canvas.transform, false);
             }
 
             if (usingShield)
@@ -116,7 +133,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (playerState == 2) //Dead
         {
-
+            if (Input.GetMouseButtonDown(0))
+            {
+                Scene scene = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(scene.name);
+            }
         }
         
         
