@@ -357,11 +357,18 @@ public class RoomLoaderSpawner : MonoBehaviour
 
             enemyGameObject.transform.parent = this.gameObject.transform;
             GameObject enemyGraphics = Instantiate(enemyPrefab, enemyGameObject.transform);
+            Animator animator = enemyGraphics.GetComponent<Animator>();
+            SpriteRenderer spriteRenderer = enemyGraphics.GetComponent<SpriteRenderer>();
 
             EnemyController controller = enemyGraphics.GetComponent<EnemyController>();
             controller.enemy = enemy;
             controller.player = player;
+            controller.animator = animator;
             controller.roomLoaderObject = gameObject;
+
+            EnemyMovementController em = enemyGameObject.GetComponent<EnemyMovementController>();
+            em.animator = animator;
+            em.sr = spriteRenderer;
         }
     }
 

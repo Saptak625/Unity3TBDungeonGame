@@ -5,6 +5,7 @@ using Pathfinding;
 
 public class EnemyController : MonoBehaviour
 {
+    public Animator animator;
     public Enemy enemy = null; //Enemy virtual state
     public GameObject player; //Reference to player GameObject
     public int attackCooldown = 0;
@@ -18,6 +19,8 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         this.enemyContainer = gameObject.transform.parent.gameObject; //Set parent container to grab attributes
+        //Debug.Log($"Enemy Prefabs/Projectiles/{enemy.attackType}_{(int)enemy.enemyType}Projectile");
+        //this.genericProjectile = Resources.Load($"Enemy Prefabs/Projectiles/{enemy.attackType}_{(int)enemy.enemyType}_Projectile") as GameObject;
     }
 
     // Update is called once per frame
@@ -182,20 +185,25 @@ public class EnemyController : MonoBehaviour
     public void attackStartTrigger()
     {
         //Use this trigger for detecting when an enemy attack starts.
+        animator.SetBool("Attack", true);
     }
     
     public void attackEndTrigger()
     {
         //Use this trigger for detecting when an enemy attack ends.
+        animator.SetBool("Attack", false);
     }
     
     public void deadTrigger()
     {
         //Use this trigger for detecting when an enemy dies.
+        animator.SetBool("Dead", true);
 
+        //Set Collisions off
+        this.enemyContainer.GetComponent<BoxCollider2D>().enabled = false;
 
         //Temporary Sprite deletion once enemy dies. Get rid of this once enemy animations are complete.
-        destroy();
+        //destroy();
     }
 
     public void takeDamage(float damage)
