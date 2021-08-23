@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5845697434189923171}
   - component: {fileID: 5329739106845047006}
   - component: {fileID: 8850599121375937387}
+  - component: {fileID: -3010110767816041553}
   m_Layer: 7
   m_Name: RangeEnemy
   m_TagString: Enemy Container
@@ -125,3 +126,19 @@ MonoBehaviour:
   speed: 200
   nextWaypointDistance: 3
   canShoot: 0
+--- !u!114 &-3010110767816041553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715233190168688194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297066223b8af8d4aa159f0971f6c7b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastPos: {x: 0, y: 0, z: 0}
+  animator: {fileID: 0}
+  sr: {fileID: 0}
+  rb: {fileID: 5329739106845047006}
