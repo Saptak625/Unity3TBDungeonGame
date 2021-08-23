@@ -6,7 +6,6 @@ using Pathfinding;
 public class EnemyController : MonoBehaviour
 {
     public Animator animator;
-    public SpriteRenderer spriteRenderer;
     public Enemy enemy = null; //Enemy virtual state
     public GameObject player; //Reference to player GameObject
     public int attackCooldown = 0;
@@ -15,12 +14,13 @@ public class EnemyController : MonoBehaviour
     public GameObject genericObject;
     public GameObject enemyContainer;
     public GameObject roomLoaderObject;
+    public static System.Random random = new System.Random(); //Random object for proper generation
 
     // Start is called before the first frame update
     void Start()
     {
         this.enemyContainer = gameObject.transform.parent.gameObject; //Set parent container to grab attributes
-        
+        attackDurationRemaining = random.Next(0, ((int) enemy.cooldown)/2);
     }
 
     // Update is called once per frame
@@ -40,7 +40,7 @@ public class EnemyController : MonoBehaviour
                     attackEndTrigger(); //Attack completed after duration
                     if (attackCooldown == enemy.cooldown)
                     {
-                        if ((enemy.attackType == EnemyAttack.Melee && !(enemy.enemyType == (EnemyType)5 || enemy.enemyType == (EnemyType)6 || enemy.enemyType == (EnemyType)8 || enemy.enemyType == (EnemyType)9)) || enemy.attackType == EnemyAttack.Mini)
+                        if (enemy.attackType == EnemyAttack.Melee) 
                         {
                             this.classicMelee();
                         }
@@ -89,7 +89,7 @@ public class EnemyController : MonoBehaviour
 
     void classicMelee()
     {
-        if ((this.player.transform.position - this.enemyContainer.transform.position).magnitude < 1.2f)
+        if ((this.player.transform.position - this.enemyContainer.transform.position).magnitude < 2.5f)
         {
             //Attack player
             player.GetComponent<PlayerController>().takeDamage(this.enemy.attackDamage);
@@ -185,8 +185,6 @@ public class EnemyController : MonoBehaviour
     public void attackStartTrigger()
     {
         //Use this trigger for detecting when an enemy attack starts.
-        //On attack make sure enemy is facing player
-        spriteRenderer.flipX = (this.player.transform.position - transform.position).x < 0.01f;
         animator.SetBool("Attack", true);
     }
     
@@ -203,6 +201,9 @@ public class EnemyController : MonoBehaviour
 
         //Set Collisions off
         this.enemyContainer.GetComponent<BoxCollider2D>().enabled = false;
+
+        //Set Movement Controller Off
+        this.enemyContainer.GetComponent<EnemyMovementController>().enabled = false;
 
         //Temporary Sprite deletion once enemy dies. Get rid of this once enemy animations are complete.
         //destroy();
