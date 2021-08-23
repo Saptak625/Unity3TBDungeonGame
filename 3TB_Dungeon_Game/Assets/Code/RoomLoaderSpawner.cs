@@ -364,6 +364,7 @@ public class RoomLoaderSpawner : MonoBehaviour
             controller.enemy = enemy;
             controller.player = player;
             controller.animator = animator;
+            controller.spriteRenderer = spriteRenderer;
             controller.roomLoaderObject = gameObject;
 
             EnemyMovementController em = enemyGameObject.GetComponent<EnemyMovementController>();

@@ -44,7 +44,7 @@ public class Enemy
     public Enemy(EnemyAttack ea, EnemyType et, Room r)
     {
         //Testing purposes
-        this.attackType = EnemyAttack.Range;
+        this.attackType = EnemyAttack.Melee;
         this.enemyType = EnemyType.GarageTool;
         //Regular
         /*this.attackType = ea;
