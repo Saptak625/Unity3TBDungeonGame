@@ -40,7 +40,7 @@ public class EnemyController : MonoBehaviour
                     attackEndTrigger(); //Attack completed after duration
                     if (attackCooldown == enemy.cooldown)
                     {
-                        if (enemy.attackType == EnemyAttack.Melee) 
+                        if (enemy.attackType == EnemyAttack.Melee || enemy.attackType == EnemyAttack.Mini) 
                         {
                             this.classicMelee();
                         }
@@ -56,11 +56,11 @@ public class EnemyController : MonoBehaviour
                         {
                             this.rangeHood();
                         }
-                        else if (enemy.attackType == EnemyAttack.Mage && (enemy.enemyType == (EnemyType)3 || enemy.enemyType == (EnemyType)7))
+                        else if ((enemy.attackType == EnemyAttack.Mage && (enemy.enemyType == (EnemyType)3 || enemy.enemyType == (EnemyType)7)) || (enemy.attackType == EnemyAttack.Range && enemy.enemyType == (EnemyType)4))
                         {
                             this.summonObject(true);
                         }
-                        else if ((enemy.attackType == EnemyAttack.Range && enemy.enemyType == (EnemyType)4) || (enemy.attackType == EnemyAttack.Mage && enemy.enemyType == (EnemyType)10))
+                        else if (enemy.attackType == EnemyAttack.Mage && enemy.enemyType == (EnemyType)10)
                         {
                             this.summonObject(false);
                         }
@@ -154,7 +154,7 @@ public class EnemyController : MonoBehaviour
             player.transform.position += (10.0f/(playerDistance.magnitude*playerDistance.magnitude)) * playerDistance * Time.deltaTime; //Inverse Square Law of Gravitation
             if(playerDistance.magnitude < 3) //Damage radius
             {
-                player.GetComponent<PlayerController>().takeDamage(Mathf.Abs(3-playerDistance.magnitude)*this.enemy.attackDamage); // Do more damage the closer you are. 
+                player.GetComponent<PlayerController>().takeDamage(Mathf.Abs(3-playerDistance.magnitude)*(this.enemy.attackDamage / this.enemy.projectileSpeed)); // Do more damage the closer you are and scaled by the overall duration. 
             }
             if(attackDurationRemaining == 0) //First execution of range attack
             {

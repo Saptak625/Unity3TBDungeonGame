@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7089063058609643515}
   - component: {fileID: 3096084358209790857}
   - component: {fileID: -6147898683351286472}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mage_3_Object
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
