@@ -42,20 +42,20 @@ public class SummonedObject : MonoBehaviour
             {
                 GetComponent<SpriteRenderer>().enabled = true; //Object visible
                 summoned = true;
-            } 
+            }
             radialDamage();
             return;
         }
-        transform.position += new Vector3(0, -40.0f, 0) * (1.0f / ((float) this.duration));
+        transform.position += new Vector3(0, -40.0f, 0) * (1.0f / ((float)this.duration));
         this.t += 1; //Range from 0 to duration
         Debug.Log($"t: {t}");
     }
 
     void radialDamage()
     {
-        if(damageDuration > 0)
+        if (damageDuration > 0)
         {
-            if ((player.transform.position-transform.position).magnitude < damageRadius)
+            if ((player.transform.position - transform.position).magnitude < damageRadius)
             {
                 player.GetComponent<PlayerController>().takeDamage(this.damage);
             }

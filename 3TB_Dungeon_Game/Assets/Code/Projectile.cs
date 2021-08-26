@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
     public Vector3 direction;
     public bool isBouncing = false;
     public int numberOfTouchesRemaining = 0;
-    
+
     void FixedUpdate()
     {
         transform.position += this.direction * this.speed * Time.deltaTime;
@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         Collider2D collider = collision.collider;
-        if(collider.CompareTag(primaryTarget))
+        if (collider.CompareTag(primaryTarget))
         {
             if (primaryTarget == "Player")
             {
@@ -28,17 +28,19 @@ public class Projectile : MonoBehaviour
             else
             {
                 EnemyController e = collider.gameObject.transform.GetChild(0).gameObject.GetComponent<EnemyController>();
-                if(e != null)
+                if (e != null)
                 {
                     e.takeDamage(this.damage);
                 }
             }
             this.destroy();
-        }else if(collider.CompareTag("DestructableWall"))
+        }
+        else if (collider.CompareTag("DestructableWall"))
         {
             collider.gameObject.GetComponent<DestructableWall>().takeDamage(this.damage);
             this.destroy();
-        }else if (collider.CompareTag("Wall"))
+        }
+        else if (collider.CompareTag("Wall"))
         {
             if (this.isBouncing)
             {

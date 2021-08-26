@@ -66,7 +66,7 @@ public class GenericRangeAI : MonoBehaviour
             if (path == null || reachedEndOfPath)
                 return;
 
-            if(this.currentWayPoint >= path.vectorPath.Count)
+            if (this.currentWayPoint >= path.vectorPath.Count)
             {
                 reachedEndOfPath = true;
                 return;
@@ -76,7 +76,7 @@ public class GenericRangeAI : MonoBehaviour
                 reachedEndOfPath = false;
             }
 
-            Vector2 direction = ((Vector2) path.vectorPath[currentWayPoint] - rb.position).normalized;
+            Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
 
             rb.AddForce(direction * speed * Time.deltaTime);
 

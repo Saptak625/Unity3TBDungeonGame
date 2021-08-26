@@ -35,7 +35,7 @@ public class Hallway
 
     public void destroy()
     {
-        foreach(GameObject g in this.gameObjects)
+        foreach (GameObject g in this.gameObjects)
         {
             Object.Destroy(g);
         }
@@ -43,6 +43,6 @@ public class Hallway
 
     public override string ToString()
     {
-        return "Hallway: " + this.direction + " " + this.hallwayRect[0]+", "+this.hallwayRect[1];
+        return "Hallway: " + this.direction + " " + this.hallwayRect[0] + ", " + this.hallwayRect[1];
     }
 }

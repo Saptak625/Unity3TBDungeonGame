@@ -29,8 +29,8 @@ public class Entrance
     }
 
     public void destroy()
-    { 
-        foreach(GameObject g in this.gameObjects)
+    {
+        foreach (GameObject g in this.gameObjects)
         {
             Object.Destroy(g);
         }
