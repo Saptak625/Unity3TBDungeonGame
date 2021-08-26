@@ -21,7 +21,7 @@ public class MageAI : MonoBehaviour
         {
             point = Random.insideUnitSphere * radius;
             point += ai.position;
-            if (point.x >=roomRect[0]+4 && point.x <= roomRect[0]+roomRect[2]-4 && point.y >= roomRect[1] + 4 && point.y <= roomRect[1]+roomRect[3] - 4)
+            if (point.x >= roomRect[0] + 4 && point.x <= roomRect[0] + roomRect[2] - 4 && point.y >= roomRect[1] + 4 && point.y <= roomRect[1] + roomRect[3] - 4)
             {
                 break;
             }

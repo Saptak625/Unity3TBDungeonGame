@@ -4,8 +4,8 @@ using UnityEngine;
 
 public enum ObstacleType
 {
-    Destructable=1,
-    Undestructable=2
+    Destructable = 1,
+    Undestructable = 2
 }
 
 public class Obstacle
@@ -22,7 +22,7 @@ public class Obstacle
 
     public void destroy()
     {
-        foreach(GameObject g in this.gameObjects)
+        foreach (GameObject g in this.gameObjects)
         {
             Object.Destroy(g);
         }
@@ -31,11 +31,11 @@ public class Obstacle
     public List<int[]> getPositions()
     {
         List<int[]> l = new List<int[]>();
-        for(int i = 0; i < this.obstacleRect[2]; i++)
+        for (int i = 0; i < this.obstacleRect[2]; i++)
         {
-            for(int j = 0; j < this.obstacleRect[3]; j++)
+            for (int j = 0; j < this.obstacleRect[3]; j++)
             {
-                l.Add(new int[2] { i+this.obstacleRect[0], j+this.obstacleRect[1] });
+                l.Add(new int[2] { i + this.obstacleRect[0], j + this.obstacleRect[1] });
             }
         }
         return l;

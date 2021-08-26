@@ -31,7 +31,7 @@ public class RoomLoader
             Room subRoom = new Room(parentHallway);
             initialRoomList.Add(subRoom);
             //Find all sub-hallways from new sub room
-            foreach(Entrance e2 in subRoom.outEntrances)
+            foreach (Entrance e2 in subRoom.outEntrances)
             {
                 //Add sub hallways in particular direction into hallwayList
                 hallwayList.Add(new Hallway(e2));

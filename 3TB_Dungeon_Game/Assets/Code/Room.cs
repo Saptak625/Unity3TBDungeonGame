@@ -48,14 +48,14 @@ public class Room
         if (hallway.direction == Direction.Up || hallway.direction == Direction.Down)
         {
             roomPosX = hallway.hallwayRect[0] + 3;
-            roomPosY = hallway.hallwayRect[1] + (hallway.direction == Direction.Down ? -yLength-1 : yLength + hallway.hallwayRect[3]);
+            roomPosY = hallway.hallwayRect[1] + (hallway.direction == Direction.Down ? -yLength - 1 : yLength + hallway.hallwayRect[3]);
         }
         else
         {
-            roomPosX = hallway.hallwayRect[0] + (hallway.direction == Direction.Left ? -xLength-1 : xLength + hallway.hallwayRect[2]);
+            roomPosX = hallway.hallwayRect[0] + (hallway.direction == Direction.Left ? -xLength - 1 : xLength + hallway.hallwayRect[2]);
             roomPosY = hallway.hallwayRect[1] + 3;
         }
-        this.roomRect = new int[4] { roomPosX-xLength, roomPosY-yLength, (xLength*2)+1, (yLength*2)+1};
+        this.roomRect = new int[4] { roomPosX - xLength, roomPosY - yLength, (xLength * 2) + 1, (yLength * 2) + 1 };
         Direction[] directions = new Direction[4] { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
         Direction inverseDirection = (hallway.direction == Direction.Up ? Direction.Down : (hallway.direction == Direction.Down ? Direction.Up : (hallway.direction == Direction.Right ? Direction.Left : Direction.Right)));
         foreach (Direction d in directions)
@@ -106,42 +106,42 @@ public class Room
             int numberOfObstacles = random.Next(4, 9);
             int obstacleCounter = 0;
             int numberOfIterations = 0;
-            while(obstacleCounter < numberOfObstacles || numberOfIterations > 8)
+            while (obstacleCounter < numberOfObstacles || numberOfIterations > 8)
             {
                 int shapeType = random.Next(1, 3);
                 int blockType = random.Next(1, 3);
-                int[] startPos = new int[] { this.roomRect[0] + random.Next(5, this.roomRect[2]-5), this.roomRect[1] + random.Next(5, this.roomRect[3]-5)};
+                int[] startPos = new int[] { this.roomRect[0] + random.Next(5, this.roomRect[2] - 5), this.roomRect[1] + random.Next(5, this.roomRect[3] - 5) };
                 bool valid = true;
                 Obstacle o;
-                if(shapeType == 1) // Wall Shape
+                if (shapeType == 1) // Wall Shape
                 {
                     int wallLength = random.Next(3, 6);
                     int orientation = random.Next(1, 3);
-                    if(orientation == 1) // Horizontal
+                    if (orientation == 1) // Horizontal
                     {
-                        o = new Obstacle((ObstacleType) blockType, startPos[0], startPos[1], wallLength, 1);
+                        o = new Obstacle((ObstacleType)blockType, startPos[0], startPos[1], wallLength, 1);
                     }
                     else //Vertical
                     {
-                        o = new Obstacle((ObstacleType) blockType, startPos[0], startPos[1], 1, wallLength);
+                        o = new Obstacle((ObstacleType)blockType, startPos[0], startPos[1], 1, wallLength);
                     }
                 }
                 else //Block Shape
                 {
                     int sideLength = random.Next(2, 4);
-                    o = new Obstacle((ObstacleType) blockType, startPos[0], startPos[1], sideLength, sideLength);
+                    o = new Obstacle((ObstacleType)blockType, startPos[0], startPos[1], sideLength, sideLength);
                 }
                 List<int[]> objectPositions = new List<int[]>();
-                foreach(int[] objectPos in objectPositions)
+                foreach (int[] objectPos in objectPositions)
                 {
-                    if(objectPos[0] < this.roomRect[0] + 3 || objectPos[0] > this.roomRect[0] + this.roomRect[2] - 3 || objectPos[1] < this.roomRect[1] + 3 || objectPos[1] > this.roomRect[1] + this.roomRect[3] - 3)
+                    if (objectPos[0] < this.roomRect[0] + 3 || objectPos[0] > this.roomRect[0] + this.roomRect[2] - 3 || objectPos[1] < this.roomRect[1] + 3 || objectPos[1] > this.roomRect[1] + this.roomRect[3] - 3)
                     {
                         valid = false;
                         break;
                     }
-                    foreach(int[] usedPos in this.unwalkablePositions)
+                    foreach (int[] usedPos in this.unwalkablePositions)
                     {
-                        if(objectPos[0] == usedPos[0] && objectPos[1] == usedPos[1])
+                        if (objectPos[0] == usedPos[0] && objectPos[1] == usedPos[1])
                         {
                             valid = false;
                             break;
@@ -164,7 +164,7 @@ public class Room
             //Assign enemy waves
             int numberOfWaves = random.Next(2, 4);
             EnemyAttack[] enemyAttackArray = new EnemyAttack[] { EnemyAttack.Melee, EnemyAttack.Range, EnemyAttack.Mage };
-            this.enemyTypeArray = new EnemyType[] { (EnemyType) random.Next(1, 11), (EnemyType) random.Next(1, 11) };
+            this.enemyTypeArray = new EnemyType[] { (EnemyType)random.Next(1, 11), (EnemyType)random.Next(1, 11) };
             for (int i = 0; i < numberOfWaves; i++)
             {
                 List<Enemy> wave = new List<Enemy>();
@@ -174,7 +174,7 @@ public class Room
                 for (int j = 0; j < numberOfEnemies; j++)
                 {
                     wave.Add(new Enemy(enemyAttackArray[attackIter], this.enemyTypeArray[typeIter], this));
-                    if (attackIter < enemyAttackArray.Length-1)
+                    if (attackIter < enemyAttackArray.Length - 1)
                     {
                         attackIter++;
                     }
@@ -202,7 +202,7 @@ public class Room
     {
         Room.variableChestCounter += (chest ? -2 : 1);
         //Room.variableBossCounter += (boss ? -2 : 1);
-        if(Room.variableChestCounter > 16)
+        if (Room.variableChestCounter > 16)
         {
             Room.variableChestCounter = 16;
         }
@@ -214,34 +214,34 @@ public class Room
 
     public override string ToString()
     {
-        return "Room: " + this.roomDirection + " " + this.roomRect[0]+", "+this.roomRect[1];
+        return "Room: " + this.roomDirection + " " + this.roomRect[0] + ", " + this.roomRect[1];
     }
 
     public void destroy()
     {
         //Destroy all gameObjects 
-        foreach(GameObject g in this.gameObjects)
+        foreach (GameObject g in this.gameObjects)
         {
             Object.Destroy(g);
         }
         //Call destroy on Entrances
-        foreach(Entrance e in this.inEntrances)
+        foreach (Entrance e in this.inEntrances)
         {
             e.destroy();
         }
-        foreach(Entrance e in this.outEntrances)
+        foreach (Entrance e in this.outEntrances)
         {
             e.destroy();
         }
         //Call Enemy destroy property
-        foreach(Enemy e in this.slainEnemies)
+        foreach (Enemy e in this.slainEnemies)
         {
             e.destroy = true;
         }
         //Destroy all Obstacles
-        foreach(Obstacle o in this.obstacles)
+        foreach (Obstacle o in this.obstacles)
         {
-            if(o != null)
+            if (o != null)
             {
                 o.destroy();
             }

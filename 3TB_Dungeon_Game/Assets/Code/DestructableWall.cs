@@ -9,7 +9,7 @@ public class DestructableWall : MonoBehaviour
     public void takeDamage(float damage)
     {
         this.hp -= damage;
-        if(this.hp <= 0f)
+        if (this.hp <= 0f)
         {
             Destroy(gameObject); //Destroy Wall
             //Call Roomloader reloadAStarGrid
