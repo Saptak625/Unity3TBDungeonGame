@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnemyMovementController : MonoBehaviour
 {
+    public GameObject player;
     public Vector3 lastPos;
     public Animator animator;
-    public SpriteRenderer sr;
+    public Transform t;
 
     void Start()
     {
@@ -18,8 +19,9 @@ public class EnemyMovementController : MonoBehaviour
     {
         if (lastPos != null)
         {
+            
+            t.eulerAngles = new Vector3(0, ((player.transform.position.x - t.position.x) < -0f ? 180: 0), 0);
             Vector3 distance = transform.position - lastPos;
-            sr.flipX = distance.x < -0.001f;
             animator.SetFloat("Distance", Mathf.Abs(distance.magnitude));
         }
         lastPos = transform.position;
