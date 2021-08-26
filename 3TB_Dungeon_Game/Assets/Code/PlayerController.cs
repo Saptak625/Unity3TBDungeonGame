@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     item currentWeapon;
     item currentShield;
     item inbetweenItem;
+    Items items;
 
     public float health = 100f;
     public bool isAlive = true;
@@ -26,6 +28,8 @@ public class PlayerController : MonoBehaviour
     public bool shieldOnCooldown = false;
     public int shieldDuration;
     public int shieldCooldown;
+    public bool weaponOnCooldown = false;
+    public int weaponCooldown;
 
     public GameObject genericProjectile;
     public Camera camera;
@@ -34,8 +38,17 @@ public class PlayerController : MonoBehaviour
     public GameObject StartUI; //The Screen thats in the hierarchy to start
     public GameObject EndScreenPrefab;
     GameObject EndScreen;
-    //public GameObject InGameHUDPrefab;
-    //GameObject InGameHUD
+    public GameObject InGameHUDPrefab;
+    GameObject InGameHUD;
+
+    RectTransform healthBarTransform;
+    Image shieldImage;
+    SpriteRenderer droppedObjectRenderer;
+    float healthDecimal;
+
+    public Sprite noShield, NCHPShield, HPShield, EarplugsShield, EarplugsHPShield; // Shields
+    //public Sprite // Weapons
+    //public Sprite // Projectiles
 
     public int playerState; //0 = Start, 1 = Alive, 2 = dead
 
@@ -56,8 +69,11 @@ public class PlayerController : MonoBehaviour
             {
                 playerState = 1;
                 DestroyImmediate(StartUI, true);
-                //InGameHUD = Instantiate(InGameHUDPrefab);
-                //InGameHUD.transform.SetParent(canvas.transform, false);
+                InGameHUD = Instantiate(InGameHUDPrefab);
+                InGameHUD.transform.SetParent(canvas.transform, false);
+
+                healthBarTransform = InGameHUD.transform.GetChild(2).gameObject.GetComponent<RectTransform>();
+                shieldImage = InGameHUD.transform.GetChild(3).gameObject.GetComponent<Image>();
             }
         }
         else if (playerState == 1) //Alive
@@ -65,7 +81,7 @@ public class PlayerController : MonoBehaviour
             if (!isAlive) //If dead
             {
                 playerState = 2;
-                //Destroy(InGameHUD);
+                Destroy(InGameHUD);
                 EndScreen = Instantiate(EndScreenPrefab);
                 EndScreen.transform.SetParent(canvas.transform, false);
             }
@@ -91,11 +107,25 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+            if (weaponOnCooldown)
+            {
+                weaponCooldown++;
+                if (weaponCooldown >= currentWeapon.reloadSpeed)
+                {
+                    weaponOnCooldown = false;
+                    weaponCooldown = 0;
+                }
+            }
+
             rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed, Input.GetAxisRaw("Vertical") * speed);
 
             if (Input.GetMouseButtonDown(0))
             {
-                shoot();
+                if (weaponOnCooldown == false)
+                {
+                    shoot();
+                    weaponOnCooldown = true;
+                }
             }
             if (Input.GetMouseButtonDown(1)) //Checks if user Right Click
             {
@@ -112,7 +142,7 @@ public class PlayerController : MonoBehaviour
                         currentWeapon = droppedItem.GetComponent<DroppedItemScript>().heldItem;
                         droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
                         inbetweenItem = null;
-                        //Debug.Log("Switched Weapon");
+                        Debug.Log("Switched Weapon");
                     }
                     else
                     {
@@ -120,6 +150,28 @@ public class PlayerController : MonoBehaviour
                         currentShield = droppedItem.GetComponent<DroppedItemScript>().heldItem;
                         droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
                         inbetweenItem = null;
+
+                        
+                        if (currentShield.ID == 5)
+                        {
+                            shieldImage.sprite = EarplugsShield;
+                        }
+                        else if (currentShield.ID == 6)
+                        {
+                            shieldImage.sprite = HPShield;
+                        }
+                        else if (currentShield.ID == 7)
+                        {
+                            shieldImage.sprite = NCHPShield;
+                        }
+                        else if (currentShield.ID == 8)
+                        {
+                            shieldImage.sprite = EarplugsHPShield;
+                        }
+                        else if (currentShield.ID == 9)
+                        {
+                            shieldImage.sprite = noShield;
+                        }
                         //Debug.Log("Switched Shield");
                     }
                 }
@@ -187,7 +239,7 @@ public class PlayerController : MonoBehaviour
     {
         if (this.isAlive)
         {
-            Debug.Log("Executing");
+            //Debug.Log("Executing");
             Debug.Log(damage);
             Debug.Log(this.health);
             if (usingShield)
@@ -198,7 +250,11 @@ public class PlayerController : MonoBehaviour
             {
                 this.health -= damage;
             }
-            Debug.Log(this.health);
+            //Debug.Log(this.health);
+
+            this.healthDecimal = this.health * 0.01f;
+
+            healthBarTransform.sizeDelta = new Vector2(325 * this.healthDecimal, 50);
             this.isAlive = this.health > 0;
         }
     }
