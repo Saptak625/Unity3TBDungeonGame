@@ -32,6 +32,10 @@ public class RoomLoaderSpawner : MonoBehaviour
     public GameObject enemyRangeContainer;
     public GameObject enemyMageContainer;
 
+    //Room Cleared Canvas
+    public GameObject canvas;
+    public GameObject RoomClearedPrefab;
+
     //States
     private bool loaded = false;
 
@@ -411,6 +415,10 @@ public class RoomLoaderSpawner : MonoBehaviour
 
     public void dungeonCleared()
     {
+        //Show UI Screen
+        GameObject clearedInstance = Instantiate(RoomClearedPrefab);
+        clearedInstance.transform.SetParent(canvas.transform, false);
+
         //Reset Enemy Position System
         Enemy.resetPositionsUsed();
 

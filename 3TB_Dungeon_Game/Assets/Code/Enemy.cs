@@ -45,7 +45,7 @@ public class Enemy
     {
         //Testing purposes
         this.attackType = EnemyAttack.Mage;
-        this.enemyType = EnemyType.Party;
+        this.enemyType = EnemyType.Sports;
         //Regular
         /*this.attackType = ea;
         this.enemyType = et;*/
