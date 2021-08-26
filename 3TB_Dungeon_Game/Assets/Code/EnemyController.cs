@@ -199,8 +199,9 @@ public class EnemyController : MonoBehaviour
         //Use this trigger for detecting when an enemy dies.
         animator.SetBool("Dead", true);
 
-        //Set Collisions off
+        //Set Collisions off and Velocity off
         this.enemyContainer.GetComponent<BoxCollider2D>().enabled = false;
+        this.enemyContainer.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
 
         //Set Movement Controller Off
         this.enemyContainer.GetComponent<EnemyMovementController>().enabled = false;

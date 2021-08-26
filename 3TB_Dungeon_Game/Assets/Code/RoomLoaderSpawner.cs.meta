@@ -14,7 +14,7 @@ MonoImporter:
   - enemyMeleeContainer: {fileID: 8666105627777410017, guid: e7488f472686ea14cb66a0417570a8de, type: 3}
   - enemyRangeContainer: {fileID: 1715233190168688194, guid: e84248eeb71af4b439e8cd3b00999f72, type: 3}
   - enemyMageContainer: {fileID: 1487898229587134159, guid: c179e242ea1aace4c91afd45ad8f7738, type: 3}
-  - enemyPrefab: {fileID: 2190685593170170173, guid: 2e903fc3bc0fb3e468e0b0f70a0d50ea, type: 3}
+  - RoomClearedPrefab: {fileID: 6877624022100289814, guid: 9b6cd4b18050146f5a8a3b8366fcf96e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
