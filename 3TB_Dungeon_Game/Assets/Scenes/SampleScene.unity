@@ -279,6 +279,35 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &920145801 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2300917111031169355, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+  m_PrefabInstance: {fileID: 7468297112069842244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &920145802 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9049538149629549321, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+  m_PrefabInstance: {fileID: 7468297112069842244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &920145803
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920145801}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 40807dad6f3a4e04387637c2d00562d0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1222986968
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,7 +525,7 @@ PrefabInstance:
     - target: {fileID: 5367984016545649368, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: deb29771de5368f4c9594a3c22a38fe6, type: 3}
+      objectReference: {fileID: 21300000, guid: a752ba570878045609bfc3e5aaecd7b7, type: 3}
     - target: {fileID: 7468297113024183940, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -554,6 +583,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 19be171aa13c2475d9ad92dc741e7fa4, type: 3}
     - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 920145803}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: noShield
       value: 
       objectReference: {fileID: 21300000, guid: a3f70a34bd60b4e729a0443b92e0b56f, type: 3}
@@ -573,6 +606,10 @@ PrefabInstance:
       propertyPath: EarplugsHPShield
       value: 
       objectReference: {fileID: 21300000, guid: 4044f8f52eeda45a09cd15fae4e1586c, type: 3}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: playerSpriteTransform
+      value: 
+      objectReference: {fileID: 920145802}
     - target: {fileID: 7468297113024183943, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: m_Size.x
       value: 0.9

@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
 
+    public Transform playerSpriteTransform;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -119,7 +121,12 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed, Input.GetAxisRaw("Vertical") * speed);
+            //Movement Controller
+            float xInput = Input.GetAxisRaw("Horizontal");
+            playerSpriteTransform.eulerAngles = new Vector3(0, (xInput < 0f ? 180 : 0), 0); //Change this flipping behavior if needed
+            rb.velocity = new Vector2(xInput * speed, Input.GetAxisRaw("Vertical") * speed);
+            animator.SetFloat("Distance", rb.velocity.magnitude);
+
 
             if (Input.GetMouseButtonDown(0))
             {
