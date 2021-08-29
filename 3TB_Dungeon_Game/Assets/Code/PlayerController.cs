@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
     public int playerState; //0 = Start, 1 = Alive, 2 = dead
 
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -235,6 +237,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void deadTrigger()
+    {
+        //Use this trigger for detecting when an enemy dies.
+        animator.SetBool("Dead", true);
+    }
+
     public void takeDamage(float damage)
     {
         if (this.isAlive)
@@ -256,6 +264,10 @@ public class PlayerController : MonoBehaviour
 
             healthBarTransform.sizeDelta = new Vector2(325 * this.healthDecimal, 50);
             this.isAlive = this.health > 0;
+
+            if (this.isAlive == false) {
+                this.deadTrigger();
+            }
         }
     }
 
