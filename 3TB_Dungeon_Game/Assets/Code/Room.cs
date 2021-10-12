@@ -164,7 +164,7 @@ public class Room
             //Assign enemy waves
             int numberOfWaves = random.Next(2, 4);
             EnemyAttack[] enemyAttackArray = new EnemyAttack[] { EnemyAttack.Melee, EnemyAttack.Range, EnemyAttack.Mage };
-            this.enemyTypeArray = new EnemyType[] { (EnemyType)random.Next(1, 11), (EnemyType)random.Next(1, 11) };
+            this.enemyTypeArray = new EnemyType[] { (EnemyType)random.Next(1, 9), (EnemyType)random.Next(1, 9) };
             for (int i = 0; i < numberOfWaves; i++)
             {
                 List<Enemy> wave = new List<Enemy>();
