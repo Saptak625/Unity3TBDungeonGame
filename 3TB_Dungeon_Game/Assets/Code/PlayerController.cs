@@ -43,12 +43,12 @@ public class PlayerController : MonoBehaviour
 
     RectTransform healthBarTransform;
     Image shieldImage;
+    Image weaponImage;
     SpriteRenderer droppedObjectRenderer;
     float healthDecimal;
 
     public Sprite noShield, NCHPShield, HPShield, EarplugsShield, EarplugsHPShield; // Shields
-    //public Sprite // Weapons
-    //public Sprite // Projectiles
+    public Sprite headPhone, earplug, solar, alien, fireworks; // Weapons
 
     public int playerState; //0 = Start, 1 = Alive, 2 = dead
 
@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
 
                 healthBarTransform = InGameHUD.transform.GetChild(2).gameObject.GetComponent<RectTransform>();
                 shieldImage = InGameHUD.transform.GetChild(3).gameObject.GetComponent<Image>();
+                weaponImage = InGameHUD.transform.GetChild(4).gameObject.GetComponent<Image>();
             }
         }
         else if (playerState == 1) //Alive
@@ -151,7 +152,26 @@ public class PlayerController : MonoBehaviour
                         currentWeapon = droppedItem.GetComponent<DroppedItemScript>().heldItem;
                         droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
                         inbetweenItem = null;
-                        Debug.Log("Switched Weapon");
+                        if (currentWeapon.ID == 0)
+                        {
+                            weaponImage.sprite = headPhone;
+                        }
+                        else if (currentWeapon.ID == 1)
+                        {
+                            weaponImage.sprite = earplug;
+                        }
+                        else if (currentWeapon.ID == 2)
+                        {
+                            weaponImage.sprite = solar;
+                        }
+                        else if (currentWeapon.ID == 3)
+                        {
+                            weaponImage.sprite = alien;
+                        }
+                        else if (currentWeapon.ID == 4)
+                        {
+                            weaponImage.sprite = fireworks;
+                        }
                     }
                     else
                     {

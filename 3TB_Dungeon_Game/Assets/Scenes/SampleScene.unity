@@ -571,6 +571,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: alien
+      value: 
+      objectReference: {fileID: 21300000, guid: ef98128293e634f31996c208293b6554, type: 3}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: solar
+      value: 
+      objectReference: {fileID: 21300000, guid: 189fd678369564d78907569b25a5a791, type: 3}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: canvas
       value: 
       objectReference: {fileID: 472347537}
@@ -578,6 +586,10 @@ PrefabInstance:
       propertyPath: StartUI
       value: 
       objectReference: {fileID: 1950016141}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: earplug
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bb2fdd78744545809a40a3b57617886, type: 3}
     - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: HPShield
       value: 
@@ -590,6 +602,14 @@ PrefabInstance:
       propertyPath: noShield
       value: 
       objectReference: {fileID: 21300000, guid: a3f70a34bd60b4e729a0443b92e0b56f, type: 3}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: fireworks
+      value: 
+      objectReference: {fileID: 21300000, guid: 4a0feb1f225a848dd84a31d38d0ddc5a, type: 3}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: headPhone
+      value: 
+      objectReference: {fileID: 21300000, guid: 31b27003d45ed4b99bdb2f9abe945601, type: 3}
     - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: NCHPShield
       value: 
@@ -612,11 +632,11 @@ PrefabInstance:
       objectReference: {fileID: 920145802}
     - target: {fileID: 7468297113024183943, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: m_Size.x
-      value: 0.9
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 7468297113024183943, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: m_Size.y
-      value: 0.9
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 7468297113024184058, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: m_Name
