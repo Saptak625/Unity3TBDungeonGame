@@ -173,6 +173,7 @@ MonoBehaviour:
   dungeonEntranceTileClosed: {fileID: 3550010925516258606, guid: 1207687b49af6db49b30998f31553b96, type: 3}
   roomTrigger: {fileID: 7489239560153305933, guid: 429f0420f1cc061489203cc42b946d96, type: 3}
   dungeonDestroyableObstacle: {fileID: 4096229380251595279, guid: 2aad6071e1caec94c910426128568ccd, type: 3}
+  player: {fileID: 767097139}
   chest: {fileID: 8192632570076440095, guid: 1d03fbb4ef26e4d21b451f050380a698, type: 3}
   enemyMeleeContainer: {fileID: 8666105627777410017, guid: e7488f472686ea14cb66a0417570a8de, type: 3}
   enemyRangeContainer: {fileID: 1715233190168688194, guid: e84248eeb71af4b439e8cd3b00999f72, type: 3}
@@ -279,6 +280,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &767097139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7468297113024184058, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+  m_PrefabInstance: {fileID: 7468297112069842244}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &920145801 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2300917111031169355, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}

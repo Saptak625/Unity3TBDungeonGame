@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     bool nearChest;
     GameObject Chest;
-    bool ableToOpenChests = true; //Once false, players wont be able to open chests.
+    public bool ableToOpenChests = true; //Once false, players wont be able to open chests.
 
     bool nearItem;
     GameObject droppedItem;
@@ -139,6 +139,9 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(1)) //Checks if user Right Click
             {
+                Debug.Log("Player Chest");
+                Debug.Log(nearChest);
+                Debug.Log(ableToOpenChests);
                 if (nearChest && ableToOpenChests) //Player will open chest
                 {
                     Chest.GetComponent<Chest>().dropObject();

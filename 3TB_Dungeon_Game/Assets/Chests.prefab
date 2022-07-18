@@ -152,6 +152,7 @@ MonoBehaviour:
   droppedItem: {fileID: 137157114774053973, guid: 083a0f6a1db044053a699efcebd7c1b9, type: 3}
   sr: {fileID: 465065898427682371}
   openChest: {fileID: 21300000, guid: f2809d0aebe7248e4b7ddaa8d892ef69, type: 3}
+  player: {fileID: 7468297113024184058, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
 --- !u!1 &8192632570076440095
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +338,7 @@ MonoBehaviour:
   droppedItem: {fileID: 137157114774053973, guid: 083a0f6a1db044053a699efcebd7c1b9, type: 3}
   sr: {fileID: 1600426266953213593}
   openChest: {fileID: 21300000, guid: f2809d0aebe7248e4b7ddaa8d892ef69, type: 3}
+  player: {fileID: 7468297113024184058, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
 --- !u!1 &9207263548791665690
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,3 +491,4 @@ MonoBehaviour:
   droppedItem: {fileID: 137157114774053973, guid: 083a0f6a1db044053a699efcebd7c1b9, type: 3}
   sr: {fileID: 6985145813167194363}
   openChest: {fileID: 21300000, guid: f2809d0aebe7248e4b7ddaa8d892ef69, type: 3}
+  player: {fileID: 7468297113024184058, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}

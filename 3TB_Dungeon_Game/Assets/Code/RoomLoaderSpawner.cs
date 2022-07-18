@@ -25,6 +25,7 @@ public class RoomLoaderSpawner : MonoBehaviour
     public GameObject dungeonDestroyableObstacle;
 
     //Game Objects
+    public GameObject player;
     public GameObject chest;
 
     //Enemy Movement Containers
@@ -321,6 +322,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         }
         else if (this.roomLoader.activeRoom.isChestRoom)
         {
+            player.GetComponent<PlayerController>().ableToOpenChests = true;
             Invoke("dungeonCleared", 2.0f);
         }
 
