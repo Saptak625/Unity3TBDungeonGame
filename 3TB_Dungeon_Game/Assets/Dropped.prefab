@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 3e01c5f09a0759447a6445cf2c6b7269, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,6 +96,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071de6f9b36864d7bb446ee5c69932e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sr: {fileID: 137157114774053970}
+  headphoneLauncher: {fileID: 21300000, guid: 31b27003d45ed4b99bdb2f9abe945601, type: 3}
+  automaticEarplugGun: {fileID: 21300000, guid: 5bb2fdd78744545809a40a3b57617886, type: 3}
+  solarRayGun: {fileID: 21300000, guid: 189fd678369564d78907569b25a5a791, type: 3}
+  alienGun: {fileID: 21300000, guid: ef98128293e634f31996c208293b6554, type: 3}
+  fireworksLauncher: {fileID: 21300000, guid: 4a0feb1f225a848dd84a31d38d0ddc5a, type: 3}
+  earplugShield: {fileID: 21300000, guid: 8e98eb2f3f3ef4e268345d9f4d19918d, type: 3}
+  headphoneShield: {fileID: 21300000, guid: 19be171aa13c2475d9ad92dc741e7fa4, type: 3}
+  noiseCancellingHPShield: {fileID: 21300000, guid: 44dfb8a481a3d4fc8b15c0fe78d15794, type: 3}
+  headphonesAndEarplugsShield: {fileID: 21300000, guid: 4044f8f52eeda45a09cd15fae4e1586c, type: 3}
+  noShield: {fileID: 21300000, guid: a3f70a34bd60b4e729a0443b92e0b56f, type: 3}
 --- !u!61 &137157114774053972
 BoxCollider2D:
   m_ObjectHideFlags: 0

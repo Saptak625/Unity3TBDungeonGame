@@ -16,6 +16,9 @@ public class Chest : MonoBehaviour
     {
         System.Random random = new System.Random();
         givenItem = Items.items[random.Next(0, Items.itemsListMax)];
+        Debug.Log("Chest Item");
+        Debug.Log(givenItem.type);
+        Debug.Log(givenItem.ID);
     }
 
     public void dropObject()
@@ -25,8 +28,5 @@ public class Chest : MonoBehaviour
         groundItem.transform.parent = gameObject.transform;
 
         sr.sprite = openChest;
-
-        //Set player's ability to open chests false
-        //Dylan disable chest opening after a chest is selected.
     }
 }
