@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
     public bool weaponOnCooldown = false;
     public int weaponCooldown;
 
-    public GameObject genericProjectile;
     public Camera camera;
 
     public GameObject canvas;
@@ -49,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
     public Sprite noShield, NCHPShield, HPShield, EarplugsShield, EarplugsHPShield; // Shields
     public Sprite headPhone, earplug, solar, alien, fireworks; // Weapons
+    public GameObject headPhoneProjectile, earplugProjectile, solarProjectile, alienProjectile, fireworksProjectile; // Weapons
 
     public int playerState; //0 = Start, 1 = Alive, 2 = dead
 
@@ -308,8 +308,25 @@ public class PlayerController : MonoBehaviour
 
     public void shoot()
     {
+        GameObject projectileChoice = headPhoneProjectile;
+        if(this.currentWeapon.ID == 1)
+        {
+            projectileChoice = earplugProjectile;
+        }else if(this.currentWeapon.ID == 2)
+        {
+            projectileChoice = solarProjectile;
+        }
+        else if (this.currentWeapon.ID == 3)
+        {
+            projectileChoice = alienProjectile;
+        }
+        else if (this.currentWeapon.ID == 4)
+        {
+            projectileChoice = fireworksProjectile;
+        }
+
         Vector2 lookDir = camera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        GameObject projectile = Instantiate(genericProjectile, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.LookRotation(Vector3.forward, lookDir), gameObject.transform);
+        GameObject projectile = Instantiate(projectileChoice, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), Quaternion.LookRotation(Vector3.forward, lookDir), gameObject.transform);
         Projectile projectileController = projectile.GetComponent<Projectile>();
         projectileController.primaryTarget = "Enemy Container";
         projectile.layer = 8;

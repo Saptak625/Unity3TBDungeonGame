@@ -629,9 +629,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8519313512032450648, guid: 5c10c7727303542aba4d97bed3fdc15a, type: 3}
     - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: alienProjectile
+      value: 
+      objectReference: {fileID: 7256358653505853986, guid: a792050835a1a8c4ab8bbfbf07db5b75, type: 3}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: solarProjectile
+      value: 
+      objectReference: {fileID: 2199172782602542797, guid: 52b73f65201d8bb4188559f903470c6f, type: 3}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: EarplugsHPShield
       value: 
       objectReference: {fileID: 21300000, guid: 4044f8f52eeda45a09cd15fae4e1586c, type: 3}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: earplugProjectile
+      value: 
+      objectReference: {fileID: 6458404578520726736, guid: 2d33a74dad3ce4e42bf39f16c269a181, type: 3}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: fireworksProjectile
+      value: 
+      objectReference: {fileID: 5032370588523200997, guid: d9b0dde3f4c2bf849818c93d74959677, type: 3}
+    - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
+      propertyPath: headPhoneProjectile
+      value: 
+      objectReference: {fileID: 4121334574103608495, guid: 4e15490c17f348542a549cca83a286d8, type: 3}
     - target: {fileID: 7468297113024183941, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}
       propertyPath: playerSpriteTransform
       value: 
