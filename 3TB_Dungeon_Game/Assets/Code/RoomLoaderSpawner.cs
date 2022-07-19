@@ -438,6 +438,9 @@ public class RoomLoaderSpawner : MonoBehaviour
 
         //Set loaded to false to load everything in next update
         this.loaded = false;
+
+        //Increment Rooms Cleared
+        player.GetComponent<PlayerController>().roomsCleared += 1;
     }
 
     public void toggleEntrance(Entrance e)

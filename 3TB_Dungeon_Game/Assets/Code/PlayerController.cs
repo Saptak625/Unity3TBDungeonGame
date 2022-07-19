@@ -89,6 +89,8 @@ public class PlayerController : MonoBehaviour
                 Destroy(InGameHUD);
                 EndScreen = Instantiate(EndScreenPrefab);
                 EndScreen.transform.SetParent(canvas.transform, false);
+                EndScreen.transform.FindChild("Text (2)").gameObject.GetComponent<Text>().text = enemiesSlain.ToString() + (enemiesSlain == 1 ? " Enemy Slain" : " Enemies Slain");
+                EndScreen.transform.FindChild("Text (3)").gameObject.GetComponent<Text>().text = roomsCleared.ToString() + (roomsCleared == 1 ? " Room Cleared" : " Rooms Cleared");
             }
 
             if (usingShield)
@@ -269,6 +271,9 @@ public class PlayerController : MonoBehaviour
 
     public void deadTrigger()
     {
+        Debug.Log("Dead Results");
+        Debug.Log(enemiesSlain);
+        Debug.Log(roomsCleared);
         //Use this trigger for detecting when an enemy dies.
         animator.SetBool("Dead", true);
     }
