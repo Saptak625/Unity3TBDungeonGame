@@ -285,6 +285,8 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Executing");
             Debug.Log(damage);
             Debug.Log(this.health);
+            playerSpriteTransform.gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+            Invoke("regular", 0.1f);
             if (usingShield)
             {
                 this.health -= damage * currentShield.resistance;
@@ -304,6 +306,11 @@ public class PlayerController : MonoBehaviour
                 this.deadTrigger();
             }
         }
+    }
+
+    void regular()
+    {
+        playerSpriteTransform.gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
     }
 
     public void shoot()
