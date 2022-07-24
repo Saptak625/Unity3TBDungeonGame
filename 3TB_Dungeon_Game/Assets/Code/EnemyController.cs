@@ -217,7 +217,6 @@ public class EnemyController : MonoBehaviour
             //Add effects to show enemy taking damage
             this.enemy.takeDamage(damage);
             gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
-            Invoke("regular", 0.1f);
             Debug.Log("Damage Taken");
             if (!this.enemy.alive) //Enemy just died after taking damage
             {
@@ -234,8 +233,12 @@ public class EnemyController : MonoBehaviour
                 {
                     enemyContainer.GetComponent<GenericRangeAI>().enabled = false;
                 }
-
+                gameObject.GetComponent<SpriteRenderer>().color = new Color(0.25f, 0.25f, 0.25f);
                 this.deadTrigger();
+            }else
+            {
+                //Reset sprite renderer color since enemy not dead.
+                Invoke("regular", 0.1f);
             }
         }
     }
