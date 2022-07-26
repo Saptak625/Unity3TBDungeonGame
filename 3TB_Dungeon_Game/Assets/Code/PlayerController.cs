@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour
 
     public Transform playerSpriteTransform;
 
+    public bool isPaused = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,166 +69,172 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerState == 0) //Sart
+        if (!isPaused)
         {
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            if (playerState == 0) //Start
             {
-                playerState = 1;
-                DestroyImmediate(StartUI, true);
-                InGameHUD = Instantiate(InGameHUDPrefab);
-                InGameHUD.transform.SetParent(canvas.transform, false);
-
-                healthBarTransform = InGameHUD.transform.GetChild(2).gameObject.GetComponent<RectTransform>();
-                shieldImage = InGameHUD.transform.GetChild(3).gameObject.GetComponent<Image>();
-                weaponImage = InGameHUD.transform.GetChild(4).gameObject.GetComponent<Image>();
-            }
-        }
-        else if (playerState == 1) //Alive
-        {
-            if (!isAlive) //If dead
-            {
-                playerState = 2;
-                Destroy(InGameHUD);
-                EndScreen = Instantiate(EndScreenPrefab);
-                EndScreen.transform.SetParent(canvas.transform, false);
-                EndScreen.transform.FindChild("Text (2)").gameObject.GetComponent<Text>().text = enemiesSlain.ToString() + (enemiesSlain == 1 ? " Enemy Slain" : " Enemies Slain");
-                EndScreen.transform.FindChild("Text (3)").gameObject.GetComponent<Text>().text = roomsCleared.ToString() + (roomsCleared == 1 ? " Room Cleared" : " Rooms Cleared");
-            }
-
-            if (usingShield)
-            {
-                shieldDuration++;
-                if (shieldDuration >= currentShield.duration)
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
                 {
-                    usingShield = false;
-                    shieldOnCooldown = true;
-                    shieldDuration = 0;
+                    playerState = 1;
+                    DestroyImmediate(StartUI, true);
+                    InGameHUD = Instantiate(InGameHUDPrefab);
+                    InGameHUD.transform.SetParent(canvas.transform, false);
+                    PauseMenu pauseMenu = InGameHUD.transform.GetChild(5).gameObject.GetComponent<PauseMenu>();
+                    pauseMenu.pauseMenu = canvas.transform.GetChild(0).gameObject;
+                    pauseMenu.player = gameObject;
+                    canvas.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Button>().onClick.AddListener(pauseMenu.Resume);
+                    canvas.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Button>().onClick.AddListener(pauseMenu.Quit);
+
+                    healthBarTransform = InGameHUD.transform.GetChild(2).gameObject.GetComponent<RectTransform>();
+                    shieldImage = InGameHUD.transform.GetChild(3).gameObject.GetComponent<Image>();
+                    weaponImage = InGameHUD.transform.GetChild(4).gameObject.GetComponent<Image>();
                 }
             }
-            else if (shieldOnCooldown)
+            else if (playerState == 1) //Alive
             {
-                speed = 5;
-                shieldCooldown++;
-                if (shieldCooldown >= currentShield.cooldown)
+                if (!isAlive) //If dead
                 {
-                    shieldOnCooldown = false;
-                    shieldCooldown = 0;
+                    playerState = 2;
+                    Destroy(InGameHUD);
+                    EndScreen = Instantiate(EndScreenPrefab);
+                    EndScreen.transform.SetParent(canvas.transform, false);
+                    EndScreen.transform.FindChild("Text (2)").gameObject.GetComponent<Text>().text = enemiesSlain.ToString() + (enemiesSlain == 1 ? " Enemy Slain" : " Enemies Slain");
+                    EndScreen.transform.FindChild("Text (3)").gameObject.GetComponent<Text>().text = roomsCleared.ToString() + (roomsCleared == 1 ? " Room Cleared" : " Rooms Cleared");
                 }
-            }
 
-            if (weaponOnCooldown)
-            {
-                weaponCooldown++;
-                if (weaponCooldown >= currentWeapon.reloadSpeed)
+                if (usingShield)
                 {
-                    weaponOnCooldown = false;
-                    weaponCooldown = 0;
-                }
-            }
-
-            //Movement Controller
-            float xInput = Input.GetAxisRaw("Horizontal");
-            playerSpriteTransform.eulerAngles = new Vector3(0, (xInput < 0f ? 180 : 0), 0); //Change this flipping behavior if needed
-            rb.velocity = new Vector2(xInput * speed, Input.GetAxisRaw("Vertical") * speed);
-            animator.SetFloat("Distance", rb.velocity.magnitude);
-
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (weaponOnCooldown == false)
-                {
-                    shoot();
-                    weaponOnCooldown = true;
-                }
-            }
-            if (Input.GetMouseButtonDown(1)) //Checks if user Right Click
-            {
-                Debug.Log("Player Chest");
-                Debug.Log(nearChest);
-                Debug.Log(ableToOpenChests);
-                if (nearChest && ableToOpenChests) //Player will open chest
-                {
-                    Chest.GetComponent<Chest>().dropObject();
-                    ableToOpenChests = false; //TODO: Saptak, once chest room is closed, you can turn this true
-                }
-                else if (nearItem)
-                {
-                    if (droppedItem.GetComponent<DroppedItemScript>().heldItem.type == "Weapon")
+                    shieldDuration++;
+                    if (shieldDuration >= currentShield.duration)
                     {
-                        inbetweenItem = currentWeapon;
-                        currentWeapon = droppedItem.GetComponent<DroppedItemScript>().heldItem;
-                        droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
-                        inbetweenItem = null;
-                        if (currentWeapon.ID == 0)
-                        {
-                            weaponImage.sprite = headPhone;
-                        }
-                        else if (currentWeapon.ID == 1)
-                        {
-                            weaponImage.sprite = earplug;
-                        }
-                        else if (currentWeapon.ID == 2)
-                        {
-                            weaponImage.sprite = solar;
-                        }
-                        else if (currentWeapon.ID == 3)
-                        {
-                            weaponImage.sprite = alien;
-                        }
-                        else if (currentWeapon.ID == 4)
-                        {
-                            weaponImage.sprite = fireworks;
-                        }
+                        usingShield = false;
+                        shieldOnCooldown = true;
+                        shieldDuration = 0;
                     }
-                    else
+                }
+                else if (shieldOnCooldown)
+                {
+                    speed = 5;
+                    shieldCooldown++;
+                    if (shieldCooldown >= currentShield.cooldown)
                     {
-                        inbetweenItem = currentShield;
-                        currentShield = droppedItem.GetComponent<DroppedItemScript>().heldItem;
-                        droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
-                        inbetweenItem = null;
+                        shieldOnCooldown = false;
+                        shieldCooldown = 0;
+                    }
+                }
+
+                if (weaponOnCooldown)
+                {
+                    weaponCooldown++;
+                    if (weaponCooldown >= currentWeapon.reloadSpeed)
+                    {
+                        weaponOnCooldown = false;
+                        weaponCooldown = 0;
+                    }
+                }
+
+                //Movement Controller
+                float xInput = Input.GetAxisRaw("Horizontal");
+                playerSpriteTransform.eulerAngles = new Vector3(0, (xInput < 0f ? 180 : 0), 0); //Change this flipping behavior if needed
+                rb.velocity = new Vector2(xInput * speed, Input.GetAxisRaw("Vertical") * speed);
+                animator.SetFloat("Distance", rb.velocity.magnitude);
+
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (weaponOnCooldown == false)
+                    {
+                        shoot();
+                        weaponOnCooldown = true;
+                    }
+                }
+                if (Input.GetMouseButtonDown(1)) //Checks if user Right Click
+                {
+                    Debug.Log("Player Chest");
+                    Debug.Log(nearChest);
+                    Debug.Log(ableToOpenChests);
+                    if (nearChest && ableToOpenChests) //Player will open chest
+                    {
+                        Chest.GetComponent<Chest>().dropObject();
+                        ableToOpenChests = false; //TODO: Saptak, once chest room is closed, you can turn this true
+                    }
+                    else if (nearItem)
+                    {
+                        if (droppedItem.GetComponent<DroppedItemScript>().heldItem.type == "Weapon")
+                        {
+                            inbetweenItem = currentWeapon;
+                            currentWeapon = droppedItem.GetComponent<DroppedItemScript>().heldItem;
+                            droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
+                            inbetweenItem = null;
+                            if (currentWeapon.ID == 0)
+                            {
+                                weaponImage.sprite = headPhone;
+                            }
+                            else if (currentWeapon.ID == 1)
+                            {
+                                weaponImage.sprite = earplug;
+                            }
+                            else if (currentWeapon.ID == 2)
+                            {
+                                weaponImage.sprite = solar;
+                            }
+                            else if (currentWeapon.ID == 3)
+                            {
+                                weaponImage.sprite = alien;
+                            }
+                            else if (currentWeapon.ID == 4)
+                            {
+                                weaponImage.sprite = fireworks;
+                            }
+                        }
+                        else
+                        {
+                            inbetweenItem = currentShield;
+                            currentShield = droppedItem.GetComponent<DroppedItemScript>().heldItem;
+                            droppedItem.GetComponent<DroppedItemScript>().heldItem = inbetweenItem;
+                            inbetweenItem = null;
 
                         
-                        if (currentShield.ID == 5)
-                        {
-                            shieldImage.sprite = EarplugsShield;
+                            if (currentShield.ID == 5)
+                            {
+                                shieldImage.sprite = EarplugsShield;
+                            }
+                            else if (currentShield.ID == 6)
+                            {
+                                shieldImage.sprite = HPShield;
+                            }
+                            else if (currentShield.ID == 7)
+                            {
+                                shieldImage.sprite = NCHPShield;
+                            }
+                            else if (currentShield.ID == 8)
+                            {
+                                shieldImage.sprite = EarplugsHPShield;
+                            }
+                            else if (currentShield.ID == 9)
+                            {
+                                shieldImage.sprite = noShield;
+                            }
+                            //Debug.Log("Switched Shield");
                         }
-                        else if (currentShield.ID == 6)
-                        {
-                            shieldImage.sprite = HPShield;
-                        }
-                        else if (currentShield.ID == 7)
-                        {
-                            shieldImage.sprite = NCHPShield;
-                        }
-                        else if (currentShield.ID == 8)
-                        {
-                            shieldImage.sprite = EarplugsHPShield;
-                        }
-                        else if (currentShield.ID == 9)
-                        {
-                            shieldImage.sprite = noShield;
-                        }
-                        //Debug.Log("Switched Shield");
+                    }
+                    else if (usingShield == false && shieldOnCooldown == false) //Player will shield
+                    {
+                        //Debug.Log("Shield");
+                        usingShield = true;
+                        speed -= currentShield.speedReduction;
                     }
                 }
-                else if (usingShield == false && shieldOnCooldown == false) //Player will shield
+            }
+            else if (playerState == 2) //Dead
+            {
+                if (Input.GetMouseButtonDown(0))
                 {
-                    //Debug.Log("Shield");
-                    usingShield = true;
-                    speed -= currentShield.speedReduction;
+                    Scene scene = SceneManager.GetActiveScene();
+                    SceneManager.LoadScene(scene.name);
                 }
             }
         }
-        else if (playerState == 2) //Dead
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Scene scene = SceneManager.GetActiveScene();
-                SceneManager.LoadScene(scene.name);
-            }
-        }
-        
-        
     }
 
     public void incrementEnemySlain()
