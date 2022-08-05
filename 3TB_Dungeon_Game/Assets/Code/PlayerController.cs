@@ -79,11 +79,19 @@ public class PlayerController : MonoBehaviour
                     DestroyImmediate(StartUI, true);
                     InGameHUD = Instantiate(InGameHUDPrefab);
                     InGameHUD.transform.SetParent(canvas.transform, false);
-                    PauseMenu pauseMenu = InGameHUD.transform.GetChild(5).gameObject.GetComponent<PauseMenu>();
-                    pauseMenu.pauseMenu = canvas.transform.GetChild(0).gameObject;
-                    pauseMenu.player = gameObject;
-                    canvas.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Button>().onClick.AddListener(pauseMenu.Resume);
-                    canvas.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Button>().onClick.AddListener(pauseMenu.Quit);
+                    PauseMenu pauseMenu1 = InGameHUD.transform.GetChild(5).gameObject.GetComponent<PauseMenu>();
+                    PauseMenu pauseMenu2 = InGameHUD.transform.GetChild(6).gameObject.GetComponent<PauseMenu>();
+                    pauseMenu1.inGameHUD = InGameHUD;
+                    pauseMenu2.inGameHUD = InGameHUD;
+                    pauseMenu1.pauseMenu = canvas.transform.GetChild(0).gameObject;
+                    pauseMenu2.pauseMenu = canvas.transform.GetChild(1).gameObject;
+                    pauseMenu1.player = gameObject;
+                    pauseMenu2.player = gameObject;
+                    canvas.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Button>().onClick.AddListener(pauseMenu1.Resume);
+                    canvas.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Button>().onClick.AddListener(pauseMenu1.Quit);
+                    canvas.transform.GetChild(1).GetChild(2).gameObject.GetComponent<Button>().onClick.AddListener(pauseMenu2.Resume);
+                    canvas.transform.GetChild(1).GetChild(7).gameObject.GetComponent<Button>().onClick.AddListener(canvas.transform.GetChild(1).gameObject.GetComponent<InfoScreen>().Left);
+                    canvas.transform.GetChild(1).GetChild(8).gameObject.GetComponent<Button>().onClick.AddListener(canvas.transform.GetChild(1).gameObject.GetComponent<InfoScreen>().Right);
 
                     healthBarTransform = InGameHUD.transform.GetChild(2).gameObject.GetComponent<RectTransform>();
                     shieldImage = InGameHUD.transform.GetChild(3).gameObject.GetComponent<Image>();

@@ -9,6 +9,7 @@ ScriptsOnlyBuild:
     - EnemyMovementController
     - GenericRangeAI
     - MageAI
+    - PauseMenu
     - PlayerController
     - Projectile
     - RoomLoaderSpawner
@@ -49,6 +50,7 @@ ScriptsOnlyBuild:
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
@@ -84,49 +86,53 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1464}
     - Class: 114
-      Script: {instanceID: 1672}
+      Script: {instanceID: 1466}
     - Class: 114
-      Script: {instanceID: 1922}
+      Script: {instanceID: 1468}
     - Class: 114
-      Script: {instanceID: 2264}
+      Script: {instanceID: 1678}
     - Class: 114
-      Script: {instanceID: 2316}
+      Script: {instanceID: 1928}
     - Class: 114
-      Script: {instanceID: 2402}
+      Script: {instanceID: 2320}
     - Class: 114
-      Script: {instanceID: 2466}
+      Script: {instanceID: 2406}
     - Class: 114
-      Script: {instanceID: 2480}
+      Script: {instanceID: 2470}
     - Class: 114
-      Script: {instanceID: 2732}
+      Script: {instanceID: 2484}
     - Class: 114
-      Script: {instanceID: 2906}
+      Script: {instanceID: 2736}
     - Class: 114
-      Script: {instanceID: 2998}
+      Script: {instanceID: 2910}
     - Class: 114
-      Script: {instanceID: 3078}
+      Script: {instanceID: 3002}
     - Class: 114
-      Script: {instanceID: 3080}
+      Script: {instanceID: 3082}
     - Class: 114
-      Script: {instanceID: 3146}
+      Script: {instanceID: 3084}
     - Class: 114
-      Script: {instanceID: 3342}
+      Script: {instanceID: 3150}
     - Class: 114
-      Script: {instanceID: 3412}
+      Script: {instanceID: 3346}
     - Class: 114
-      Script: {instanceID: 3970}
+      Script: {instanceID: 3416}
     - Class: 114
-      Script: {instanceID: 4060}
+      Script: {instanceID: 3972}
     - Class: 114
-      Script: {instanceID: 4572}
+      Script: {instanceID: 4062}
     - Class: 114
-      Script: {instanceID: 4970}
+      Script: {instanceID: 4574}
     - Class: 114
-      Script: {instanceID: 5038}
+      Script: {instanceID: 4972}
     - Class: 114
-      Script: {instanceID: 5240}
+      Script: {instanceID: 5040}
     - Class: 114
-      Script: {instanceID: 5664}
+      Script: {instanceID: 5242}
+    - Class: 114
+      Script: {instanceID: 5666}
+    - Class: 114
+      Script: {instanceID: 5692}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -152,6 +158,18 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Image
+  - hash:
+      serializedVersion: 2
+      Hash: 69415240821be7986b27e72bf9609a30
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Button
+  - hash:
+      serializedVersion: 2
+      Hash: 699619b86d9359741a4f58540298c80b
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Text
   - hash:
       serializedVersion: 2
       Hash: 1d6bc7fb33fcc56237df7c329c31fac2
@@ -214,7 +232,7 @@ ScriptsOnlyBuild:
     className: LayoutElement
   - hash:
       serializedVersion: 2
-      Hash: 5813027a454ca61945ebb40ea8de4c60
+      Hash: 8f54b01ebf4fc1a0b1573eaef8bb7637
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -290,12 +308,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_StyleSheet
-  - hash:
-      serializedVersion: 2
-      Hash: 699619b86d9359741a4f58540298c80b
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Text
   - hash:
       serializedVersion: 2
       Hash: 6ac5fb3600e61eeed4676476fae2f39b
@@ -566,12 +578,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ToggleGroup
-  - hash:
-      serializedVersion: 2
-      Hash: 69415240821be7986b27e72bf9609a30
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Button
   - hash:
       serializedVersion: 2
       Hash: 349d08daa6108b9a28f8c38fd40ce96f
@@ -904,6 +910,12 @@ ScriptsOnlyBuild:
     className: Seeker
   - hash:
       serializedVersion: 2
+      Hash: b3867d785a435090b8384cea6d71c09c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PauseMenu
+  - hash:
+      serializedVersion: 2
       Hash: 8220b46879dc5e37db1b940c938f5744
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -942,4 +954,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
   playerPath: C:/Users/halde_000.SUBHASHIS-PC/Documents/GitHub/Unity3TBDungeonGame/3TB_Dungeon_Game/Builds/WebGL/Build
-    2
+    3

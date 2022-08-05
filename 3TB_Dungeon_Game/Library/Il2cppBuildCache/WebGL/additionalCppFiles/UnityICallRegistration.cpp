@@ -2258,6 +2258,10 @@ void RegisterAllStrippedInternalCalls()
 
 	//Start Registrations for type : UnityEngine.SpriteRenderer
 
+		//System.Void UnityEngine.SpriteRenderer::set_color_Injected(UnityEngine.Color&)
+		void Register_UnityEngine_SpriteRenderer_set_color_Injected();
+		Register_UnityEngine_SpriteRenderer_set_color_Injected();
+
 		//System.Void UnityEngine.SpriteRenderer::set_sprite(UnityEngine.Sprite)
 		void Register_UnityEngine_SpriteRenderer_set_sprite();
 		Register_UnityEngine_SpriteRenderer_set_sprite();
@@ -2445,6 +2449,10 @@ void RegisterAllStrippedInternalCalls()
 		//System.Single UnityEngine.Time::get_unscaledTime()
 		void Register_UnityEngine_Time_get_unscaledTime();
 		Register_UnityEngine_Time_get_unscaledTime();
+
+		//System.Void UnityEngine.Time::set_timeScale(System.Single)
+		void Register_UnityEngine_Time_set_timeScale();
+		Register_UnityEngine_Time_set_timeScale();
 
 	//End Registrations for type : UnityEngine.Time
 
