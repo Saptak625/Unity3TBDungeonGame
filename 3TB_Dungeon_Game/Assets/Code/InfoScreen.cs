@@ -108,4 +108,11 @@ public class InfoScreen : MonoBehaviour
             gameObject.transform.GetChild((newSection * 2) + 8).position -= new Vector3(0f, 15f, 0f);
         }
     }
+
+    public void changeSection(int newSection)
+    {
+        changeTab(currentSection, newSection);
+        currentSection = newSection;
+        currentPage = 0;
+    }
 }
