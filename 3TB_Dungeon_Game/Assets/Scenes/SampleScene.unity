@@ -123,7 +123,74 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &56371731
+--- !u!1 &263512698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 263512699}
+  - component: {fileID: 263512700}
+  m_Layer: 0
+  m_Name: RoomLoader
+  m_TagString: RoomLoader
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &263512699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263512698}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2047959482}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &263512700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263512698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 136d43df7fc60db49a871034854b0202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonFloorTile: {fileID: 8943672130232379224, guid: bfdb03a86d4326f41b34f130a057c6a3, type: 3}
+  dungeonWallTile: {fileID: 9137740940249164918, guid: eddbcda542d8a7645b70c83ca380465a, type: 3}
+  dungeonEntranceTileOpen: {fileID: 6990215694555244966, guid: 1e735cad1ba13404e96e4d106015b77e, type: 3}
+  dungeonEntranceTileClosed: {fileID: 3550010925516258606, guid: 1207687b49af6db49b30998f31553b96, type: 3}
+  roomTrigger: {fileID: 7489239560153305933, guid: 429f0420f1cc061489203cc42b946d96, type: 3}
+  dungeonDestroyableObstacle: {fileID: 4096229380251595279, guid: 2aad6071e1caec94c910426128568ccd, type: 3}
+  player: {fileID: 767097139}
+  chest: {fileID: 8192632570076440095, guid: 1d03fbb4ef26e4d21b451f050380a698, type: 3}
+  enemyMeleeContainer: {fileID: 8666105627777410017, guid: e7488f472686ea14cb66a0417570a8de, type: 3}
+  enemyRangeContainer: {fileID: 1715233190168688194, guid: e84248eeb71af4b439e8cd3b00999f72, type: 3}
+  enemyMageContainer: {fileID: 1487898229587134159, guid: c179e242ea1aace4c91afd45ad8f7738, type: 3}
+  canvas: {fileID: 472347537}
+  RoomClearedPrefab: {fileID: 3336330648001249862, guid: 9b6cd4b18050146f5a8a3b8366fcf96e, type: 3}
+--- !u!1 &472347537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3074609094012014571, guid: 6f69131947396a84682749f849f47b06, type: 3}
+  m_PrefabInstance: {fileID: 3074609093812616314}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &472347541 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3074609094012014575, guid: 6f69131947396a84682749f849f47b06, type: 3}
+  m_PrefabInstance: {fileID: 3074609093812616314}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &517698873
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -224,73 +291,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5f95e7d739affb4396c6b6d7d77e361, type: 3}
---- !u!1 &263512698
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 263512699}
-  - component: {fileID: 263512700}
-  m_Layer: 0
-  m_Name: RoomLoader
-  m_TagString: RoomLoader
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &263512699
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 263512698}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2047959482}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &263512700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 263512698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 136d43df7fc60db49a871034854b0202, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeonFloorTile: {fileID: 8943672130232379224, guid: bfdb03a86d4326f41b34f130a057c6a3, type: 3}
-  dungeonWallTile: {fileID: 9137740940249164918, guid: eddbcda542d8a7645b70c83ca380465a, type: 3}
-  dungeonEntranceTileOpen: {fileID: 6990215694555244966, guid: 1e735cad1ba13404e96e4d106015b77e, type: 3}
-  dungeonEntranceTileClosed: {fileID: 3550010925516258606, guid: 1207687b49af6db49b30998f31553b96, type: 3}
-  roomTrigger: {fileID: 7489239560153305933, guid: 429f0420f1cc061489203cc42b946d96, type: 3}
-  dungeonDestroyableObstacle: {fileID: 4096229380251595279, guid: 2aad6071e1caec94c910426128568ccd, type: 3}
-  player: {fileID: 767097139}
-  chest: {fileID: 8192632570076440095, guid: 1d03fbb4ef26e4d21b451f050380a698, type: 3}
-  enemyMeleeContainer: {fileID: 8666105627777410017, guid: e7488f472686ea14cb66a0417570a8de, type: 3}
-  enemyRangeContainer: {fileID: 1715233190168688194, guid: e84248eeb71af4b439e8cd3b00999f72, type: 3}
-  enemyMageContainer: {fileID: 1487898229587134159, guid: c179e242ea1aace4c91afd45ad8f7738, type: 3}
-  canvas: {fileID: 472347537}
-  RoomClearedPrefab: {fileID: 3336330648001249862, guid: 9b6cd4b18050146f5a8a3b8366fcf96e, type: 3}
---- !u!1 &472347537 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3074609094012014571, guid: 6f69131947396a84682749f849f47b06, type: 3}
-  m_PrefabInstance: {fileID: 3074609093812616314}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &472347541 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3074609094012014575, guid: 6f69131947396a84682749f849f47b06, type: 3}
-  m_PrefabInstance: {fileID: 3074609093812616314}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &767097139 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7468297113024184058, guid: eae5b5cabdd6bcf48969255512c1817c, type: 3}

@@ -38,7 +38,9 @@ public class InfoScreen : MonoBehaviour
                 index++;
             }
         }
-        Debug.Log("Hash" + pageImages.Count);
+        gameObject.transform.GetChild((currentSection * 2) + 7).position -= new Vector3(0f, 15f, 0f);
+        gameObject.transform.GetChild((currentSection * 2) + 7).gameObject.GetComponent<Image>().color = new Color(100.0f / 255.0f, 100.0f / 255.0f, 100.0f / 255.0f, 150.0f / 255.0f);
+        gameObject.transform.GetChild((currentSection * 2) + 8).position -= new Vector3(0f, 15f, 0f);
     }
 
     // Update is called once per frame
@@ -63,6 +65,7 @@ public class InfoScreen : MonoBehaviour
 
     public void Right()
     {
+        int originalSection = currentSection;
         currentPage += 1;
         if(currentPage >= pageInfo[currentSection].Count)
         {
@@ -73,10 +76,12 @@ public class InfoScreen : MonoBehaviour
                 currentSection = 1;
             }
         }
+        changeTab(originalSection, currentSection);
     }
 
     public void Left()
     {
+        int originalSection = currentSection;
         currentPage -= 1;
         if (currentPage < 0)
         {
@@ -86,6 +91,21 @@ public class InfoScreen : MonoBehaviour
                 currentSection = pageInfo.Count;
             }
             currentPage = pageInfo[currentSection].Count - 1;
+        }
+        changeTab(originalSection, currentSection);
+    }
+
+    void changeTab(int originalSection, int newSection)
+    {
+        if(originalSection != newSection)
+        {
+            gameObject.transform.GetChild((originalSection * 2) + 7).position += new Vector3(0f, 15f, 0f);
+            gameObject.transform.GetChild((originalSection * 2) + 7).gameObject.GetComponent<Image>().color = new Color(0f, 0f, 0f, 150.0f / 255.0f);
+            gameObject.transform.GetChild((originalSection * 2) + 8).position += new Vector3(0f, 15f, 0f);
+
+            gameObject.transform.GetChild((newSection * 2) + 7).position -= new Vector3(0f, 15f, 0f);
+            gameObject.transform.GetChild((newSection * 2) + 7).gameObject.GetComponent<Image>().color = new Color(100.0f / 255.0f, 100.0f / 255.0f, 100.0f / 255.0f, 150.0f / 255.0f);
+            gameObject.transform.GetChild((newSection * 2) + 8).position -= new Vector3(0f, 15f, 0f);
         }
     }
 }
