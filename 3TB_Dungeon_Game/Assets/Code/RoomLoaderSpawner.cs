@@ -37,6 +37,9 @@ public class RoomLoaderSpawner : MonoBehaviour
     public GameObject canvas;
     public GameObject RoomClearedPrefab;
 
+    //Enemy Info Screen
+    public List<int> enemyTypesSeen = new List<int>();
+
     //States
     private bool loaded = false;
 
@@ -299,12 +302,27 @@ public class RoomLoaderSpawner : MonoBehaviour
         }
 
         //Pause Game and show UI Screens
-        List<int> enemyTypes = new List<int>() { (int) selectedRoom.enemyTypeArray[0], (int)selectedRoom.enemyTypeArray[1] };
-        player.GetComponent<PlayerController>().isPaused = true;
-        Time.timeScale = 0f;
-        GameObject enemyInfoScreen = canvas.transform.GetChild(2).gameObject;
-        enemyInfoScreen.SetActive(true);
-        enemyInfoScreen.GetComponent<InfoScreen>().setupScreen(selectedRoom, player, gameObject, enemyTypes);
+        List<int> enemyTypes = new List<int>();
+        foreach (EnemyType e in selectedRoom.enemyTypeArray)
+        {
+            if (!enemyTypesSeen.Contains((int) e))
+            {
+                enemyTypes.Add((int) e);
+                enemyTypesSeen.Add((int) e);
+            }
+        }
+        if(enemyTypes.Count > 0)
+        {
+            player.GetComponent<PlayerController>().isPaused = true;
+            Time.timeScale = 0f;
+            GameObject enemyInfoScreen = canvas.transform.GetChild(2).gameObject;
+            enemyInfoScreen.SetActive(true);
+            enemyInfoScreen.GetComponent<InfoScreen>().setupScreen(selectedRoom, player, gameObject, enemyTypes);
+        }
+        else
+        {
+            startDungeon(selectedRoom);
+        }
     }
 
     public void startDungeon(Room selectedRoom)
