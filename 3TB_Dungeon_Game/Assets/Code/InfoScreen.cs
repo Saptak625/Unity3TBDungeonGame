@@ -5,9 +5,15 @@ using UnityEngine.UI;
 
 public class InfoScreen : MonoBehaviour
 {
+    public int currentIndex = 0;
     public int currentSection = 1;
-    public int currentPage = 1;
-    public bool wrap = true;
+    public int currentPage = 0;
+    public bool wrapAction = false;
+    public bool tabs = true;
+    public List<int> categories = new List<int>();
+    public Room currentRoom = null;
+    public GameObject player;
+    public GameObject roomLoaderSpawner;
 
     public Sprite[] sprites;
     public Dictionary<int, List<Sprite>> pageImages = new Dictionary<int, List<Sprite>>();
@@ -27,6 +33,7 @@ public class InfoScreen : MonoBehaviour
     void Start()
     {
         int index = 1;
+
         List<Sprite> newArr = new List<Sprite>();
         for(int i=0; i<sprites.Length; i++)
         {
@@ -38,9 +45,15 @@ public class InfoScreen : MonoBehaviour
                 index++;
             }
         }
-        gameObject.transform.GetChild((currentSection * 2) + 7).position -= new Vector3(0f, 15f, 0f);
-        gameObject.transform.GetChild((currentSection * 2) + 7).gameObject.GetComponent<Image>().color = new Color(100.0f / 255.0f, 100.0f / 255.0f, 100.0f / 255.0f, 150.0f / 255.0f);
-        gameObject.transform.GetChild((currentSection * 2) + 8).position -= new Vector3(0f, 15f, 0f);
+
+        currentSection = categories[currentIndex];
+
+        if (tabs)
+        {
+            gameObject.transform.GetChild((currentSection * 2) + 7).position -= new Vector3(0f, 15f, 0f);
+            gameObject.transform.GetChild((currentSection * 2) + 7).gameObject.GetComponent<Image>().color = new Color(100.0f / 255.0f, 100.0f / 255.0f, 100.0f / 255.0f, 150.0f / 255.0f);
+            gameObject.transform.GetChild((currentSection * 2) + 8).position -= new Vector3(0f, 15f, 0f);
+        }
     }
 
     // Update is called once per frame
@@ -55,12 +68,6 @@ public class InfoScreen : MonoBehaviour
         gameObject.transform.GetChild(3).gameObject.GetComponent<Text>().text = (data1 == null ? "Enemy Name": data1);
         gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = (data2 == null ? "Enemy Description Here" : data2);
         gameObject.transform.GetChild(5).gameObject.GetComponent<Text>().text = (data3 == null ? "How to Protect Yourself in Real Life" : data3);
-
-        //Disable Arrows if not wrap
-        if (!wrap)
-        {
-
-        }
     }
 
     public void Right()
@@ -69,11 +76,26 @@ public class InfoScreen : MonoBehaviour
         currentPage += 1;
         if(currentPage >= pageInfo[currentSection].Count)
         {
-            currentPage = 0;
-            currentSection += 1;
-            if(currentSection > pageInfo.Count)
+            currentIndex += 1;
+            if(currentIndex >= categories.Count)
             {
-                currentSection = 1;
+                if (!wrapAction)
+                {
+                    currentIndex = 0;
+                    currentSection = categories[currentIndex];
+                    currentPage = 0;
+                }
+                else
+                {
+                    currentIndex -= 1;
+                    currentPage -= 1;
+                    startDungeon();
+                }
+            }
+            else
+            {
+                currentSection = categories[currentIndex];
+                currentPage = 0;
             }
         }
         changeTab(originalSection, currentSection);
@@ -85,19 +107,34 @@ public class InfoScreen : MonoBehaviour
         currentPage -= 1;
         if (currentPage < 0)
         {
-            currentSection -= 1;
-            if (currentSection < 1)
+            currentIndex -= 1;
+            if (currentIndex < 0)
             {
-                currentSection = pageInfo.Count;
+                if (!wrapAction)
+                {
+                    currentIndex = categories.Count - 1;
+                    currentSection = categories[currentIndex];
+                    currentPage = pageInfo[currentSection].Count - 1;
+                }
+                else
+                {
+                    currentSection = 0;
+                    currentPage = 0;
+                    startDungeon();
+                }
             }
-            currentPage = pageInfo[currentSection].Count - 1;
+            else
+            {
+                currentSection = categories[currentIndex];
+                currentPage = pageInfo[currentSection].Count - 1;
+            }
         }
         changeTab(originalSection, currentSection);
     }
 
     void changeTab(int originalSection, int newSection)
     {
-        if(originalSection != newSection)
+        if(originalSection != newSection && tabs)
         {
             gameObject.transform.GetChild((originalSection * 2) + 7).position += new Vector3(0f, 15f, 0f);
             gameObject.transform.GetChild((originalSection * 2) + 7).gameObject.GetComponent<Image>().color = new Color(0f, 0f, 0f, 150.0f / 255.0f);
@@ -114,5 +151,21 @@ public class InfoScreen : MonoBehaviour
         changeTab(currentSection, newSection);
         currentSection = newSection;
         currentPage = 0;
+    }
+
+    void startDungeon()
+    {
+        player.GetComponent<PlayerController>().isPaused = false;
+        Time.timeScale = 1f;
+        gameObject.SetActive(false);
+        roomLoaderSpawner.GetComponent<RoomLoaderSpawner>().startDungeon(currentRoom);
+    }
+
+    public void setupScreen(Room r, GameObject p, GameObject rls, List<int> c)
+    {
+        currentRoom = r;
+        player = p;
+        roomLoaderSpawner = rls;
+        categories = c;
     }
 }

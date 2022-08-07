@@ -298,6 +298,17 @@ public class RoomLoaderSpawner : MonoBehaviour
             Destroy(this.roomLoader.roomQueue[0][i].trigger);
         }
 
+        //Pause Game and show UI Screens
+        List<int> enemyTypes = new List<int>() { (int) selectedRoom.enemyTypeArray[0], (int)selectedRoom.enemyTypeArray[1] };
+        player.GetComponent<PlayerController>().isPaused = true;
+        Time.timeScale = 0f;
+        GameObject enemyInfoScreen = canvas.transform.GetChild(2).gameObject;
+        enemyInfoScreen.SetActive(true);
+        enemyInfoScreen.GetComponent<InfoScreen>().setupScreen(selectedRoom, player, gameObject, enemyTypes);
+    }
+
+    public void startDungeon(Room selectedRoom)
+    {
         //Set activeRoom
         this.roomLoader.activeRoom = selectedRoom;
 
@@ -313,8 +324,9 @@ public class RoomLoaderSpawner : MonoBehaviour
             Debug.Log(this.roomLoader.activeRoom);
             Debug.Log(this.roomLoader.activeRoom.activeEnemies.Count);
             this.spawnNextEnemyWave();
-            
-        } else if (this.roomLoader.activeRoom.isBossRoom)
+
+        }
+        else if (this.roomLoader.activeRoom.isBossRoom)
         {
             //Initialize Boss
             //Uncomment bottom line for testing

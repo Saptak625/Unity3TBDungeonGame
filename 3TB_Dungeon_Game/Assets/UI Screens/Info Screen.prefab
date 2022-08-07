@@ -1675,9 +1675,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df90fc2603d9bd498e1d5ac1b3726a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentIndex: 0
   currentSection: 1
   currentPage: 0
-  wrap: 1
+  wrapAction: 0
+  tabs: 1
+  categories: 0100000002000000030000000400000005000000060000000700000008000000
   sprites:
   - {fileID: 21300000, guid: f4a34b2d2c7b962449bec9516bf4d33c, type: 3}
   - {fileID: 21300000, guid: e5b890c8cde4e7740b634a2684a3c64c, type: 3}
