@@ -2648,4 +2648,28 @@ void RegisterAllStrippedInternalCalls()
 
 	//End Registrations for type : UnityEngine.UISystemProfilerApi
 
+	//Start Registrations for type : UnityEngine.Video.VideoClip
+
+		//System.Double UnityEngine.Video.VideoClip::get_length()
+		void Register_UnityEngine_Video_VideoClip_get_length();
+		Register_UnityEngine_Video_VideoClip_get_length();
+
+	//End Registrations for type : UnityEngine.Video.VideoClip
+
+	//Start Registrations for type : UnityEngine.Video.VideoPlayer
+
+		//System.Double UnityEngine.Video.VideoPlayer::get_time()
+		void Register_UnityEngine_Video_VideoPlayer_get_time();
+		Register_UnityEngine_Video_VideoPlayer_get_time();
+
+		//System.Void UnityEngine.Video.VideoPlayer::set_url(System.String)
+		void Register_UnityEngine_Video_VideoPlayer_set_url();
+		Register_UnityEngine_Video_VideoPlayer_set_url();
+
+		//UnityEngine.Video.VideoClip UnityEngine.Video.VideoPlayer::get_clip()
+		void Register_UnityEngine_Video_VideoPlayer_get_clip();
+		Register_UnityEngine_Video_VideoPlayer_get_clip();
+
+	//End Registrations for type : UnityEngine.Video.VideoPlayer
+
 }

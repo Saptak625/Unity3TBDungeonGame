@@ -6,6 +6,7 @@ using UnityEngine.Video;
 
 public class VideoOver : MonoBehaviour
 {
+    public string url;
     public double time;
     public double currentTime;
     public GameObject player;
@@ -14,8 +15,9 @@ public class VideoOver : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-        time = gameObject.GetComponent<VideoPlayer>().clip.length;
+        VideoPlayer vp = gameObject.GetComponent<VideoPlayer>();
+        vp.url = url;
+        time = vp.clip.length;
     }
 
 

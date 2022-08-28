@@ -384,7 +384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4835655261021383716, guid: d5f95e7d739affb4396c6b6d7d77e361, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -600
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4835655261021383716, guid: d5f95e7d739affb4396c6b6d7d77e361, type: 3}
       propertyPath: m_LocalRotation.w
@@ -745,7 +745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6156110807522240079, guid: 69d694b5903e96a4187ee844db2bcbb9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -600
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6156110807522240079, guid: 69d694b5903e96a4187ee844db2bcbb9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1079,7 +1079,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878041307421686138, guid: 3f92b05ff66e79d448e7428afcdd0f83, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -600
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4878041307421686138, guid: 3f92b05ff66e79d448e7428afcdd0f83, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1243,6 +1243,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1140275009861366797, guid: 6f69131947396a84682749f849f47b06, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074609093610577652, guid: 6f69131947396a84682749f849f47b06, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3074609093610577655, guid: 6f69131947396a84682749f849f47b06, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1402,7 +1410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6875015348229191172, guid: e686f693b8793ef40867599899b4880e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -600
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6875015348229191172, guid: e686f693b8793ef40867599899b4880e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1445,6 +1453,10 @@ PrefabInstance:
       value: Video Screen
       objectReference: {fileID: 0}
     - target: {fileID: 6875015349022504336, guid: e686f693b8793ef40867599899b4880e, type: 3}
+      propertyPath: url
+      value: https://saptak625.github.io/3TBDungeonGame/Noisy%20Dungeon%20Intro%20Final.mp4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875015349022504336, guid: e686f693b8793ef40867599899b4880e, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 767097139}
@@ -1452,6 +1464,10 @@ PrefabInstance:
       propertyPath: startScreen
       value: 
       objectReference: {fileID: 1950016141}
+    - target: {fileID: 6875015349022504343, guid: e686f693b8793ef40867599899b4880e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e686f693b8793ef40867599899b4880e, type: 3}
 --- !u!1001 &7468297112069842244

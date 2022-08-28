@@ -8,6 +8,7 @@ ScriptsOnlyBuild:
     - EnemyController
     - EnemyMovementController
     - GenericRangeAI
+    - InfoScreen
     - MageAI
     - PauseMenu
     - PlayerController
@@ -15,6 +16,7 @@ ScriptsOnlyBuild:
     - RoomLoaderSpawner
     - SummonedObject
     - TextFade
+    - VideoOver
     AstarPathfindingProject.dll:
     - AstarPath
     - Pathfinding.AIDestinationSetter
@@ -54,6 +56,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.RawImage
     - UnityEngine.UI.Text
   sceneClasses:
     Assets/Scenes/SampleScene.unity:
@@ -77,6 +80,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 86
+      Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
     - Class: 95
@@ -90,49 +95,55 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1468}
     - Class: 114
-      Script: {instanceID: 1678}
+      Script: {instanceID: 1470}
     - Class: 114
-      Script: {instanceID: 1928}
+      Script: {instanceID: 1684}
     - Class: 114
-      Script: {instanceID: 2320}
+      Script: {instanceID: 1934}
     - Class: 114
-      Script: {instanceID: 2406}
+      Script: {instanceID: 2326}
     - Class: 114
-      Script: {instanceID: 2470}
+      Script: {instanceID: 2412}
     - Class: 114
-      Script: {instanceID: 2484}
+      Script: {instanceID: 2476}
     - Class: 114
-      Script: {instanceID: 2736}
+      Script: {instanceID: 2488}
     - Class: 114
-      Script: {instanceID: 2910}
+      Script: {instanceID: 2580}
     - Class: 114
-      Script: {instanceID: 3002}
+      Script: {instanceID: 2742}
     - Class: 114
-      Script: {instanceID: 3082}
+      Script: {instanceID: 2916}
     - Class: 114
-      Script: {instanceID: 3084}
+      Script: {instanceID: 3008}
     - Class: 114
-      Script: {instanceID: 3150}
+      Script: {instanceID: 3088}
     - Class: 114
-      Script: {instanceID: 3346}
+      Script: {instanceID: 3090}
     - Class: 114
-      Script: {instanceID: 3416}
+      Script: {instanceID: 3156}
     - Class: 114
-      Script: {instanceID: 3972}
+      Script: {instanceID: 3352}
     - Class: 114
-      Script: {instanceID: 4062}
+      Script: {instanceID: 3422}
     - Class: 114
-      Script: {instanceID: 4574}
+      Script: {instanceID: 3978}
     - Class: 114
-      Script: {instanceID: 4972}
+      Script: {instanceID: 4068}
     - Class: 114
-      Script: {instanceID: 5040}
+      Script: {instanceID: 4124}
     - Class: 114
-      Script: {instanceID: 5242}
+      Script: {instanceID: 4582}
     - Class: 114
-      Script: {instanceID: 5666}
+      Script: {instanceID: 4980}
     - Class: 114
-      Script: {instanceID: 5692}
+      Script: {instanceID: 5048}
+    - Class: 114
+      Script: {instanceID: 5250}
+    - Class: 114
+      Script: {instanceID: 5674}
+    - Class: 114
+      Script: {instanceID: 5700}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -151,6 +162,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
+    - Class: 328
+      Script: {instanceID: 0}
+    - Class: 329
+      Script: {instanceID: 0}
   scriptHashData:
   - hash:
       serializedVersion: 2
@@ -158,6 +173,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Image
+  - hash:
+      serializedVersion: 2
+      Hash: c1d728126ff1918728036c59106d32b2
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: RawImage
   - hash:
       serializedVersion: 2
       Hash: 69415240821be7986b27e72bf9609a30
@@ -310,7 +331,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: 6ac5fb3600e61eeed4676476fae2f39b
+      Hash: d3f1435c9474cd3cae903a14cb31e4de
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoomLoaderSpawner
@@ -346,12 +367,6 @@ ScriptsOnlyBuild:
     className: DestructableWall
   - hash:
       serializedVersion: 2
-      Hash: c1d728126ff1918728036c59106d32b2
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: RawImage
-  - hash:
-      serializedVersion: 2
       Hash: 3300eb8aebfd2aa2959c4051a7f09421
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -362,6 +377,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.IK.Runtime.dll
     namespaceName: UnityEngine.U2D.IK
     className: IKManager2D
+  - hash:
+      serializedVersion: 2
+      Hash: 7900f656b3824c6932fab5858040255b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: InfoScreen
   - hash:
       serializedVersion: 2
       Hash: 2d57f4d10d5ed795e4304ee5d6404144
@@ -664,6 +685,12 @@ ScriptsOnlyBuild:
     className: PlayModeRunnerCallback
   - hash:
       serializedVersion: 2
+      Hash: 0a943540e59dd3456906a8a4036d1044
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: VideoOver
+  - hash:
+      serializedVersion: 2
       Hash: bd3cf68c8964d3c66d1c43f4f98508c9
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -910,7 +937,7 @@ ScriptsOnlyBuild:
     className: Seeker
   - hash:
       serializedVersion: 2
-      Hash: b3867d785a435090b8384cea6d71c09c
+      Hash: 553d2f5e8fd2425e6b1d154e3c8bc88a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PauseMenu
@@ -954,4 +981,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
   playerPath: C:/Users/halde_000.SUBHASHIS-PC/Documents/GitHub/Unity3TBDungeonGame/3TB_Dungeon_Game/Builds/WebGL/Build
-    3
+    5
