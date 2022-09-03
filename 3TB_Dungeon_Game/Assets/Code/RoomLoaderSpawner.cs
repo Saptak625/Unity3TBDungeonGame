@@ -315,6 +315,7 @@ public class RoomLoaderSpawner : MonoBehaviour
         {
             player.GetComponent<PlayerController>().isPaused = true;
             Time.timeScale = 0f;
+            canvas.transform.GetChild(5).gameObject.SetActive(false);
             GameObject enemyInfoScreen = canvas.transform.GetChild(2).gameObject;
             enemyInfoScreen.SetActive(true);
             enemyInfoScreen.GetComponent<InfoScreen>().setupScreen(selectedRoom, player, gameObject, enemyTypes);
@@ -327,6 +328,9 @@ public class RoomLoaderSpawner : MonoBehaviour
 
     public void startDungeon(Room selectedRoom)
     {
+        //Show In Game HUD
+        canvas.transform.GetChild(5).gameObject.SetActive(true);
+
         //Set activeRoom
         this.roomLoader.activeRoom = selectedRoom;
 

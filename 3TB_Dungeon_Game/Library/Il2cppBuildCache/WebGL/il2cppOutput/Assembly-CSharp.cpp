@@ -26592,7 +26592,7 @@ IL_0126:
 		bool L_53 = V_11;
 		if (!L_53)
 		{
-			goto IL_0199;
+			goto IL_01b6;
 		}
 	}
 	{
@@ -26603,39 +26603,48 @@ IL_0126:
 		L_55->set_isPaused_55((bool)1);
 		// Time.timeScale = 0f;
 		Time_set_timeScale_m1987DE9E74FC6C0126CE4F59A6293E3B85BD01EA((0.0f), /*hidden argument*/NULL);
-		// GameObject enemyInfoScreen = canvas.transform.GetChild(2).gameObject;
+		// canvas.transform.GetChild(5).gameObject.SetActive(false);
 		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_56 = __this->get_canvas_16();
 		Transform_tA8193BB29D4D2C7EC04918F3ED1816345186C3F1 * L_57;
 		L_57 = GameObject_get_transform_m16A80BB92B6C8C5AB696E447014D45EDF1E4DE34(L_56, /*hidden argument*/NULL);
 		Transform_tA8193BB29D4D2C7EC04918F3ED1816345186C3F1 * L_58;
-		L_58 = Transform_GetChild_mA7D94BEFF0144F76561D9B8FED61C5C939EC1F1C(L_57, 2, /*hidden argument*/NULL);
+		L_58 = Transform_GetChild_mA7D94BEFF0144F76561D9B8FED61C5C939EC1F1C(L_57, 5, /*hidden argument*/NULL);
 		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_59;
 		L_59 = Component_get_gameObject_m55DC35B149AFB9157582755383BA954655FE0C5B(L_58, /*hidden argument*/NULL);
-		V_12 = L_59;
+		GameObject_SetActive_mCF1EEF2A314F3AE85DA581FF52EB06ACEF2FFF86(L_59, (bool)0, /*hidden argument*/NULL);
+		// GameObject enemyInfoScreen = canvas.transform.GetChild(2).gameObject;
+		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_60 = __this->get_canvas_16();
+		Transform_tA8193BB29D4D2C7EC04918F3ED1816345186C3F1 * L_61;
+		L_61 = GameObject_get_transform_m16A80BB92B6C8C5AB696E447014D45EDF1E4DE34(L_60, /*hidden argument*/NULL);
+		Transform_tA8193BB29D4D2C7EC04918F3ED1816345186C3F1 * L_62;
+		L_62 = Transform_GetChild_mA7D94BEFF0144F76561D9B8FED61C5C939EC1F1C(L_61, 2, /*hidden argument*/NULL);
+		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_63;
+		L_63 = Component_get_gameObject_m55DC35B149AFB9157582755383BA954655FE0C5B(L_62, /*hidden argument*/NULL);
+		V_12 = L_63;
 		// enemyInfoScreen.SetActive(true);
-		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_60 = V_12;
-		GameObject_SetActive_mCF1EEF2A314F3AE85DA581FF52EB06ACEF2FFF86(L_60, (bool)1, /*hidden argument*/NULL);
+		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_64 = V_12;
+		GameObject_SetActive_mCF1EEF2A314F3AE85DA581FF52EB06ACEF2FFF86(L_64, (bool)1, /*hidden argument*/NULL);
 		// enemyInfoScreen.GetComponent<InfoScreen>().setupScreen(selectedRoom, player, gameObject, enemyTypes);
-		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_61 = V_12;
-		InfoScreen_t908820D191EC3AC25053ED0184ECD9C9B282B0AE * L_62;
-		L_62 = GameObject_GetComponent_TisInfoScreen_t908820D191EC3AC25053ED0184ECD9C9B282B0AE_m90A1E28C6C1655D56520B667D53327520754639E(L_61, /*hidden argument*/GameObject_GetComponent_TisInfoScreen_t908820D191EC3AC25053ED0184ECD9C9B282B0AE_m90A1E28C6C1655D56520B667D53327520754639E_RuntimeMethod_var);
-		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_63 = V_0;
-		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_64 = __this->get_player_11();
-		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_65;
-		L_65 = Component_get_gameObject_m55DC35B149AFB9157582755383BA954655FE0C5B(__this, /*hidden argument*/NULL);
-		List_1_t260B41F956D673396C33A4CF94E8D6C4389EACB7 * L_66 = V_1;
-		InfoScreen_setupScreen_m29607E8F319E35D107AB81E0556F8F121E18FF2D(L_62, L_63, L_64, L_65, L_66, /*hidden argument*/NULL);
-		goto IL_01a3;
+		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_65 = V_12;
+		InfoScreen_t908820D191EC3AC25053ED0184ECD9C9B282B0AE * L_66;
+		L_66 = GameObject_GetComponent_TisInfoScreen_t908820D191EC3AC25053ED0184ECD9C9B282B0AE_m90A1E28C6C1655D56520B667D53327520754639E(L_65, /*hidden argument*/GameObject_GetComponent_TisInfoScreen_t908820D191EC3AC25053ED0184ECD9C9B282B0AE_m90A1E28C6C1655D56520B667D53327520754639E_RuntimeMethod_var);
+		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_67 = V_0;
+		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_68 = __this->get_player_11();
+		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_69;
+		L_69 = Component_get_gameObject_m55DC35B149AFB9157582755383BA954655FE0C5B(__this, /*hidden argument*/NULL);
+		List_1_t260B41F956D673396C33A4CF94E8D6C4389EACB7 * L_70 = V_1;
+		InfoScreen_setupScreen_m29607E8F319E35D107AB81E0556F8F121E18FF2D(L_66, L_67, L_68, L_69, L_70, /*hidden argument*/NULL);
+		goto IL_01c0;
 	}
 
-IL_0199:
+IL_01b6:
 	{
 		// startDungeon(selectedRoom);
-		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_67 = V_0;
-		RoomLoaderSpawner_startDungeon_m1F688A6C6B97E05F98C1DA990DF138F0A7C65F74(__this, L_67, /*hidden argument*/NULL);
+		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_71 = V_0;
+		RoomLoaderSpawner_startDungeon_m1F688A6C6B97E05F98C1DA990DF138F0A7C65F74(__this, L_71, /*hidden argument*/NULL);
 	}
 
-IL_01a3:
+IL_01c0:
 	{
 		// }
 		return;
@@ -26660,19 +26669,28 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomLoaderSpawner_startDungeon_m1F688A6C
 	bool V_3 = false;
 	int32_t G_B5_0 = 0;
 	{
+		// canvas.transform.GetChild(5).gameObject.SetActive(true);
+		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_0 = __this->get_canvas_16();
+		Transform_tA8193BB29D4D2C7EC04918F3ED1816345186C3F1 * L_1;
+		L_1 = GameObject_get_transform_m16A80BB92B6C8C5AB696E447014D45EDF1E4DE34(L_0, /*hidden argument*/NULL);
+		Transform_tA8193BB29D4D2C7EC04918F3ED1816345186C3F1 * L_2;
+		L_2 = Transform_GetChild_mA7D94BEFF0144F76561D9B8FED61C5C939EC1F1C(L_1, 5, /*hidden argument*/NULL);
+		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_3;
+		L_3 = Component_get_gameObject_m55DC35B149AFB9157582755383BA954655FE0C5B(L_2, /*hidden argument*/NULL);
+		GameObject_SetActive_mCF1EEF2A314F3AE85DA581FF52EB06ACEF2FFF86(L_3, (bool)1, /*hidden argument*/NULL);
 		// this.roomLoader.activeRoom = selectedRoom;
-		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_0 = __this->get_roomLoader_4();
-		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_1 = ___selectedRoom0;
-		L_0->set_activeRoom_0(L_1);
+		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_4 = __this->get_roomLoader_4();
+		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_5 = ___selectedRoom0;
+		L_4->set_activeRoom_0(L_5);
 		// if (!this.roomLoader.activeRoom.isChestRoom)
-		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_2 = __this->get_roomLoader_4();
-		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_3 = L_2->get_activeRoom_0();
-		bool L_4 = L_3->get_isChestRoom_0();
-		V_0 = (bool)((((int32_t)L_4) == ((int32_t)0))? 1 : 0);
-		bool L_5 = V_0;
-		if (!L_5)
+		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_6 = __this->get_roomLoader_4();
+		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_7 = L_6->get_activeRoom_0();
+		bool L_8 = L_7->get_isChestRoom_0();
+		V_0 = (bool)((((int32_t)L_8) == ((int32_t)0))? 1 : 0);
+		bool L_9 = V_0;
+		if (!L_9)
 		{
-			goto IL_002d;
+			goto IL_004a;
 		}
 	}
 	{
@@ -26680,102 +26698,102 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RoomLoaderSpawner_startDungeon_m1F688A6C
 		RoomLoaderSpawner_reloadAStarGrid_m60C5CEF83C78CC0013286B04F50B854A4E412699(__this, /*hidden argument*/NULL);
 	}
 
-IL_002d:
+IL_004a:
 	{
 		// if (!this.roomLoader.activeRoom.isChestRoom && !this.roomLoader.activeRoom.isBossRoom)
-		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_6 = __this->get_roomLoader_4();
-		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_7 = L_6->get_activeRoom_0();
-		bool L_8 = L_7->get_isChestRoom_0();
-		if (L_8)
+		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_10 = __this->get_roomLoader_4();
+		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_11 = L_10->get_activeRoom_0();
+		bool L_12 = L_11->get_isChestRoom_0();
+		if (L_12)
 		{
-			goto IL_0054;
+			goto IL_0071;
 		}
 	}
 	{
-		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_9 = __this->get_roomLoader_4();
-		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_10 = L_9->get_activeRoom_0();
-		bool L_11 = L_10->get_isBossRoom_1();
-		G_B5_0 = ((((int32_t)L_11) == ((int32_t)0))? 1 : 0);
-		goto IL_0055;
+		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_13 = __this->get_roomLoader_4();
+		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_14 = L_13->get_activeRoom_0();
+		bool L_15 = L_14->get_isBossRoom_1();
+		G_B5_0 = ((((int32_t)L_15) == ((int32_t)0))? 1 : 0);
+		goto IL_0072;
 	}
 
-IL_0054:
+IL_0071:
 	{
 		G_B5_0 = 0;
 	}
 
-IL_0055:
+IL_0072:
 	{
 		V_1 = (bool)G_B5_0;
-		bool L_12 = V_1;
-		if (!L_12)
+		bool L_16 = V_1;
+		if (!L_16)
 		{
-			goto IL_0095;
+			goto IL_00b2;
 		}
 	}
 	{
 		// Debug.Log(this.roomLoader.activeRoom);
-		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_13 = __this->get_roomLoader_4();
-		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_14 = L_13->get_activeRoom_0();
+		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_17 = __this->get_roomLoader_4();
+		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_18 = L_17->get_activeRoom_0();
 		IL2CPP_RUNTIME_CLASS_INIT(Debug_tEB68BCBEB8EFD60F8043C67146DC05E7F50F374B_il2cpp_TypeInfo_var);
-		Debug_Log_mC26E5AD0D8D156C7FFD173AA15827F69225E9DB8(L_14, /*hidden argument*/NULL);
+		Debug_Log_mC26E5AD0D8D156C7FFD173AA15827F69225E9DB8(L_18, /*hidden argument*/NULL);
 		// Debug.Log(this.roomLoader.activeRoom.activeEnemies.Count);
-		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_15 = __this->get_roomLoader_4();
-		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_16 = L_15->get_activeRoom_0();
-		List_1_tA927F78859AAA4551084B049519094BC75E2E31C * L_17 = L_16->get_activeEnemies_2();
-		int32_t L_18;
-		L_18 = List_1_get_Count_mCEB8CA1D59CCA37C550D5E9179C96834381A8CDB_inline(L_17, /*hidden argument*/List_1_get_Count_mCEB8CA1D59CCA37C550D5E9179C96834381A8CDB_RuntimeMethod_var);
-		int32_t L_19 = L_18;
-		RuntimeObject * L_20 = Box(Int32_tFDE5F8CD43D10453F6A2E0C77FE48C6CC7009046_il2cpp_TypeInfo_var, &L_19);
-		Debug_Log_mC26E5AD0D8D156C7FFD173AA15827F69225E9DB8(L_20, /*hidden argument*/NULL);
+		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_19 = __this->get_roomLoader_4();
+		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_20 = L_19->get_activeRoom_0();
+		List_1_tA927F78859AAA4551084B049519094BC75E2E31C * L_21 = L_20->get_activeEnemies_2();
+		int32_t L_22;
+		L_22 = List_1_get_Count_mCEB8CA1D59CCA37C550D5E9179C96834381A8CDB_inline(L_21, /*hidden argument*/List_1_get_Count_mCEB8CA1D59CCA37C550D5E9179C96834381A8CDB_RuntimeMethod_var);
+		int32_t L_23 = L_22;
+		RuntimeObject * L_24 = Box(Int32_tFDE5F8CD43D10453F6A2E0C77FE48C6CC7009046_il2cpp_TypeInfo_var, &L_23);
+		Debug_Log_mC26E5AD0D8D156C7FFD173AA15827F69225E9DB8(L_24, /*hidden argument*/NULL);
 		// this.spawnNextEnemyWave();
 		RoomLoaderSpawner_spawnNextEnemyWave_m11F5033DDE2017C8DD540AD02066B019F404D918(__this, /*hidden argument*/NULL);
-		goto IL_00f6;
+		goto IL_0113;
 	}
 
-IL_0095:
+IL_00b2:
 	{
 		// else if (this.roomLoader.activeRoom.isBossRoom)
-		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_21 = __this->get_roomLoader_4();
-		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_22 = L_21->get_activeRoom_0();
-		bool L_23 = L_22->get_isBossRoom_1();
-		V_2 = L_23;
-		bool L_24 = V_2;
-		if (!L_24)
+		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_25 = __this->get_roomLoader_4();
+		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_26 = L_25->get_activeRoom_0();
+		bool L_27 = L_26->get_isBossRoom_1();
+		V_2 = L_27;
+		bool L_28 = V_2;
+		if (!L_28)
 		{
-			goto IL_00be;
+			goto IL_00db;
 		}
 	}
 	{
 		// Invoke("dungeonCleared", 2.0f);
 		MonoBehaviour_Invoke_m4AAB759653B1C6FB0653527F4DDC72D1E9162CC4(__this, _stringLiteral590D2928102729B99A77AEF41E8616943E2606EC, (2.0f), /*hidden argument*/NULL);
-		goto IL_00f6;
+		goto IL_0113;
 	}
 
-IL_00be:
+IL_00db:
 	{
 		// else if (this.roomLoader.activeRoom.isChestRoom)
-		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_25 = __this->get_roomLoader_4();
-		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_26 = L_25->get_activeRoom_0();
-		bool L_27 = L_26->get_isChestRoom_0();
-		V_3 = L_27;
-		bool L_28 = V_3;
-		if (!L_28)
+		RoomLoader_tC2518372D28AEA84CD8231DCF4F258332C4A82AE * L_29 = __this->get_roomLoader_4();
+		Room_t44A97854220FADE8C026E18625929E32B64B3F6A * L_30 = L_29->get_activeRoom_0();
+		bool L_31 = L_30->get_isChestRoom_0();
+		V_3 = L_31;
+		bool L_32 = V_3;
+		if (!L_32)
 		{
-			goto IL_00f6;
+			goto IL_0113;
 		}
 	}
 	{
 		// player.GetComponent<PlayerController>().ableToOpenChests = true;
-		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_29 = __this->get_player_11();
-		PlayerController_tDFE946D0FE1CB988FC3DC902E05737A2A62CA3D9 * L_30;
-		L_30 = GameObject_GetComponent_TisPlayerController_tDFE946D0FE1CB988FC3DC902E05737A2A62CA3D9_m8ED8742627DA9ECE0BCAE630AA9B1953F1924DB8(L_29, /*hidden argument*/GameObject_GetComponent_TisPlayerController_tDFE946D0FE1CB988FC3DC902E05737A2A62CA3D9_m8ED8742627DA9ECE0BCAE630AA9B1953F1924DB8_RuntimeMethod_var);
-		L_30->set_ableToOpenChests_10((bool)1);
+		GameObject_tC000A2E1A7CF1E10FD7BA08863287C072207C319 * L_33 = __this->get_player_11();
+		PlayerController_tDFE946D0FE1CB988FC3DC902E05737A2A62CA3D9 * L_34;
+		L_34 = GameObject_GetComponent_TisPlayerController_tDFE946D0FE1CB988FC3DC902E05737A2A62CA3D9_m8ED8742627DA9ECE0BCAE630AA9B1953F1924DB8(L_33, /*hidden argument*/GameObject_GetComponent_TisPlayerController_tDFE946D0FE1CB988FC3DC902E05737A2A62CA3D9_m8ED8742627DA9ECE0BCAE630AA9B1953F1924DB8_RuntimeMethod_var);
+		L_34->set_ableToOpenChests_10((bool)1);
 		// Invoke("dungeonCleared", 2.0f);
 		MonoBehaviour_Invoke_m4AAB759653B1C6FB0653527F4DDC72D1E9162CC4(__this, _stringLiteral590D2928102729B99A77AEF41E8616943E2606EC, (2.0f), /*hidden argument*/NULL);
 	}
 
-IL_00f6:
+IL_0113:
 	{
 		// }
 		return;

@@ -97,53 +97,53 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1470}
     - Class: 114
-      Script: {instanceID: 1684}
+      Script: {instanceID: 1678}
     - Class: 114
-      Script: {instanceID: 1934}
+      Script: {instanceID: 1928}
     - Class: 114
-      Script: {instanceID: 2326}
+      Script: {instanceID: 2320}
     - Class: 114
-      Script: {instanceID: 2412}
+      Script: {instanceID: 2406}
     - Class: 114
-      Script: {instanceID: 2476}
+      Script: {instanceID: 2470}
     - Class: 114
-      Script: {instanceID: 2488}
+      Script: {instanceID: 2482}
     - Class: 114
-      Script: {instanceID: 2580}
+      Script: {instanceID: 2574}
     - Class: 114
-      Script: {instanceID: 2742}
+      Script: {instanceID: 2736}
     - Class: 114
-      Script: {instanceID: 2916}
+      Script: {instanceID: 2910}
     - Class: 114
-      Script: {instanceID: 3008}
+      Script: {instanceID: 3002}
     - Class: 114
-      Script: {instanceID: 3088}
+      Script: {instanceID: 3082}
     - Class: 114
-      Script: {instanceID: 3090}
+      Script: {instanceID: 3084}
     - Class: 114
-      Script: {instanceID: 3156}
+      Script: {instanceID: 3150}
     - Class: 114
-      Script: {instanceID: 3352}
+      Script: {instanceID: 3346}
     - Class: 114
-      Script: {instanceID: 3422}
+      Script: {instanceID: 3416}
     - Class: 114
-      Script: {instanceID: 3978}
+      Script: {instanceID: 3972}
     - Class: 114
-      Script: {instanceID: 4068}
+      Script: {instanceID: 4062}
     - Class: 114
-      Script: {instanceID: 4124}
+      Script: {instanceID: 4118}
     - Class: 114
-      Script: {instanceID: 4582}
+      Script: {instanceID: 4576}
     - Class: 114
-      Script: {instanceID: 4980}
+      Script: {instanceID: 4974}
     - Class: 114
-      Script: {instanceID: 5048}
+      Script: {instanceID: 5042}
     - Class: 114
-      Script: {instanceID: 5250}
+      Script: {instanceID: 5244}
     - Class: 114
-      Script: {instanceID: 5674}
+      Script: {instanceID: 5668}
     - Class: 114
-      Script: {instanceID: 5700}
+      Script: {instanceID: 5694}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -981,4 +981,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
   playerPath: C:/Users/halde_000.SUBHASHIS-PC/Documents/GitHub/Unity3TBDungeonGame/3TB_Dungeon_Game/Builds/WebGL/Build
-    5
+    6

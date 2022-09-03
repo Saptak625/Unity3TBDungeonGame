@@ -1452,6 +1452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Video Screen
       objectReference: {fileID: 0}
+    - target: {fileID: 6875015348229191227, guid: e686f693b8793ef40867599899b4880e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6875015349022504336, guid: e686f693b8793ef40867599899b4880e, type: 3}
       propertyPath: url
       value: https://saptak625.github.io/3TBDungeonGame/Noisy%20Dungeon%20Intro%20Final.mp4
