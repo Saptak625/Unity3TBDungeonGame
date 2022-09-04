@@ -93,17 +93,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1466}
     - Class: 114
-      Script: {instanceID: 1468}
+      Script: {instanceID: 1674}
     - Class: 114
-      Script: {instanceID: 1470}
+      Script: {instanceID: 1924}
     - Class: 114
-      Script: {instanceID: 1678}
+      Script: {instanceID: 2266}
     - Class: 114
-      Script: {instanceID: 1928}
+      Script: {instanceID: 2318}
     - Class: 114
-      Script: {instanceID: 2320}
+      Script: {instanceID: 2404}
     - Class: 114
-      Script: {instanceID: 2406}
+      Script: {instanceID: 2468}
     - Class: 114
       Script: {instanceID: 2470}
     - Class: 114
@@ -175,22 +175,10 @@ ScriptsOnlyBuild:
     className: Image
   - hash:
       serializedVersion: 2
-      Hash: c1d728126ff1918728036c59106d32b2
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: RawImage
-  - hash:
-      serializedVersion: 2
       Hash: 69415240821be7986b27e72bf9609a30
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Button
-  - hash:
-      serializedVersion: 2
-      Hash: 699619b86d9359741a4f58540298c80b
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Text
   - hash:
       serializedVersion: 2
       Hash: 1d6bc7fb33fcc56237df7c329c31fac2
@@ -331,6 +319,12 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
+      Hash: 699619b86d9359741a4f58540298c80b
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Text
+  - hash:
+      serializedVersion: 2
       Hash: d3f1435c9474cd3cae903a14cb31e4de
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -365,6 +359,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DestructableWall
+  - hash:
+      serializedVersion: 2
+      Hash: c1d728126ff1918728036c59106d32b2
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: RawImage
   - hash:
       serializedVersion: 2
       Hash: 3300eb8aebfd2aa2959c4051a7f09421
@@ -981,4 +981,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
   playerPath: C:/Users/halde_000.SUBHASHIS-PC/Documents/GitHub/Unity3TBDungeonGame/3TB_Dungeon_Game/Builds/WebGL/Build
-    6
+    7 (Production)

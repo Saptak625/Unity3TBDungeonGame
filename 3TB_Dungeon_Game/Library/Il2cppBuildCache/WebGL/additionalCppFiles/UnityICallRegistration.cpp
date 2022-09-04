@@ -6,10 +6,6 @@ void RegisterAllStrippedInternalCalls()
 		void Register_Unity_Collections_LowLevel_Unsafe_UnsafeUtility_Free();
 		Register_Unity_Collections_LowLevel_Unsafe_UnsafeUtility_Free();
 
-		//System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility::MemCpy(System.Void*,System.Void*,System.Int64)
-		void Register_Unity_Collections_LowLevel_Unsafe_UnsafeUtility_MemCpy();
-		Register_Unity_Collections_LowLevel_Unsafe_UnsafeUtility_MemCpy();
-
 	//End Registrations for type : Unity.Collections.LowLevel.Unsafe.UnsafeUtility
 
 	//Start Registrations for type : Unity.Jobs.JobHandle
@@ -1690,29 +1686,9 @@ void RegisterAllStrippedInternalCalls()
 		void Register_UnityEngine_Profiling_CustomSampler_CreateInternal();
 		Register_UnityEngine_Profiling_CustomSampler_CreateInternal();
 
-		//System.Void UnityEngine.Profiling.CustomSampler::Begin_Internal(System.IntPtr)
-		void Register_UnityEngine_Profiling_CustomSampler_Begin_Internal();
-		Register_UnityEngine_Profiling_CustomSampler_Begin_Internal();
-
-		//System.Void UnityEngine.Profiling.CustomSampler::End_Internal(System.IntPtr)
-		void Register_UnityEngine_Profiling_CustomSampler_End_Internal();
-		Register_UnityEngine_Profiling_CustomSampler_End_Internal();
-
 	//End Registrations for type : UnityEngine.Profiling.CustomSampler
 
 	//Start Registrations for type : UnityEngine.Profiling.Profiler
-
-		//System.Void UnityEngine.Profiling.Profiler::BeginSampleImpl(System.String,UnityEngine.Object)
-		void Register_UnityEngine_Profiling_Profiler_BeginSampleImpl();
-		Register_UnityEngine_Profiling_Profiler_BeginSampleImpl();
-
-		//System.Void UnityEngine.Profiling.Profiler::BeginThreadProfilingInternal(System.String,System.String)
-		void Register_UnityEngine_Profiling_Profiler_BeginThreadProfilingInternal();
-		Register_UnityEngine_Profiling_Profiler_BeginThreadProfilingInternal();
-
-		//System.Void UnityEngine.Profiling.Profiler::EndSample()
-		void Register_UnityEngine_Profiling_Profiler_EndSample();
-		Register_UnityEngine_Profiling_Profiler_EndSample();
 
 		//System.Void UnityEngine.Profiling.Profiler::EndThreadProfiling()
 		void Register_UnityEngine_Profiling_Profiler_EndThreadProfiling();

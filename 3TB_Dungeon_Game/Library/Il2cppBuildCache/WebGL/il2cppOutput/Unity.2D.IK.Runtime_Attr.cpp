@@ -670,7 +670,7 @@ static void Unity_2D_IK_Runtime_CustomAttributesCacheGenerator(CustomAttributesC
 	}
 	{
 		DebuggableAttribute_tA8054EBD0FC7511695D494B690B5771658E3191B * tmp = (DebuggableAttribute_tA8054EBD0FC7511695D494B690B5771658E3191B *)cache->attributes[3];
-		DebuggableAttribute__ctor_m7FF445C8435494A4847123A668D889E692E55550(tmp, 263LL, NULL);
+		DebuggableAttribute__ctor_m7FF445C8435494A4847123A668D889E692E55550(tmp, 2LL, NULL);
 	}
 }
 static void CCDSolver2D_t6A0F493058D78FED67126D42F5A1A423298284BE_CustomAttributesCacheGenerator(CustomAttributesCache* cache)
